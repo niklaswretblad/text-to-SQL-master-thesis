@@ -1,14 +1,14 @@
 
 from db_interface import *
+from utils import load_json
 
 QUESTIONS_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/questions.json'))
-
 
 ACCEPTED_DATABASES = [
     'car_retails',
     'financial',
     # 'retail_world',
-    'retails'
+    #'retails'
 ]
 
 def main():
@@ -28,8 +28,7 @@ def main():
 
             print("Percentage done: ", round(i / total_questions * 100, 2), "% Domain: ", db_id)
 
-    #list_tables_and_columns(DB_BASE_PATH + '/' + 'retail_world' + '/' + 'retail_world' + '.sqlite')
+    print("accuracy: ", score / len(questions))
 
-    #print("accuracy: ", score / len(questions))
 if __name__ == "__main__":
     main()
