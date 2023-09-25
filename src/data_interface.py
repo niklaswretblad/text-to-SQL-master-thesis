@@ -1,11 +1,12 @@
 
 import sqlite3
-import pandas as pd
 import json
 import os
 import time
 
-DB_BASE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/db/'))
+DB_BASE_PATH = os.path.abspath(
+   os.path.join(os.path.dirname( __file__ ), '..', 'data/db/')
+)
 
 class DataLoader:
    current_db = ""
@@ -16,15 +17,18 @@ class DataLoader:
       pass
 
    def execute_query(self, sql, gold_sql, db_id):
-      db_path = DB_BASE_PATH + '/' + db_id + '/' + db_id + '.sqlite'
+      db_path = self.get_db_path(db_id)
 
       if self.current_db != db_id:
          self.conn = sqlite3.connect(db_path)
          self.cursor = self.conn.cursor()
          self.current_db = db_id
       
-      self.cursor.execute(sql)
-      pred_res = self.cursor.fetchall()
+      try:
+         self.cursor.execute(sql)
+         pred_res = self.cursor.fetchall()
+      except sqlite3.OperationalError:
+         return 0
 
       self.cursor.execute(gold_sql)
       golden_res = self.cursor.fetchall()
@@ -55,8 +59,19 @@ class DataLoader:
 
       conn.close()
 
-   def get_create_table_statements(self, database_path):
-      pass
+   def get_create_statements(self, db_name):   
+      if self.current_db != db_name:
+         self.conn = sqlite3.connect(self.get_db_path(db_name))
+         self.cursor = self.conn.cursor()
 
+      self.cursor.execute("SELECT sql FROM sqlite_master WHERE type='table';")
+      create_statements = self.cursor.fetchall()
+
+      return '\n'.join([statement[0] for statement in create_statements])
+   
+
+
+   def get_db_path(self, db_name):
+      return DB_BASE_PATH + '/' + db_name + '/' + db_name + '.sqlite'
 
     
