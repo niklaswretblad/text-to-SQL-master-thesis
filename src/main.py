@@ -1,6 +1,7 @@
 
 from db_interface import *
 from utils import load_json
+import os
 
 QUESTIONS_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/questions.json'))
 
@@ -12,6 +13,10 @@ ACCEPTED_DATABASES = [
 ]
 
 def main():
+    api_key = os.environ.get('OPENAI_API_KEY')
+    if api_key is None:
+        raise ValueError("OPENAI_API_KEY environment variable is not set.")
+
     questions = load_json(QUESTIONS_PATH)
     questions = [question for question in questions if question['db_id'] in ACCEPTED_DATABASES]
     db_loader = DBLoader(ACCEPTED_DATABASES)
