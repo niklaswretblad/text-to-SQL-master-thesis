@@ -1,6 +1,6 @@
 
 import os
-from db_interface import *
+from data_interface import *
 from utils import load_json
 
 
@@ -21,7 +21,7 @@ def main():
 
     questions = load_json(QUESTIONS_PATH)
     questions = [question for question in questions if question['db_id'] in ACCEPTED_DATABASES]
-    db_loader = DBLoader(ACCEPTED_DATABASES)
+    data_loader = DataLoader(ACCEPTED_DATABASES)
 
     score = 0
     total_questions = len(questions)
@@ -30,7 +30,7 @@ def main():
             golden_sql = row['SQL']
             db_id = row['db_id']
             
-            res = db_loader.execute_query(golden_sql, golden_sql, db_id)
+            res = data_loader.execute_query(golden_sql, golden_sql, db_id)
             score += res
 
             print("Percentage done: ", round(i / total_questions * 100, 2), "% Domain: ", db_id)

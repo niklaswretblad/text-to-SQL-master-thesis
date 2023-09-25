@@ -7,7 +7,7 @@ import time
 
 DB_BASE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/db/'))
 
-class DBLoader:
+class DataLoader:
    current_db = ""
    conn = None
    cursor = None
