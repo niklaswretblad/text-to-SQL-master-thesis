@@ -4,7 +4,7 @@ import pandas as pd
 import json
 import os
 
-class DatasetHandler:
+class DatasetInterface:
     db_names = []
     current_db_name = ''
     current_db = None
