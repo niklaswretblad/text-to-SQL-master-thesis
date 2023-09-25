@@ -1,0 +1,24 @@
+original_column_name,column_name,column_description,data_format,value_description
+l_shipdate,line item ship date,ship date of line item ,date,
+l_orderkey,line item order key,order key number of line item ,integer,
+l_discount,line item discount,discount of line item ,real,0.1: 10% off
+l_extendedprice,line item extended price,extended price of line item ,real,"commonsense evidence:
+full price before discount
+discounted price = (l_extendedprice*(1-l_discount))"
+l_suppkey,line item suppkey,suppkey of line item ,integer,
+l_quantity,line item quantity,quantity of line item ,integer,
+l_returnflag,line item return flag,return flag of line item ,text,"commonsense evidence:
+ R ? returned item
+ A and ""N"": not returned item."
+l_partkey,line item part key,part key of line item ,integer,
+l_linestatus,line item line status,line status of line item ,text,NOT USEFUL
+l_tax,line item tax,tax of line item ,real,"commonsense evidence:
+charge = l_extendedprice * (1- l_discount) * (1+ l_tax)"
+l_commitdate,line item commit date,commit date of line item ,date,
+l_receiptdate,line item receipt date,receipt date of line item ,date,"commonsense evidence:
+freight / shipping / delivery time = l_receiptdate - l_commitdate;
+less shipping / delivery time --> faster shipping speed."
+l_shipmode,line item ship mode,ship mode of line item ,text,
+l_linenumber,line item line number,unique id number identifying the line item,integer,
+l_shipinstruct,line item ship instruct,ship instruct of line item ,text,
+l_comment,line item comment,comment of line item ,text,

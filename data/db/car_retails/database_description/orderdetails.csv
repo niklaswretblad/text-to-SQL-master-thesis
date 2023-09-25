@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+orderNumber,order number,order number,integer,
+productCode,product code,product code,text,
+quantityOrdered,quantity ordered,quantity ordered,integer,
+priceEach,price for each,price for each,real,"commonsense evidence: 
+total price = quantityOrdered x priceEach"
+orderLineNumber,order Line Number,order Line Number,integer,

@@ -1,0 +1,11 @@
+original_column_name,column_name,column_description,data_format,value_description
+o_orderdate,order date,date of the order,date,"commonsense evidence:
+earlier order date --> higher priority in delivery"
+o_orderkey,order key,unique id number identifying the order,integer,
+o_custkey,order customer key,customer key of order,integer,
+o_orderpriority,order priority,priority rate of order,text,A smaller number means a higher priority: 0-Urgent
+o_shippriority,order ship priority,ship priority of order,integer,NOT USEFUL
+o_clerk,order clerk,clerk of order,text,
+o_orderstatus,order status,status of order,text,NOT USEFUL
+o_totalprice,order total price,total price of the order,real,
+o_comment,order comment,comment description of order,text,

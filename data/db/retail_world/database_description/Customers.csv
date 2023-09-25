@@ -1,0 +1,12 @@
+original_column_name,column_name,column_description,data_format,value_description
+CustomerID,Customer ID,the unique id for customers,text,
+CustomerName,Customer Name,the customer name,text,
+ContactName,Contact Name,the contact person's name representing the company,text,
+ContactTitle,Contact Title,the title of the contact person,text,
+Address,,the address of the customer,text,
+City,,the city where the customer is located,text,
+Region,,the region where the customer is located,text,
+PostalCode,Postal Code,the postal code,text,
+Country,,the country,text,
+Phone,,the phone number,text,
+Fax,,the fax number,text,

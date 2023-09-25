@@ -1,0 +1,11 @@
+original_column_name,column_name,column_description,data_format,value_description
+productCode,product code,unique product code,text,
+productName,product name,product name,text,
+productLine,product line,product line name,text,
+productScale,product scale,product scale,text,
+productVendor,product vendor,product vendor,text,
+productDescription,product description,product description,text,
+quantityInStock,quantity in stock ,quantity in stock ,integer,
+buyPrice,buy price,buy price from vendors,real,
+MSRP,Manufacturer Suggested Retail Price,Manufacturer Suggested Retail Price,real,"commonsense evidence: 
+expected profits: msrp - buyPrice"

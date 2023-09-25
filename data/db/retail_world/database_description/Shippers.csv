@@ -1,0 +1,4 @@
+original_column_name,column_name,column_description,data_format,value_description
+ShipperID,Shipper ID,the unique id for shippers,integer,
+ShipperName,Shipper Name,the shipped company name,text,
+Phone,,the phone of the company,text,

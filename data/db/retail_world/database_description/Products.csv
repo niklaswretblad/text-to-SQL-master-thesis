@@ -1,0 +1,8 @@
+original_column_name,column_name,column_description,data_format,value_description
+ProductID,Product ID,the unique id for products,integer,
+ProductName,Product Name,the name of the product,text,
+SupplierID,Supplier ID,the unique id for supplier,integer,
+CategoryID,Category ID,the unique id for the product category,integer,
+QuantityPerUnit,Quantity Per Unit,the quantity per unit of the product,text,
+Unit,,the unit of the product,text
+Price,Price,the price,real,

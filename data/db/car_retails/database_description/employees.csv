@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+employeeNumber,Employee Number,unique string ID of the employees,integer,
+lastName,last name,last name of employees,text,
+firstName,first name,first name of employees,text,
+extension,,extension number,text,
+email,,email,text,
+officeCode,office code,office code of the employees,text,
+reportsTo,reports to,represents for organization structure such as who reports to whom,integer,"commonsense evidence: 
+""reportsTO"" is the leader of the ""employeeNumber"""
+jobTitle,job title,job title,text,

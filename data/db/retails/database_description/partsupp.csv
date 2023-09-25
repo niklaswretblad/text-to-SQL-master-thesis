@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+ps_partkey,part supply part key,unique id number identifying the part key,integer,
+ps_suppkey,part supply supply key,unique id number identifying the supply key,integer,
+ps_supplycost,part supply cost,cost number of the part supply,real,"commonsense evidence:
+profit = (l_extendedprice*(1-l_discount)) - (ps_supplycost * l_quantity)] l_quantity comes from table lineitem!"
+ps_availqty,part supply available quantity,available quantity of the part supply,integer,if ps_availqty < 10 --> closer to OOS (out of stock)
+ps_comment,part supply comment,comment description of the part supply.,text,

@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+p_partkey,part key,unique id number identifying the part,integer,
+p_type,part type,type of part,text,
+p_size,part size,size number of part,integer,larger number --> larger part
+p_brand,part brand,brand of part,text,
+p_name,part name,name of part,text,
+p_container,part container,container of part,text,
+p_mfgr,part manufacturer,manufacturer of part,text,
+p_retailprice,part retail price,retail price of part,real,
+p_comment,part comment,comment description text of part,text,

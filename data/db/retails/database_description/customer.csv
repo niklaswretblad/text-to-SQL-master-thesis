@@ -1,0 +1,9 @@
+original_column_name,column_name,column_description,data_format,value_description
+c_custkey,customer key,unique id number identifying the customer,integer,
+c_mktsegment,customer market segment,the segment of the customer,text,
+c_nationkey,customer nation key,the nation key number of the customer,integer,
+c_name,customer name,name of the customer,text,
+c_address,customer address,address of the customer,text,
+c_phone,customer phone,phone of the customer,text,
+c_acctbal,customer account balance,account balance,real,if c_acctbal < 0: this account is in debt
+c_comment,customer comment,comment of the customer,text,

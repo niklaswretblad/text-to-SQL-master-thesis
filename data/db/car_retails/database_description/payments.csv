@@ -1,0 +1,5 @@
+original_column_name,column_name,column_description,data_format,value_description
+customerNumber,customer number,customer number,integer,
+checkNumber,check Number,check Number,text,
+paymentDate,payment Date,payment Date,date,
+amount,,amount,real,
