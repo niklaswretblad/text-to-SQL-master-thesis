@@ -8,12 +8,12 @@ import time
 DB_BASE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/db/'))
 
 class DBLoader:
-   accepted_databases = []
    current_db = ""
    conn = None
+   cursor = None
 
-   def __init__(self, accepted_databases):
-      self.accepted_databases = accepted_databases
+   def __init__(self):
+      pass
 
    def execute_query(self, sql, gold_sql, db_id):
       db_path = DB_BASE_PATH + '/' + db_id + '/' + db_id + '.sqlite'
@@ -34,11 +34,6 @@ class DBLoader:
          return 1
       else:
          return 0
-   
-def load_json(path):
-   with open(path, 'r') as j:
-      data = json.loads(j.read())
-   return data
 
 def list_tables_and_columns(database_path):
     conn = sqlite3.connect(database_path)

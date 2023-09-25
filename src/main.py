@@ -1,11 +1,13 @@
 
+import os
 from db_interface import *
 from utils import load_json
 from langchain.chat_models import ChatOpenAI
 import os
 from agents.zero_shot import ZeroShotAgent
 
-QUESTIONS_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/questions.json'))
+QUESTIONS_PATH = os.path.abspath(
+    os.path.join(os.path.dirname( __file__ ), '..', 'data/questions.json'))
 
 ACCEPTED_DATABASES = [
     'car_retails',
