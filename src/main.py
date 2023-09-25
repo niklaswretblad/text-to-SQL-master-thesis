@@ -1,5 +1,6 @@
 
 from db_interface import *
+import os
 
 QUESTIONS_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'data/questions.json'))
 
@@ -12,6 +13,10 @@ ACCEPTED_DATABASES = [
 ]
 
 def main():
+    api_key = os.environ.get('OPENAI_API_KEY')
+    if api_key is None:
+        raise ValueError("OPENAI_API_KEY environment variable is not set.")
+
     questions = load_json(QUESTIONS_PATH)
     questions = [question for question in questions if question['db_id'] in ACCEPTED_DATABASES]
     db_loader = DBLoader(ACCEPTED_DATABASES)
@@ -31,5 +36,6 @@ def main():
     #list_tables_and_columns(DB_BASE_PATH + '/' + 'retail_world' + '/' + 'retail_world' + '.sqlite')
 
     #print("accuracy: ", score / len(questions))
+
 if __name__ == "__main__":
     main()
