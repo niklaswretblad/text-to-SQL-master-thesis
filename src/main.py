@@ -1,8 +1,9 @@
 
-from database_handler import DatabaseHandler
+from bird_interface import BIRDInterface
 
 def main():
-    db_handler = DatabaseHandler()
+    bird_interface = BIRDInterface()
+
 
 if __name__ == "__main__":
     main()
