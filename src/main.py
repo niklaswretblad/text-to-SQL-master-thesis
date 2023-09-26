@@ -50,9 +50,9 @@ def main():
             question = row['question']
             
             sql_schema = data_loader.get_create_statements(db_id)            
-            predicted_sql = zero_shot_agent.generate_query(sql_schema, question, i)            
+            result = zero_shot_agent.generate_query(sql_schema, question, i)            
 
-            success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
+            success = data_loader.execute_query(result['sql'], golden_sql, db_id)
             score += success
             
             if i > 0: accuracy = score / i                
@@ -62,15 +62,6 @@ def main():
                 break
 
         mlflow.log_metric("accuracy", accuracy)
-
-        client = MlflowClient()        
-        current_run = client.get_run(run.info.run_id)
-
-        complete_run_token_usage = sum(current_run.data.metrics["total_tokens"])
-        complete_run_cost = sum(current_run.data.metrics["total_cost"])
-
-        mlflow.log_metric("complete_run_token_usage", complete_run_token_usage)
-        mlflow.log_metric("complete_run_cost", complete_run_cost)        
 
         mlflow.end_run()
 

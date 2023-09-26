@@ -1,6 +1,6 @@
 class BaseAgent:
 
-    def generate_query(question):
+    def generate_query(database_schema, question, step):
         raise NotImplementedError("generate_query() not implemented")
 
 

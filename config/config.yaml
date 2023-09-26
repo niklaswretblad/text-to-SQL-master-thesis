@@ -33,7 +33,7 @@ difficulties:
 llm_settings:
   model: "gpt-3.5-turbo"
   temperature: 0
-  request_timeout: 10
+  request_timeout: 60
   token_limit: 4096
   max_response_length: 1024
 
@@ -41,26 +41,6 @@ llm_settings:
 agents:
   - zero_shot:
       description: "Default LLM without any special techniques."
-
-  - name: "fine_tuned"
-    description: "LLM fine-tuned on our custom SQL dataset."
-    fine_tuned_model_path: "/path/to/fine_tuned/model"
-
-  - name: "guided"
-    description: "LLM with guiding prompts."
-    guiding_prompt: "You are a SQL expert. Convert the following natural language queries into SQL statements."
-
-# Techniques settings
-techniques:
-  - name: "plain_prompt"
-    description: "Just the user's input."
-
-  - name: "stepwise_prompt"
-    description: "Step-by-step guidance for LLM."
-    steps:
-      - "First, think about the tables involved."
-      - "Next, consider the filters and conditions."
-      - "Finally, construct a full SQL query."
 
 
 # Prompt Templates

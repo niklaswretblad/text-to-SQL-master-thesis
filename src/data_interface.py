@@ -2,6 +2,7 @@
 import sqlite3
 import os
 import logging
+from timer import Timer
 
 DB_BASE_PATH = os.path.abspath(
    os.path.join(os.path.dirname( __file__ ), '..', 'data/db/')
@@ -24,14 +25,16 @@ class DataLoader:
          self.current_db = db_id
       
       try:
-         self.cursor.execute(sql)
-         pred_res = self.cursor.fetchall()
+         with Timer("cursor.execute(sql) PREDICTED", {'sql: ': sql}):
+            self.cursor.execute(sql)
+            pred_res = self.cursor.fetchall()
       except sqlite3.Error as err:
          logging.error("DataLoader.execute_query() " + str(err))
          return 0
 
-      self.cursor.execute(gold_sql)
-      golden_res = self.cursor.fetchall()
+      with Timer("cursor.execute(sql) GOLD"):
+         self.cursor.execute(gold_sql)
+         golden_res = self.cursor.fetchall()
       
       equal = (set(pred_res) == set(golden_res))
       if equal:
