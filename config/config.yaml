@@ -33,7 +33,7 @@ difficulties:
 llm_settings:
   model: "gpt-3.5-turbo"
   temperature: 0.0
-  request_timeout: 20
+  request_timeout: 10
   token_limit: 4096
   max_response_length: 1024
 
@@ -65,7 +65,7 @@ techniques:
 
 # Prompt Templates
 prompt_templates:
-  - zero_shot_base_template: "Database schema in the form of CREATE_TABLE statements:
+    zero_shot_base_template: "Database schema in the form of CREATE_TABLE statements:
 {database_schema}
 -- Using valid SQLite, answer the following questions for the tables provided above. 
 Question: {question}
