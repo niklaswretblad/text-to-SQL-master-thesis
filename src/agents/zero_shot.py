@@ -9,6 +9,10 @@ import mlflow
 
 
 class ZeroShotAgent(BaseAgent):
+    total_tokens = 0
+    prompt_tokens = 0 
+    total_cost = 0
+    completion_tokens = 0
 
     def __init__(self, llm):
         self.llm = llm
@@ -18,7 +22,7 @@ class ZeroShotAgent(BaseAgent):
         )
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
-    def generate_query(self, database_schema, question, step):
+    def generate_query(self, database_schema, question):
         with get_openai_callback() as cb:
             with Timer("generate_query()"):
                 response = self.chain.run({
@@ -26,9 +30,11 @@ class ZeroShotAgent(BaseAgent):
                     'question': question            
                 })            
             
-            return {
-                'sql': response,
-                'total_tokens': cb.total_tokens,
-                'prompt_tokens': cb.prompt_tokens,
-                'total_cost': cb.total_cost
-            }
+            self.total_tokens += cb.total_tokens
+            self.prompt_tokens += cb.prompt_tokens
+            self.total_cost += cb.total_cost
+            self.completion_tokens = cb.completion_tokens
+
+            return response
+        
+    
