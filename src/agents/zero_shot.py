@@ -4,6 +4,7 @@ from langchain.chains import LLMChain
 from agents.base_agent import BaseAgent
 from config import config
 import logging
+from timer import Timer
 
 class ZeroShotAgent(BaseAgent):
 
@@ -16,10 +17,10 @@ class ZeroShotAgent(BaseAgent):
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
     def generate_query(self, database_schema, question):
-        logging.debug("---> Chain.run")
-        response = self.chain.run({
-            'database_schema': database_schema,
-            'question': question            
-        })
-        logging.debug("<--- Chain.run")
+        with Timer("generate_query()"):
+            response = self.chain.run({
+                'database_schema': database_schema,
+                'question': question            
+            })
+        
         return response

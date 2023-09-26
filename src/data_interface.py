@@ -27,7 +27,7 @@ class DataLoader:
          self.cursor.execute(sql)
          pred_res = self.cursor.fetchall()
       except sqlite3.Error as err:
-         logging.log("DataLoader.execute_query() " + err)
+         logging.error("DataLoader.execute_query() " + str(err))
          return 0
 
       self.cursor.execute(gold_sql)
