@@ -35,21 +35,10 @@ def main():
     
     data_loader = DataLoader()    
     zero_shot_agent = ZeroShotAgent(llm)
-
-    score = 0
-<<<<<<< HEAD
+    
     no_questions = len(questions)
-    for i, row in enumerate(questions):
-        if row['db_id'] in ACCEPTED_DATABASES:
-            golden_sql = row['SQL']
-            db_id = row['db_id']            
-            question = row['question']
-            
-            sql_schema = data_loader.get_create_statements(db_id)            
-            predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
-=======
-    accuracy = None
-    total_questions = len(questions)
+    score = 0
+    accuracy = 0
     with mlflow.start_run():
         for i, row in enumerate(questions):
             if row['db_id'] in ACCEPTED_DATABASES:
@@ -59,19 +48,13 @@ def main():
                 
                 sql_schema = data_loader.get_create_statements(db_id)            
                 predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
->>>>>>> f3e05cef26c6416b2ff79bad1e6b08fee6d00c44
 
                 success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
                 score += success
-
-<<<<<<< HEAD
-            print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success)
-=======
-                print("Percentage done: ", round(i / total_questions * 100, 2), "% Domain: ", db_id, " Success: ", success)
-        accuracy = score / len(questions)
-        mlflow.log_param("accuracy", accuracy)
-        print("accuracy: ", accuracy)
->>>>>>> f3e05cef26c6416b2ff79bad1e6b08fee6d00c44
+                
+                accuracy = score / i
+                mlflow.log_param("accuracy", accuracy)
+                print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
 
         # Log an artifact (output file)
         with open("output.txt", "w") as f:
