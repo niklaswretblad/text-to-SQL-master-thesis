@@ -13,11 +13,11 @@ QUESTIONS_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
 CONFIG_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
+    os.path.join(os.path.dirname( __file__ ), '../config/config.yaml'))
 
 def main():
     mlflow.set_experiment(config.current_experiment)
-    mlflow.log_artifact(CONFIG_PATH)
+    
     api_key = os.environ.get('OPENAI_API_KEY')
     if api_key is None:
         raise ValueError("OPENAI_API_KEY environment variable is not set.")
@@ -43,6 +43,8 @@ def main():
 
     with mlflow.start_run() as run:        
         for i, row in enumerate(questions):        
+            mlflow.log_artifact(CONFIG_PATH)
+
             golden_sql = row['SQL']
             db_id = row['db_id']            
             question = row['question']
