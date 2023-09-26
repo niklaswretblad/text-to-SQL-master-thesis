@@ -27,7 +27,7 @@ class DataLoader:
       try:
          self.cursor.execute(sql)
          pred_res = self.cursor.fetchall()
-      except sqlite3.OperationalError:
+      except sqlite3.Error:
          return 0
 
       self.cursor.execute(gold_sql)
@@ -68,8 +68,6 @@ class DataLoader:
       create_statements = self.cursor.fetchall()
 
       return '\n'.join([statement[0] for statement in create_statements])
-   
-
 
    def get_db_path(self, db_name):
       return DB_BASE_PATH + '/' + db_name + '/' + db_name + '.sqlite'

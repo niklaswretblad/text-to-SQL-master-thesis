@@ -24,7 +24,8 @@ def main():
     llm = ChatOpenAI(
         openai_api_key=api_key, 
         model_name="gpt-3.5-turbo",
-        temperature=0.9
+        temperature=0.0,
+        request_timeout=20
     )
 
     questions = load_json(QUESTIONS_PATH)
@@ -35,7 +36,7 @@ def main():
     zero_shot_agent = ZeroShotAgent(llm)
 
     score = 0
-    total_questions = len(questions)
+    no_questions = len(questions)
     for i, row in enumerate(questions):
         if row['db_id'] in ACCEPTED_DATABASES:
             golden_sql = row['SQL']
@@ -48,7 +49,7 @@ def main():
             success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
             score += success
 
-            print("Percentage done: ", round(i / total_questions * 100, 2), "% Domain: ", db_id, " Success: ", success)
+            print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success)
 
     print("accuracy: ", score / len(questions))
 
