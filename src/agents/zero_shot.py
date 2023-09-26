@@ -3,6 +3,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from agents.base_agent import BaseAgent
 from config import config
+import logging
 
 class ZeroShotAgent(BaseAgent):
 
@@ -10,12 +11,15 @@ class ZeroShotAgent(BaseAgent):
         self.llm = llm
         prompt = PromptTemplate(    
             input_variables=["question", "database_schema"],
-            template=config.templates.zero_shot_base_template,
+            template=config.prompt_templates.zero_shot_base_template,
         )
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
     def generate_query(self, database_schema, question):
-        return self.chain.run({
+        logging.debug("---> Chain.run")
+        response = self.chain.run({
             'database_schema': database_schema,
             'question': question            
         })
+        logging.debug("<--- Chain.run")
+        return response

@@ -1,8 +1,7 @@
 
 import sqlite3
-import json
 import os
-import time
+import logging
 
 DB_BASE_PATH = os.path.abspath(
    os.path.join(os.path.dirname( __file__ ), '..', 'data/db/')
@@ -27,7 +26,8 @@ class DataLoader:
       try:
          self.cursor.execute(sql)
          pred_res = self.cursor.fetchall()
-      except sqlite3.Error:
+      except sqlite3.Error as err:
+         logging.log("DataLoader.execute_query() " + err)
          return 0
 
       self.cursor.execute(gold_sql)

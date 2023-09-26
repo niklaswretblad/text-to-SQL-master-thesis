@@ -9,12 +9,14 @@ import mlflow
 from config import config
 
 QUESTIONS_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '..', 'data/questions.json'))
+    os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
-mlflow.set_experiment(config.current_experiment)
+CONFIG_PATH = os.path.abspath(
+    os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
 def main():
-    mlflow.log_artifact("path_to_config.yaml")
+    mlflow.set_experiment(config.current_experiment)
+    mlflow.log_artifact(CONFIG_PATH)
     api_key = os.environ.get('OPENAI_API_KEY')
     if api_key is None:
         raise ValueError("OPENAI_API_KEY environment variable is not set.")
@@ -28,7 +30,7 @@ def main():
 
     questions = load_json(QUESTIONS_PATH)
     questions = [question for question in questions if question['db_id'] in config.domains]
-    questions = [question for question in questions if question['difficulty'] in config.difficulty]
+    questions = [question for question in questions if question['difficulty'] in config.difficulties]
     
     data_loader = DataLoader()    
     zero_shot_agent = ZeroShotAgent(llm)
@@ -36,7 +38,9 @@ def main():
     no_questions = len(questions)
     score = 0
     accuracy = 0
-    with mlflow.start_run():
+    mlflow.end_run()
+
+    with mlflow.start_run():        
         for i, row in enumerate(questions):        
             golden_sql = row['SQL']
             db_id = row['db_id']            
@@ -48,10 +52,11 @@ def main():
             success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
             score += success
             
-            accuracy = score / i                
+            if i > 0: accuracy = score / i                
             print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
 
         mlflow.log_metric("accuracy", accuracy)
+        mlflow.end_run()
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
