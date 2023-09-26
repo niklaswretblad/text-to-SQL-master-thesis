@@ -54,8 +54,12 @@ def main():
                 print("Percentage done: ", round(i / total_questions * 100, 2), "% Domain: ", db_id, " Success: ", success)
         accuracy = score / len(questions)
         mlflow.log_param("accuracy", accuracy)
-
         print("accuracy: ", accuracy)
+
+        # Log an artifact (output file)
+        with open("output.txt", "w") as f:
+            f.write("Hello, MLflow!")
+        mlflow.log_artifact("output.txt")
 
     if __name__ == "__main__":
         main()
