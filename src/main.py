@@ -6,6 +6,7 @@ from utils import load_json
 from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
 import mlflow
+from mlflow.tracking import MlflowClient
 from config import config
 
 QUESTIONS_PATH = os.path.abspath(
@@ -40,14 +41,14 @@ def main():
     accuracy = 0
     mlflow.end_run()
 
-    with mlflow.start_run():        
+    with mlflow.start_run() as run:        
         for i, row in enumerate(questions):        
             golden_sql = row['SQL']
             db_id = row['db_id']            
             question = row['question']
             
             sql_schema = data_loader.get_create_statements(db_id)            
-            predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
+            predicted_sql = zero_shot_agent.generate_query(sql_schema, question, i)            
 
             success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
             score += success
@@ -55,7 +56,20 @@ def main():
             if i > 0: accuracy = score / i                
             print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
 
+            if i == 10:
+                break
+
         mlflow.log_metric("accuracy", accuracy)
+
+        client = MlflowClient()        
+        current_run = client.get_run(run.info.run_id)
+
+        complete_run_token_usage = sum(current_run.data.metrics["total_tokens"])
+        complete_run_cost = sum(current_run.data.metrics["total_cost"])
+
+        mlflow.log_metric("complete_run_token_usage", complete_run_token_usage)
+        mlflow.log_metric("complete_run_cost", complete_run_cost)        
+
         mlflow.end_run()
 
 if __name__ == "__main__":
