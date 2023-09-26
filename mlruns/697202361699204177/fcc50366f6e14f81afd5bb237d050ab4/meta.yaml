@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/697202361699204177/fcc50366f6e14f81afd5bb237d050ab4/artifacts
+end_time: 1695736564017
+entry_point_name: ''
+experiment_id: '697202361699204177'
+lifecycle_stage: active
+run_id: fcc50366f6e14f81afd5bb237d050ab4
+run_name: melodic-tern-856
+run_uuid: fcc50366f6e14f81afd5bb237d050ab4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695736468662
+status: 3
+tags: []
+user_id: niklas
