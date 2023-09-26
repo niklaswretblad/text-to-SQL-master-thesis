@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/22deea811b0642198344c8a80f0862b9/artifacts
+end_time: 1695721254127
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 22deea811b0642198344c8a80f0862b9
+run_name: bold-gnat-370
+run_uuid: 22deea811b0642198344c8a80f0862b9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695721254099
+status: 3
+tags: []
+user_id: niklas

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/d5f2b999c0cc4c4fac6df5cf7fa7ca67/artifacts
+end_time: 1695731386019
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: d5f2b999c0cc4c4fac6df5cf7fa7ca67
+run_name: wistful-slug-839
+run_uuid: d5f2b999c0cc4c4fac6df5cf7fa7ca67
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695731385973
+status: 3
+tags: []
+user_id: niklas

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/3eed4cab1a02414baa270626d7d4485f/artifacts
+end_time: 1695727484285
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 3eed4cab1a02414baa270626d7d4485f
+run_name: gifted-flea-15
+run_uuid: 3eed4cab1a02414baa270626d7d4485f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695727484232
+status: 3
+tags: []
+user_id: niklas

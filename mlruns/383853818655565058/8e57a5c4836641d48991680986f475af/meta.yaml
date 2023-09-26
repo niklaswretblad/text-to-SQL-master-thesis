@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/8e57a5c4836641d48991680986f475af/artifacts
+end_time: 1695728626239
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 8e57a5c4836641d48991680986f475af
+run_name: overjoyed-ram-137
+run_uuid: 8e57a5c4836641d48991680986f475af
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695728274241
+status: 3
+tags: []
+user_id: niklas

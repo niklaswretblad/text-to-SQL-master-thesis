@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/a5df2ecebc164e9cb99792237a3403d1/artifacts
+end_time: 1695733711283
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: a5df2ecebc164e9cb99792237a3403d1
+run_name: hilarious-crow-722
+run_uuid: a5df2ecebc164e9cb99792237a3403d1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695733614632
+status: 4
+tags: []
+user_id: niklas

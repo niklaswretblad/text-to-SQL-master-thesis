@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/07805b1ad9734662b0b8a52e3597d658/artifacts
+end_time: 1695728274238
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 07805b1ad9734662b0b8a52e3597d658
+run_name: bald-snail-546
+run_uuid: 07805b1ad9734662b0b8a52e3597d658
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695728274207
+status: 3
+tags: []
+user_id: niklas

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/2640a020c8294d509237cebaad332e4b/artifacts
+end_time: 1695731716957
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 2640a020c8294d509237cebaad332e4b
+run_name: useful-tern-393
+run_uuid: 2640a020c8294d509237cebaad332e4b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695731386022
+status: 3
+tags: []
+user_id: niklas

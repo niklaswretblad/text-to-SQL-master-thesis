@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/4d366152a2c745738f80e89962b8e397/artifacts
+end_time: 1695727569179
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 4d366152a2c745738f80e89962b8e397
+run_name: ambitious-lamb-990
+run_uuid: 4d366152a2c745738f80e89962b8e397
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695727569138
+status: 3
+tags: []
+user_id: niklas

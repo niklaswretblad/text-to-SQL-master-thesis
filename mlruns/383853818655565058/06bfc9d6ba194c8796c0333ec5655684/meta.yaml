@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/06bfc9d6ba194c8796c0333ec5655684/artifacts
+end_time: 1695722338084
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 06bfc9d6ba194c8796c0333ec5655684
+run_name: selective-tern-549
+run_uuid: 06bfc9d6ba194c8796c0333ec5655684
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695721990061
+status: 3
+tags: []
+user_id: niklas

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/niklas/Documents/Projects/Master%20Thesis/Text-to-SQL-Generation/mlruns/383853818655565058/844ce6a6096b49338ce976c2749e6f4f/artifacts
+end_time: 1695721177169
+entry_point_name: ''
+experiment_id: '383853818655565058'
+lifecycle_stage: active
+run_id: 844ce6a6096b49338ce976c2749e6f4f
+run_name: polite-calf-10
+run_uuid: 844ce6a6096b49338ce976c2749e6f4f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695721177139
+status: 3
+tags: []
+user_id: niklas
