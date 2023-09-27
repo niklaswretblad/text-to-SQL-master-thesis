@@ -33,7 +33,7 @@ class ZeroShotAgent(BaseAgent):
             self.total_tokens += cb.total_tokens
             self.prompt_tokens += cb.prompt_tokens
             self.total_cost += cb.total_cost
-            self.completion_tokens = cb.completion_tokens
+            self.completion_tokens += cb.completion_tokens
 
             return response
         
