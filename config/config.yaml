@@ -3,14 +3,13 @@
 
 # General settings
 current_experiment: "zero_shot_experiment"
-output_dir: "/path/to/output/results"
 
 experiments: 
   zero_shot_experiment:
-    description: "Description for experiment 1"
+    description: "Zero-shot text-to-SQL"
     agent: "zero_shot"
     hyperparameters:
-      prompt: "zero_shot_base_prompt"
+      prompt: "zero_shot_base_template"
   
   few_shot_experiment:
     description: "Description for experiment 1"
