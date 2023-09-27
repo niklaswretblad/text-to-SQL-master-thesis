@@ -32,4 +32,4 @@ class SQLTimer:
         if elapsed_time > 5:
             optional_info_str = ' '.join(f"{key}:{value}" for key, value in self.optional_info.items())
 
-        logging.info(f"{self.function_name} took {elapsed_time:.2f} seconds to execute." + optional_info_str)
+        logging.info(f"{self.function_name} took {elapsed_time:.2f} seconds to execute." + "\n" + optional_info_str)

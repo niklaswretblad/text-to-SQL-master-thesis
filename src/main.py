@@ -34,7 +34,7 @@ def main():
     accuracy = 0
     mlflow.end_run()
 
-    with mlflow.start_run() as run:        
+    with mlflow.start_run() as run:
         for i, row in enumerate(questions):        
             mlflow.log_artifact(CONFIG_PATH)
 
@@ -51,8 +51,8 @@ def main():
             if i > 0: accuracy = score / i                
             print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
 
-            if i == 1:
-                break
+            # if i == 1:
+            #     break
 
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("total_tokens", zero_shot_agent.total_tokens)

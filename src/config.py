@@ -48,7 +48,7 @@ def replace_path_in_yaml(yaml_file, new_path_prefix):
             # Split the path at the first occurrence of /mlruns/ and replace the prefix
             parts = data[key].split('/mlruns/', 1)
             if len(parts) > 1:
-                data[key] = os.path.join("file://", new_path_prefix, 'mlruns', parts[1])
+                data[key] = "file://" + os.path.join(new_path_prefix, 'mlruns', parts[1])
                 modified = True
 
     if modified:
