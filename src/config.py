@@ -4,6 +4,14 @@ import yaml
 from box import Box
 import logging
 
+CONFIG_PATH = os.path.abspath(
+    os.path.join(os.path.dirname( __file__ ), '../config/config.yaml'))
+
+# Load OpenAI API Key
+api_key = os.environ.get('OPENAI_API_KEY')
+if api_key is None:
+    raise ValueError("OPENAI_API_KEY environment variable is not set.")
+
 # Enable logging
 log_format = '%(asctime)s - %(levelname)s - %(message)s'
 logging.basicConfig(filename='debug.log', level=logging.DEBUG, format=log_format)

@@ -1,27 +1,19 @@
 
 import os
-import sys
 from data_interface import DataLoader
 from utils import load_json
 from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
 import mlflow
 from mlflow.tracking import MlflowClient
-from config import config
+from config import config, api_key, CONFIG_PATH
 
 QUESTIONS_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
-CONFIG_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../config/config.yaml'))
-
 def main():
     mlflow.set_experiment(config.current_experiment)
     mlflow.set_tracking_uri("mlruns")
-    
-    api_key = os.environ.get('OPENAI_API_KEY')
-    if api_key is None:
-        raise ValueError("OPENAI_API_KEY environment variable is not set.")
     
     llm = ChatOpenAI(
         openai_api_key=api_key, 
@@ -59,7 +51,7 @@ def main():
             if i > 0: accuracy = score / i                
             print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
 
-            if i == 10:
+            if i == 1:
                 break
 
         mlflow.log_metric("accuracy", accuracy)
