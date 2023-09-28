@@ -41,26 +41,31 @@ class DataLoader:
          return 1
       else:
          return 0
+      
 
-   def list_tables_and_columns(self, database_path):
-      conn = sqlite3.connect(database_path)
-      cursor = conn.cursor()
+   def list_tables_and_columns(self, db_name):
+      if self.current_db != db_name:
+         self.conn = sqlite3.connect(self.get_db_path(db_name))
+         self.cursor = self.conn.cursor()
 
-      cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-      tables = cursor.fetchall()
+      self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+      tables = self.cursor.fetchall()
 
+      res = ""
       for table in tables:
          table_name = table[0]
-         print(f"Table: {table_name}")
+         res = res + f"Table: {table_name}\n"
          
-         cursor.execute(f"PRAGMA table_info({table_name});")
-         columns = cursor.fetchall()
+         self.cursor.execute(f"PRAGMA table_info(\"{table_name}\");")
+         columns = self.cursor.fetchall()
          for column in columns:
                col_name = column[1]
                col_type = column[2]
-               print(f"  Column: {col_name}, Type: {col_type}")
+               res = res + f"  Column: {col_name}, Type: {col_type}\n"         
 
-      conn.close()
+      logging.debug(res)
+      return res              
+
 
    def get_create_statements(self, db_name):   
       if self.current_db != db_name:

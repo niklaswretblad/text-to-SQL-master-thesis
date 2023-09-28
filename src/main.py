@@ -42,7 +42,9 @@ def main():
             db_id = row['db_id']            
             question = row['question']
             
-            sql_schema = data_loader.get_create_statements(db_id)            
+            sql_schema = data_loader.list_tables_and_columns(db_id)   
+            print(sql_schema)      
+            
             predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
 
             success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
@@ -50,7 +52,7 @@ def main():
             
             if i > 0: accuracy = score / i                
             print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
-
+            
             # if i == 1:
             #     break
 

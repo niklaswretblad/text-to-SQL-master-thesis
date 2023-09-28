@@ -7,6 +7,11 @@ from config import config
 from timer import Timer
 import mlflow
 
+PROMPT_TEMPLATE = """Database schema in the form of CREATE_TABLE statements:
+{database_schema}
+-- Using valid SQLite, answer the following questions based on the tables provided above. 
+Question: {question}
+DO NOT return anything else except the SQL statement."""
 
 class ZeroShotAgent(BaseAgent):
     total_tokens = 0
