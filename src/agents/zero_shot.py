@@ -5,7 +5,7 @@ from langchain.callbacks import get_openai_callback
 from agents.base_agent import BaseAgent
 from config import config
 from timer import Timer
-import mlflow
+import wandb
 
 PROMPT_TEMPLATE = """Database schema in the form of CREATE_TABLE statements:
 {database_schema}
@@ -23,7 +23,7 @@ class ZeroShotAgent(BaseAgent):
         self.llm = llm
         prompt = PromptTemplate(    
             input_variables=["question", "database_schema"],
-            template=config.prompt_templates.zero_shot_base_template,
+            template=PROMPT_TEMPLATE,
         )
         self.chain = LLMChain(llm=llm, prompt=prompt)
 

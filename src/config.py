@@ -3,6 +3,8 @@ import os
 import yaml
 from box import Box
 import logging
+import wandb
+
 
 CONFIG_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../config/config.yaml'))
@@ -36,6 +38,7 @@ def load_config():
 
 config = load_config()
 
+# Initializing the Weights and Biases project
 
 # Change MLFlow paths to enable sharing the same ./mlruns folder
 def replace_path_in_yaml(yaml_file, new_path_prefix):
