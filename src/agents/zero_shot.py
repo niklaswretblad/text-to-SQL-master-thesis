@@ -23,7 +23,7 @@ class ZeroShotAgent(BaseAgent):
         self.llm = llm
         prompt = PromptTemplate(    
             input_variables=["question", "database_schema"],
-            template=config.prompt_templates.zero_shot_base_template,
+            template=PROMPT_TEMPLATE,
         )
         self.chain = LLMChain(llm=llm, prompt=prompt)
 

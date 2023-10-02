@@ -42,10 +42,3 @@ agents:
       description: "Default LLM without any special techniques."
 
 
-# Prompt Templates
-prompt_templates:
-    zero_shot_base_template: "Database schema in the form of CREATE_TABLE statements:
-{database_schema}
--- Using valid SQLite, answer the following questions for the tables provided above. 
-Question: {question}
-DO NOT return anything else except the SQL statement."

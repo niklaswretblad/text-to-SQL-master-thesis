@@ -6,12 +6,15 @@ from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
 import mlflow
 from mlflow.tracking import MlflowClient
+import wandb
 from config import config, api_key, CONFIG_PATH
 
 QUESTIONS_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
 def main():
+
+
     mlflow.set_experiment(config.current_experiment)
     mlflow.set_tracking_uri("mlruns")
     
@@ -34,35 +37,51 @@ def main():
     accuracy = 0
     mlflow.end_run()
 
-    with mlflow.start_run() as run:
-        for i, row in enumerate(questions):        
-            mlflow.log_artifact(CONFIG_PATH)
+    # with mlflow.start_run() as run:
+    wandb.init(
+    # set the wandb project where this run will be logged
+    project="master-thesis-combientmix",
+    # track hyperparameters and run metadata
+    config=config,
+    name= "test_experiment_1"
+    )
+    for i, row in enumerate(questions):        
+        # mlflow.log_artifact(CONFIG_PATH)
 
-            golden_sql = row['SQL']
-            db_id = row['db_id']            
-            question = row['question']
-            
-            sql_schema = data_loader.list_tables_and_columns(db_id)   
-            print(sql_schema)      
-            
-            predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
+        golden_sql = row['SQL']
+        db_id = row['db_id']            
+        question = row['question']
+        
+        sql_schema = data_loader.get_create_statements(db_id)   
+       # print(sql_schema)      
+        
+        predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
 
-            success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
-            score += success
-            
-            if i > 0: accuracy = score / i                
-            print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
-            
-            # if i == 1:
-            #     break
+        success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
+        score += success
+        
+        if i > 0: accuracy = score / i                
+        print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
+        
+        # if i == 1:
+        #     break
+        wandb.log({"accuracy": accuracy,
+                    "total_tokens": zero_shot_agent.total_tokens,
+                    "prompt_tokens": zero_shot_agent.prompt_tokens,
+                    "completion_tokens": zero_shot_agent.completion_tokens,
+                    "total_cost":zero_shot_agent.total_cost
+                })
 
-        mlflow.log_metric("accuracy", accuracy)
-        mlflow.log_metric("total_tokens", zero_shot_agent.total_tokens)
-        mlflow.log_metric("prompt_tokens", zero_shot_agent.prompt_tokens)
-        mlflow.log_metric("completion_tokens", zero_shot_agent.completion_tokens)
-        mlflow.log_metric("total_cost", zero_shot_agent.total_cost)
+    wandb.finish()
 
-        mlflow.end_run()
+        # mlflow.log_metric("accuracy", accuracy)
+        # mlflow.log_metric("total_tokens", zero_shot_agent.total_tokens)
+        # mlflow.log_metric("prompt_tokens", zero_shot_agent.prompt_tokens)
+        # mlflow.log_metric("completion_tokens", zero_shot_agent.completion_tokens)
+        # mlflow.log_metric("total_cost", zero_shot_agent.total_cost)
+
+        # mlflow.end_run()
+
 
 if __name__ == "__main__":
     main()
