@@ -13,7 +13,8 @@ QUESTIONS_PATH = os.path.abspath(
 def main():
     if config.log_experiment:
         wandb.init(
-            project="master-thesis-combientmix",
+            project="text-to-sql-generation",
+            entity='master-thesis-combientmix',
             config=config,
             name= "test_experiment_1"
         )
@@ -64,12 +65,10 @@ def main():
                 "total_cost":zero_shot_agent.total_cost
             })
 
-        
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
         
         # if i == 5:
-        #     break
-    
+        #     break    
     
     if config.log_experiment:
         artifact.add(table, "query_results")
