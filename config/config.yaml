@@ -2,6 +2,9 @@
 # config.yaml for text-to-SQL experiments
 
 # General settings
+
+log_experiment: false
+
 current_experiment: "zero_shot_experiment"
 
 experiments: 
