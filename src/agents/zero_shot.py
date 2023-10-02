@@ -36,10 +36,7 @@ class ZeroShotAgent(BaseAgent):
                     'database_schema': database_schema,
                     'question': question,
                     "evidence": evidence
-                                
-                })       
-
-            print('evidence: ', evidence)
+                })
             self.total_tokens += cb.total_tokens
             self.prompt_tokens += cb.prompt_tokens
             self.total_cost += cb.total_cost
