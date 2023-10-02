@@ -14,9 +14,13 @@ def main():
     if config.log_experiment:
         wandb.init(
             project="text-to-sql-generation",
+<<<<<<< HEAD
             entity='master-thesis-combientmix',
+=======
+>>>>>>> 21e5acdde2892f26047c1175ba341b0a931d8dec
             config=config,
-            name= "test_experiment_1"
+            name= "experiment_1",
+            entity="master-thesis-combientmix"
         )
 
         artifact = wandb.Artifact('query_results', type='dataset')
@@ -48,9 +52,10 @@ def main():
         golden_sql = row['SQL']
         db_id = row['db_id']            
         question = row['question']
+        evidence = row['evidence']
         
         sql_schema = data_loader.get_create_statements(db_id)     
-        predicted_sql = zero_shot_agent.generate_query(sql_schema, question)        
+        predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)        
         success = data_loader.execute_query(predicted_sql, golden_sql, db_id)
 
         score += success
@@ -67,8 +72,9 @@ def main():
 
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
         
-        # if i == 5:
-        #     break    
+        # if i == 10:
+        #     break
+    
     
     if config.log_experiment:
         artifact.add(table, "query_results")

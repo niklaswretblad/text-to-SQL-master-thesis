@@ -3,7 +3,7 @@
 
 # General settings
 
-log_experiment: false
+log_experiment: true
 
 current_experiment: "zero_shot_experiment"
 
