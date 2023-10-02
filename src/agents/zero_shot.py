@@ -9,7 +9,8 @@ import wandb
 
 PROMPT_TEMPLATE = """Database schema in the form of CREATE_TABLE statements:
 {database_schema}
--- Using valid SQLite, answer the following question based on the tables provided above. 
+
+Using valid SQL, answer the following question based on the tables provided above. 
 Hint helps you to write the correct sqlite SQL query.
 Question: {question}
 Hint: {evidence}

@@ -15,7 +15,7 @@ def main():
         wandb.init(
             project="text-to-sql-generation",
             config=config,
-            name= "test_experiment_1",
+            name= "experiment_1",
             entity="master-thesis-combientmix"
         )
 
@@ -69,8 +69,8 @@ def main():
         
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
         
-        if i == 10:
-            break
+        # if i == 10:
+        #     break
     
     
     if config.log_experiment:
