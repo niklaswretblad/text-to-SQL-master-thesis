@@ -42,8 +42,7 @@ def main():
             db_id = row['db_id']            
             question = row['question']
             
-            sql_schema = data_loader.list_tables_and_columns(db_id)   
-            print(sql_schema)      
+            sql_schema = data_loader.get_create_statements(db_id)               
             
             predicted_sql = zero_shot_agent.generate_query(sql_schema, question)            
 
