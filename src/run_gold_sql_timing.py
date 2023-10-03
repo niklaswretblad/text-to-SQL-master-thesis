@@ -1,0 +1,53 @@
+
+import os
+from data_interface import DataLoader
+from utils.utils import load_json
+from langchain.chat_models import ChatOpenAI
+from agents.zero_shot import ZeroShotAgent
+from config import config, api_key
+import wandb
+
+QUESTIONS_PATH = os.path.abspath(
+    os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
+
+def main():
+    if config.log_experiment:
+        wandb.init(
+            project=config.project,
+            config=config,
+            name= config.current_experiment,
+            entity=config.entity
+        )
+
+        wandb.define_metric("gold_sql_execution_time", summary="last")
+        wandb.define_metric("gold_sql_execution_time", summary="mean")
+    
+    llm = ChatOpenAI(
+        openai_api_key=api_key, 
+        model_name=config.llm_settings.model,
+        temperature=config.llm_settings.temperature,
+        request_timeout=config.llm_settings.request_timeout
+    )
+
+    questions = load_json(QUESTIONS_PATH)
+    questions = [question for question in questions if question['db_id'] in config.domains]
+    #questions = [question for question in questions if question['difficulty'] in config.difficulties]
+    
+    data_loader     = DataLoader()    
+    zero_shot_agent = ZeroShotAgent(llm)
+    
+    no_questions = len(questions)
+    score = 0
+    accuracy = 0
+    for i, row in enumerate(questions):        
+        golden_sql = row['SQL']
+        db_id = row['db_id']
+        success = data_loader.execute_query(golden_sql, db_id)
+    
+
+    wandb.finish()
+
+
+
+if __name__ == "__main__":
+    main()
