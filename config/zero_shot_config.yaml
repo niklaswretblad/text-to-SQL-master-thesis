@@ -3,7 +3,7 @@
 
 # General settings
 
-current_experiment: "zero_shot_with_qc"
+current_experiment: "zero_shot_with_example_rows"
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 

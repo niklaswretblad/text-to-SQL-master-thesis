@@ -105,10 +105,6 @@ class DataLoader:
       logging.info(res)
       return res              
 
-   def load_db(self, db_name):
-      self.conn = sqlite3.connect(self.get_db_path(db_name))
-      self.cursor = self.conn.cursor()
-      self.current_db = db_name
 
    def get_create_statements(self, db_name):   
       if self.current_db != db_name:
@@ -121,6 +117,50 @@ class DataLoader:
       
       return self.database_schema
 
+   def get_schema_and_sample_data(self, db_name):
+      if self.current_db != db_name:
+         self.load_db(db_name)      
+      
+         self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+         tables = self.cursor.fetchall()
+         
+         schema_and_sample_data = ""
+
+         for table in tables:
+            table = table[0]  
+            self.cursor.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table}';")
+            create_statement = self.cursor.fetchone()[0]
+            
+            schema_and_sample_data += f"\"{create_statement}\";\n\n"
+            
+            self.cursor.execute(f"SELECT * FROM \"{table}\" LIMIT 3;")
+            rows = self.cursor.fetchall()
+                     
+            self.cursor.execute(f"PRAGMA table_info(\"{table}\");")
+            columns = self.cursor.fetchall()
+            column_names = [column[1] for column in columns]
+            column_names_line = "\t".join(column_names)
+            
+            schema_and_sample_data += f"-- Sample data from {table}:\n"
+            schema_and_sample_data += f"{column_names_line}\n"
+
+         for row in rows:
+               row_line = "\t".join([str(value) for value in row])
+               schema_and_sample_data += f"{row_line}\n"
+         
+         schema_and_sample_data += "\n"
+
+         self.database_schema = schema_and_sample_data
+    
+      return self.database_schema
+
+   
+
+
+   def load_db(self, db_name):
+      self.conn = sqlite3.connect(self.get_db_path(db_name))
+      self.cursor = self.conn.cursor()
+      self.current_db = db_name
 
    def get_db_path(self, db_name):
       return DB_BASE_PATH + '/' + db_name + '/' + db_name + '.sqlite'

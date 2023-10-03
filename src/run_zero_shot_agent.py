@@ -54,7 +54,7 @@ def main():
         evidence = row['evidence']
         difficulty = row['difficulty']
 
-        sql_schema = data_loader.get_create_statements(db_id)
+        sql_schema = data_loader.get_schema_and_sample_data(db_id)
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)        
         success = data_loader.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
