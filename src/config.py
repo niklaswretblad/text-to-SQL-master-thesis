@@ -7,7 +7,7 @@ import wandb
 
 
 CONFIG_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../config/config.yaml'))
+    os.path.join(os.path.dirname( __file__ ), '../config/config/zero_shot_config.yaml'))
 
 # Load OpenAI API Key
 api_key = os.environ.get('OPENAI_API_KEY')
