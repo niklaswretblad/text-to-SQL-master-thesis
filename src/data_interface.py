@@ -38,9 +38,8 @@ class DataLoader:
             logging.info(f"Predicted query execution time: {t.elapsed_time:.2f}")
 
          self.total_predicted_execution_time += t.elapsed_time
-         
+
          wandb.log({"predicted_sql_execution_time": t.elapsed_time})
-         wandb.log({"cumulative_predicted_sql_execution_time": self.total_predicted_execution_time})
 
       except sqlite3.Error as err:
          logging.error("DataLoader.execute_queries_and_match_data() " + str(err))
@@ -58,7 +57,6 @@ class DataLoader:
       self.total_gold_execution_time += t.elapsed_time
 
       wandb.log({"gold_sql_execution_time": t.elapsed_time})
-      wandb.log({"cumulative_gold_sql_execution_time": self.total_gold_execution_time})
 
       equal = (set(pred_res) == set(golden_res))
       if equal:

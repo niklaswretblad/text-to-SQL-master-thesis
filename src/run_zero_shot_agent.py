@@ -85,6 +85,9 @@ def main():
         # if i == 10:
         #     break
     
+    wandb.run.summary['total_predicted_execution_time']
+    wandb.run.summary['total_gold_execution_time']
+
     artifact.add(table, "query_results")
     wandb.log_artifact(artifact)
 
