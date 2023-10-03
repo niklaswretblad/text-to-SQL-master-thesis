@@ -25,6 +25,7 @@ def main():
     artifact = wandb.Artifact('query_results', type='dataset')
     table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])
 
+    wandb.define_metric("accuracy", summary="last")
     wandb.define_metric("total_tokens", summary="last")
     wandb.define_metric("prompt_tokens", summary="last")
     wandb.define_metric("completion_tokens", summary="last")

@@ -3,7 +3,7 @@
 
 # General settings
 
-current_experiment: "zero_shot_without_qc"
+current_experiment: "zero_shot_with_qc"
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 
@@ -12,7 +12,7 @@ current_prompt: |
   {database_schema}
 
   Using valid SQL, answer the following question based on the tables provided above.
-
+  It is important to use qualified column names in the SQL-query, meaning the form "SELECT table_name.column_name FROM table_name;""
   Hint helps you to write the correct sqlite SQL query.
   Question: {question}
   Hint: {evidence}
