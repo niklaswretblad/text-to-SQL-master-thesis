@@ -2,7 +2,8 @@
 import sqlite3
 import os
 import logging
-from timer import SQLTimer
+from utils.timer import SQLTimer
+import wandb
 
 DB_BASE_PATH = os.path.abspath(
    os.path.join(os.path.dirname( __file__ ), '..', 'data/db/')
@@ -16,7 +17,7 @@ class DataLoader:
    def __init__(self):
       pass
 
-   def execute_query(self, sql, gold_sql, db_id):
+   def execute_queries_and_match_data(self, sql, gold_sql, db_id):
       db_path = self.get_db_path(db_id)
 
       if self.current_db != db_id:
@@ -25,23 +26,48 @@ class DataLoader:
          self.current_db = db_id
       
       try:
-         with SQLTimer("cursor.execute(sql) PREDICTED", {'sql: ': sql}):
+         with SQLTimer("cursor.execute(sql) PREDICTED", {'sql: ': sql}) as t:
             self.cursor.execute(sql)
             pred_res = self.cursor.fetchall()
+         wandb.log({"predicted_sql_execution_time": t.elapsed_time})
+
       except sqlite3.Error as err:
          logging.error("DataLoader.execute_query() " + str(err))
          return 0
 
-      with SQLTimer("cursor.execute(sql) GOLD"):
+      with SQLTimer("cursor.execute(sql) GOLD") as t:
          self.cursor.execute(gold_sql)
          golden_res = self.cursor.fetchall()
-      
+         
+      wandb.log({"gold_sql_execution_time": t.elapsed_time})
+
       equal = (set(pred_res) == set(golden_res))
       if equal:
          return 1
       else:
          return 0
+   
+
+   def execute_query(self, sql, db_id):
+      db_path = self.get_db_path(db_id)
+
+      if self.current_db != db_id:
+         self.conn = sqlite3.connect(db_path)
+         self.cursor = self.conn.cursor()
+         self.current_db = db_id
       
+      try:
+         with SQLTimer("cursor.execute(sql) PREDICTED", {'sql: ': sql}) as t:
+            self.cursor.execute(sql)
+            pred_res = self.cursor.fetchall()
+         wandb.log({"gold_sql_execution_time": t.elapsed_time})
+         logging.debug("gold_sql_execution_time: " + str(t.elapsed_time))
+      except sqlite3.Error as err:
+         logging.error("DataLoader.execute_query() " + str(err))
+         return 0
+
+      return 1
+
 
    def list_tables_and_columns(self, db_name):
       if self.current_db != db_name:
