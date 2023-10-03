@@ -16,7 +16,7 @@ current_prompt: |
   Hint helps you to write the correct sqlite SQL query.
   Question: {question}
   Hint: {evidence}
-  DO NOT return anything else except the SQL statement.
+  DO NOT return anything else except the SQL query.
 
     
 # Domain settings

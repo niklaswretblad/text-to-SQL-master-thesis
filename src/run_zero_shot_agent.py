@@ -11,7 +11,7 @@ QUESTIONS_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"
+# os.environ["WANDB_MODE"] = "offline"
 
 def main():
     
@@ -95,8 +95,7 @@ def main():
                 "total_tokens": zero_shot_agent.total_tokens,
                 "prompt_tokens": zero_shot_agent.prompt_tokens,
                 "completion_tokens": zero_shot_agent.completion_tokens,
-                "total_cost":zero_shot_agent.total_cost,
-                "total_time"
+                "total_cost":zero_shot_agent.total_cost
             })
     
 
