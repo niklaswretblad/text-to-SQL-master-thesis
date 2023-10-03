@@ -120,10 +120,13 @@ class DataLoader:
          self.conn = sqlite3.connect(self.get_db_path(db_name))
          self.cursor = self.conn.cursor()
 
-      self.cursor.execute("SELECT sql FROM sqlite_master WHERE type='table';")
-      create_statements = self.cursor.fetchall()
+         self.cursor.execute("SELECT sql FROM sqlite_master WHERE type='table';")
+         create_statements = self.cursor.fetchall()
 
-      return '\n'.join([statement[0] for statement in create_statements])
+         self.database_schema = '\n'.join([statement[0] for statement in create_statements])
+      
+      return self.database_schema
+
 
    def get_db_path(self, db_name):
       return DB_BASE_PATH + '/' + db_name + '/' + db_name + '.sqlite'
