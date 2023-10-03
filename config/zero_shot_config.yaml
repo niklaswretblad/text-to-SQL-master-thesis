@@ -3,9 +3,7 @@
 
 # General settings
 
-log_experiment: true
-
-current_experiment: "zero_shot_experiment_0"
+current_experiment: "zero_shot_without_qc"
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 
