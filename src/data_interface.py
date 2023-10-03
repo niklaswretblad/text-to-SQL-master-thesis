@@ -10,16 +10,16 @@ DB_BASE_PATH = os.path.abspath(
 )
 
 class DataLoader:
-   current_db = ""
-   conn = None
-   cursor = None
-   total_predicted_execution_time = 0
-   total_gold_execution_time = 0
-   last_predicted_execution_time = 0
-   last_gold_execution_time = 0
 
    def __init__(self):
-      pass
+      self.current_db = ""
+      self.conn = None
+      self.cursor = None
+      self.total_predicted_execution_time = 0
+      self.total_gold_execution_time = 0
+      self.last_predicted_execution_time = 0
+      self.last_gold_execution_time = 0
+      self.database_schema = ""
 
    def execute_queries_and_match_data(self, sql, gold_sql, db_id):
       db_path = self.get_db_path(db_id)
