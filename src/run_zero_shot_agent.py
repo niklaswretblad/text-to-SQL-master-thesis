@@ -11,7 +11,7 @@ QUESTIONS_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"
+# os.environ["WANDB_MODE"] = "offline"
 
 def main():
     

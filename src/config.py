@@ -7,7 +7,7 @@ import wandb
 
 
 CONFIG_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../config/config/zero_shot_config.yaml'))
+    os.path.join(os.path.dirname( __file__ ), '../config/zero_shot_config.yaml'))
 
 # Load OpenAI API Key
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -25,7 +25,9 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 # Loading config.yaml file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CONFIG_PATH = os.path.join(BASE_DIR, "../config/config.yaml")
+# CONFIG_PATH = os.path.join(BASE_DIR, "../config/zero_shot_config.yaml")
+
+print('CONFIG_path: ', CONFIG_PATH)
 
 def load_config():
     with open(CONFIG_PATH, 'r') as stream:
@@ -37,7 +39,7 @@ def load_config():
             return None
 
 config = load_config()
-
+print('config in config.py: ', config)
 # Initializing the Weights and Biases project
 
 

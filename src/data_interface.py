@@ -33,7 +33,7 @@ class DataLoader:
             pred_res = self.cursor.fetchall()
          
          if t.elapsed_time > 5:
-            logging.info(f"Predicted query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + pred_res)
+            logging.info(f"Predicted query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + sql)
          else:
             logging.info(f"Predicted query execution time: {t.elapsed_time:.2f}")
 
