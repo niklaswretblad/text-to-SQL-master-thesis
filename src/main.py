@@ -16,8 +16,7 @@ def main():
             project="text-to-sql-generation",
             entity='master-thesis-combientmix',
             config=config,
-            name= config.current_experiment,
-            entity="master-thesis-combientmix"
+            name= config.current_experiment
         )
 
         artifact = wandb.Artifact('query_results', type='dataset')
