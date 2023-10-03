@@ -10,7 +10,8 @@ import wandb
 PROMPT_TEMPLATE = """Database schema in the form of CREATE_TABLE statements:
 {database_schema}
 
-Using valid SQL, answer the following question based on the tables provided above. 
+Using valid SQL, answer the following question based on the tables provided above.
+It is important to use qualified column names in the SQL-query, meaning the form "SELECT table_name.column_name FROM table_name;"
 Hint helps you to write the correct sqlite SQL query.
 Question: {question}
 Hint: {evidence}
