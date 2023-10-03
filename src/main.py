@@ -14,6 +14,10 @@ def main():
     if config.log_experiment:
         wandb.init(
             project="text-to-sql-generation",
+<<<<<<< HEAD
+            entity='master-thesis-combientmix',
+=======
+>>>>>>> 21e5acdde2892f26047c1175ba341b0a931d8dec
             config=config,
             name= "experiment_1",
             entity="master-thesis-combientmix"
@@ -66,7 +70,6 @@ def main():
                 "total_cost":zero_shot_agent.total_cost
             })
 
-        
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
         
         # if i == 10:

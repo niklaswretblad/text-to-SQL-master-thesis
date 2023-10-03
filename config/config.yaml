@@ -11,8 +11,6 @@ experiments:
   zero_shot_experiment:
     description: "Zero-shot text-to-SQL"
     agent: "zero_shot"
-    hyperparameters:
-      prompt: "zero_shot_base_template"
   
   few_shot_experiment:
     description: "Description for experiment 1"
