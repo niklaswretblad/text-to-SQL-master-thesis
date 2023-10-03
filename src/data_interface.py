@@ -21,13 +21,9 @@ class DataLoader:
       self.last_gold_execution_time = 0
       self.database_schema = ""
 
-   def execute_queries_and_match_data(self, sql, gold_sql, db_id):
-      db_path = self.get_db_path(db_id)
-
-      if self.current_db != db_id:
-         self.conn = sqlite3.connect(db_path)
-         self.cursor = self.conn.cursor()
-         self.current_db = db_id
+   def execute_queries_and_match_data(self, sql, gold_sql, db_name):
+      if self.current_db != db_name:
+         self.load_db(db_name)
       
       try:
          with Timer() as t:
@@ -65,13 +61,9 @@ class DataLoader:
          return 0
    
 
-   def execute_query(self, sql, db_id):
-      db_path = self.get_db_path(db_id)
-
-      if self.current_db != db_id:
-         self.conn = sqlite3.connect(db_path)
-         self.cursor = self.conn.cursor()
-         self.current_db = db_id
+   def execute_query(self, sql, db_name):
+      if self.current_db != db_name:
+         self.load_db(db_name)
       
       try:
          with Timer() as t:
@@ -93,8 +85,7 @@ class DataLoader:
 
    def list_tables_and_columns(self, db_name):
       if self.current_db != db_name:
-         self.conn = sqlite3.connect(self.get_db_path(db_name))
-         self.cursor = self.conn.cursor()
+         self.load_db(db_name)
 
       self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
       tables = self.cursor.fetchall()
@@ -114,11 +105,14 @@ class DataLoader:
       logging.info(res)
       return res              
 
+   def load_db(self, db_name):
+      self.conn = sqlite3.connect(self.get_db_path(db_name))
+      self.cursor = self.conn.cursor()
+      self.current_db = db_name
 
    def get_create_statements(self, db_name):   
       if self.current_db != db_name:
-         self.conn = sqlite3.connect(self.get_db_path(db_name))
-         self.cursor = self.conn.cursor()
+         self.load_db(db_name)
 
          self.cursor.execute("SELECT sql FROM sqlite_master WHERE type='table';")
          create_statements = self.cursor.fetchall()
