@@ -23,14 +23,7 @@ def main():
     )
 
     artifact = wandb.Artifact('query_results', type='dataset')
-    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])
-
-    wandb.define_metric("accuracy", summary="last")
-    wandb.define_metric("total_tokens", summary="last")
-    wandb.define_metric("prompt_tokens", summary="last")
-    wandb.define_metric("completion_tokens", summary="last")
-    wandb.define_metric("total_tokens", summary="last")
-    wandb.define_metric("llm_api_execution_time", summary="last")
+    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])    
 
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
     wandb.define_metric("gold_sql_execution_time", summary="mean")
@@ -76,7 +69,7 @@ def main():
             "completion_tokens": zero_shot_agent.completion_tokens,
             "total_cost": zero_shot_agent.total_cost,
             "difficulty": difficulty,
-            "openAPI_call_execution_time": zero_shot_agent.last_api_call_execution_time,
+            "openAPI_call_execution_time": zero_shot_agent.last_call_execution_time,
             "predicted_sql_execution_time": data_loader.last_predicted_execution_time,
             "gold_sql_execution_time": data_loader.last_gold_execution_time
         }, step=i+1)
@@ -84,11 +77,15 @@ def main():
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", 
               db_id, " Success: ", success, " Accuracy: ", accuracy)
         
-        # if i == 10:
-        #     break
     
-    wandb.run.summary['total_predicted_execution_time'] = data_loader.total_predicted_execution_time
-    wandb.run.summary['total_gold_execution_time'] = data_loader.total_gold_execution_time
+    wandb.run.summary["accuracy"]                           = accuracy
+    wandb.run.summary["total_tokens"]                       = zero_shot_agent.total_tokens
+    wandb.run.summary["prompt_tokens"]                      = zero_shot_agent.prompt_tokens
+    wandb.run.summary["completion_tokens"]                  = zero_shot_agent.completion_tokens
+    wandb.run.summary["total_cost"]                         = zero_shot_agent.total_cost
+    wandb.run.summary['total_predicted_execution_time']     = data_loader.total_predicted_execution_time
+    wandb.run.summary['total_gold_execution_time']          = data_loader.total_gold_execution_time
+    wandb.run.summary['total_openAPI_execution_time']       = zero_shot_agent.total_call_execution_time
 
     artifact.add(table, "query_results")
     wandb.log_artifact(artifact)

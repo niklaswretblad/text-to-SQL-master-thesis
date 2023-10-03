@@ -10,16 +10,16 @@ DB_BASE_PATH = os.path.abspath(
 )
 
 class DataLoader:
-   current_db = ""
-   conn = None
-   cursor = None
-   total_predicted_execution_time = 0
-   total_gold_execution_time = 0
-   last_predicted_execution_time = 0
-   last_gold_execution_time = 0
 
    def __init__(self):
-      pass
+      self.current_db = ""
+      self.conn = None
+      self.cursor = None
+      self.total_predicted_execution_time = 0
+      self.total_gold_execution_time = 0
+      self.last_predicted_execution_time = 0
+      self.last_gold_execution_time = 0
+      self.database_schema = ""
 
    def execute_queries_and_match_data(self, sql, gold_sql, db_id):
       db_path = self.get_db_path(db_id)
@@ -120,10 +120,13 @@ class DataLoader:
          self.conn = sqlite3.connect(self.get_db_path(db_name))
          self.cursor = self.conn.cursor()
 
-      self.cursor.execute("SELECT sql FROM sqlite_master WHERE type='table';")
-      create_statements = self.cursor.fetchall()
+         self.cursor.execute("SELECT sql FROM sqlite_master WHERE type='table';")
+         create_statements = self.cursor.fetchall()
 
-      return '\n'.join([statement[0] for statement in create_statements])
+         self.database_schema = '\n'.join([statement[0] for statement in create_statements])
+      
+      return self.database_schema
+
 
    def get_db_path(self, db_name):
       return DB_BASE_PATH + '/' + db_name + '/' + db_name + '.sqlite'
