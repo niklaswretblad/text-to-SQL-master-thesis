@@ -77,8 +77,6 @@ def main():
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", 
               db_id, " Success: ", success, " Accuracy: ", accuracy)
         
-        # if i == 10:
-        #     break
     
     wandb.run.summary["accuracy"]                           = accuracy
     wandb.run.summary["total_tokens"]                       = zero_shot_agent.total_tokens
