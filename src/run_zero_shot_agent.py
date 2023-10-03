@@ -11,6 +11,7 @@ QUESTIONS_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
 
 def main():
+    print('config in main: ', config)
     if config.log_experiment:
         wandb.init(
             project=config.project,
