@@ -36,6 +36,9 @@ def main():
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
     wandb.define_metric("gold_sql_execution_time", summary="mean")
 
+    wandb.define_metric("cumulative_gold_sql_execution_time", summary="last")
+    wandb.define_metric("cumulative_predicted_sql_execution_time", summary="last")
+
     llm = ChatOpenAI(
         openai_api_key=api_key, 
         model_name=config.llm_settings.model,
@@ -92,7 +95,8 @@ def main():
                 "total_tokens": zero_shot_agent.total_tokens,
                 "prompt_tokens": zero_shot_agent.prompt_tokens,
                 "completion_tokens": zero_shot_agent.completion_tokens,
-                "total_cost":zero_shot_agent.total_cost
+                "total_cost":zero_shot_agent.total_cost,
+                "total_time"
             })
     
 
