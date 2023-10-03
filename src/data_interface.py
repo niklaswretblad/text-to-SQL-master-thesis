@@ -15,6 +15,8 @@ class DataLoader:
    cursor = None
    total_predicted_execution_time = 0
    total_gold_execution_time = 0
+   last_predicted_execution_time = 0
+   last_gold_execution_time = 0
 
    def __init__(self):
       pass
@@ -37,9 +39,8 @@ class DataLoader:
          else:
             logging.info(f"Predicted query execution time: {t.elapsed_time:.2f}")
 
-         self.total_predicted_execution_time += t.elapsed_time
-
-         wandb.log({"predicted_sql_execution_time": t.elapsed_time})
+         self.last_predicted_execution_time = t.elapsed_time
+         self.total_predicted_execution_time += t.elapsed_time               
 
       except sqlite3.Error as err:
          logging.error("DataLoader.execute_queries_and_match_data() " + str(err))
@@ -54,9 +55,8 @@ class DataLoader:
       else:
          logging.info(f"Golden query execution time: {t.elapsed_time:.2f}")
       
-      self.total_gold_execution_time += t.elapsed_time
-
-      wandb.log({"gold_sql_execution_time": t.elapsed_time})
+      self.last_gold_execution_time = t.elapsed_time
+      self.total_gold_execution_time += t.elapsed_time      
 
       equal = (set(pred_res) == set(golden_res))
       if equal:
@@ -77,7 +77,7 @@ class DataLoader:
          with Timer() as t:
             self.cursor.execute(sql)
             pred_res = self.cursor.fetchall()
-         wandb.log({"gold_sql_execution_time": t.elapsed_time})
+         #wandb.log({"gold_sql_execution_time": t.elapsed_time})
          
          if t.elapsed_time > 5:
             logging.info(f"Query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + pred_res)

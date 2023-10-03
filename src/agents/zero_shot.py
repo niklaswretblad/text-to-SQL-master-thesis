@@ -13,7 +13,7 @@ class ZeroShotAgent(BaseAgent):
     prompt_tokens = 0 
     total_cost = 0
     completion_tokens = 0
-    
+    last_api_call_time = 0
 
     def __init__(self, llm):
         self.llm = llm
@@ -33,8 +33,8 @@ class ZeroShotAgent(BaseAgent):
                 })
 
             logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
-            wandb.log({"llm_api_execution_time": t.elapsed_time})
-
+            
+            self.last_api_call_execution_time = t.elapsed_time
             self.total_tokens += cb.total_tokens
             self.prompt_tokens += cb.prompt_tokens
             self.total_cost += cb.total_cost

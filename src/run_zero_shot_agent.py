@@ -35,9 +35,6 @@ def main():
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
     wandb.define_metric("gold_sql_execution_time", summary="mean")
 
-    wandb.define_metric("cumulative_gold_sql_execution_time", summary="last")
-    wandb.define_metric("cumulative_predicted_sql_execution_time", summary="last")
-
     llm = ChatOpenAI(
         openai_api_key=api_key, 
         model_name=config.llm_settings.model,
@@ -72,13 +69,17 @@ def main():
         if i > 0: accuracy = score / i                
 
         table.add_data(question, golden_sql, predicted_sql, success)
-        wandb.log({"accuracy": accuracy,
+        wandb.log({
+            "accuracy": accuracy,
             "total_tokens": zero_shot_agent.total_tokens,
             "prompt_tokens": zero_shot_agent.prompt_tokens,
             "completion_tokens": zero_shot_agent.completion_tokens,
             "total_cost": zero_shot_agent.total_cost,
-            "difficulty": difficulty
-        })
+            "difficulty": difficulty,
+            "openAPI_call_execution_time": zero_shot_agent.last_api_call_execution_time,
+            "predicted_sql_execution_time": data_loader.last_predicted_execution_time,
+            "gold_sql_execution_time": data_loader.last_gold_execution_time
+        }, step=i+1)
     
         print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", 
               db_id, " Success: ", success, " Accuracy: ", accuracy)
