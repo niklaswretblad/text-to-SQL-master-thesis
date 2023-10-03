@@ -5,6 +5,7 @@ from langchain.callbacks import get_openai_callback
 from agents.base_agent import BaseAgent
 from config import config
 from utils.timer import Timer
+import logging
 import wandb
 
 PROMPT_TEMPLATE = """Database schema in the form of CREATE_TABLE statements:
@@ -33,14 +34,15 @@ class ZeroShotAgent(BaseAgent):
 
     def generate_query(self, database_schema, question, evidence):
         with get_openai_callback() as cb:
-            with Timer("generate_query()") as t:
+            with Timer() as t:
                 response = self.chain.run({
                     'database_schema': database_schema,
                     'question': question,
                     "evidence": evidence
                 })
 
-                wandb.log({"llm_api_execution_time": t.elapsed_time})
+            logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
+            wandb.log({"llm_api_execution_time": t.elapsed_time})
 
 
             self.total_tokens += cb.total_tokens

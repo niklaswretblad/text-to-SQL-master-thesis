@@ -2,7 +2,7 @@
 import sqlite3
 import os
 import logging
-from utils.timer import SQLTimer
+from utils.timer import Timer
 import wandb
 
 DB_BASE_PATH = os.path.abspath(
@@ -26,19 +26,30 @@ class DataLoader:
          self.current_db = db_id
       
       try:
-         with SQLTimer("cursor.execute(sql) PREDICTED", {'sql: ': sql}) as t:
+         with Timer() as t:
             self.cursor.execute(sql)
             pred_res = self.cursor.fetchall()
+
+         if t.elapsed_time > 5:
+            logging.info(f"Predicted query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + pred_res)
+         else:
+            logging.info(f"Predicted query execution time: {t.elapsed_time:.2f}")
+
          wandb.log({"predicted_sql_execution_time": t.elapsed_time})
 
       except sqlite3.Error as err:
-         logging.error("DataLoader.execute_query() " + str(err))
+         logging.error("DataLoader.execute_queries_and_match_data() " + str(err))
          return 0
 
-      with SQLTimer("cursor.execute(sql) GOLD") as t:
+      with Timer() as t:
          self.cursor.execute(gold_sql)
          golden_res = self.cursor.fetchall()
-         
+
+      if t.elapsed_time > 5:
+         logging.info(f"Golden query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + golden_res)
+      else:
+            logging.info(f"Golden query execution time: {t.elapsed_time:.2f}")
+
       wandb.log({"gold_sql_execution_time": t.elapsed_time})
 
       equal = (set(pred_res) == set(golden_res))
@@ -57,11 +68,16 @@ class DataLoader:
          self.current_db = db_id
       
       try:
-         with SQLTimer("cursor.execute(sql) PREDICTED", {'sql: ': sql}) as t:
+         with Timer() as t:
             self.cursor.execute(sql)
             pred_res = self.cursor.fetchall()
          wandb.log({"gold_sql_execution_time": t.elapsed_time})
-         logging.debug("gold_sql_execution_time: " + str(t.elapsed_time))
+         
+         if t.elapsed_time > 5:
+            logging.info(f"Query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + pred_res)
+         else:
+            logging.info(f"Query query execution time: {t.elapsed_time:.2f}")
+
       except sqlite3.Error as err:
          logging.error("DataLoader.execute_query() " + str(err))
          return 0
@@ -89,7 +105,7 @@ class DataLoader:
                col_type = column[2]
                res = res + f"  Column: {col_name}, Type: {col_type}\n"         
 
-      logging.debug(res)
+      logging.info(res)
       return res              
 
 

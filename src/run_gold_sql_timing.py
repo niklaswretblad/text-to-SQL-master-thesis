@@ -34,16 +34,10 @@ def main():
     #questions = [question for question in questions if question['difficulty'] in config.difficulties]
     
     data_loader     = DataLoader()    
-    zero_shot_agent = ZeroShotAgent(llm)
-    
-    no_questions = len(questions)
-    score = 0
-    accuracy = 0
     for i, row in enumerate(questions):        
         golden_sql = row['SQL']
         db_id = row['db_id']
-        success = data_loader.execute_query(golden_sql, db_id)
-    
+        data_loader.execute_query(golden_sql, db_id)
 
     wandb.finish()
 
