@@ -5,29 +5,21 @@
 
 log_experiment: true
 
-current_experiment: "zero_shot_experiment"
-
-experiments: 
-  zero_shot_experiment:
-    description: "Zero-shot text-to-SQL"
-    agent: "zero_shot"
-  
-  few_shot_experiment:
-    description: "Description for experiment 1"
-    hyperparameters:
-      
+current_experiment: "gold_query_timing_experiment"
+project: "text-to-sql-generation"
+entity: "master-thesis-combientmix"
     
 # Domain settings
 domains: 
   - financial
 #  - retail_world
-#  - retails
+  - retails
 #  - car_retails
 
 difficulties: 
   - simple
-#  - moderate
-#  - challenging
+  - moderate
+  - challenging
 
 # LLM settings
 llm_settings:
@@ -37,9 +29,6 @@ llm_settings:
   token_limit: 4096
   max_response_length: 1024
 
-# Agents settings
-agents:
-  - zero_shot:
-      description: "Default LLM without any special techniques."
+
 
 
