@@ -47,6 +47,8 @@ def main():
     questions = load_json(QUESTIONS_PATH)
     questions = [question for question in questions if question['db_id'] in config.domains]
     questions = [question for question in questions if question['difficulty'] in config.difficulties]
+
+    wandb.run.summary['number_of_questions'] = len(questions)
     
     data_loader     = DataLoader()    
     zero_shot_agent = ZeroShotAgent(llm)
