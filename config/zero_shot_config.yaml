@@ -3,8 +3,6 @@
 
 # General settings
 
-log_experiment: true
-
 current_experiment: "gold_query_timing_experiment"
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
