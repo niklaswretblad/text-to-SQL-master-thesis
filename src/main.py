@@ -14,10 +14,7 @@ def main():
     if config.log_experiment:
         wandb.init(
             project="text-to-sql-generation",
-<<<<<<< HEAD
             entity='master-thesis-combientmix',
-=======
->>>>>>> 21e5acdde2892f26047c1175ba341b0a931d8dec
             config=config,
             name= "experiment_1",
             entity="master-thesis-combientmix"
