@@ -29,8 +29,6 @@ def main():
     wandb.define_metric("prompt_tokens", summary="last")
     wandb.define_metric("completion_tokens", summary="last")
     wandb.define_metric("total_tokens", summary="last")
-    wandb.define_metric("predicted_sql_execution_time", summary="last")
-    wandb.define_metric("gold_sql_execution_time", summary="last")
     wandb.define_metric("llm_api_execution_time", summary="last")
 
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
@@ -79,7 +77,8 @@ def main():
             "difficulty": difficulty
         })
     
-        print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", db_id, " Success: ", success, " Accuracy: ", accuracy)
+        print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", 
+              db_id, " Success: ", success, " Accuracy: ", accuracy)
         
         # if i == 10:
         #     break
@@ -90,15 +89,6 @@ def main():
     artifact_code = wandb.Artifact('code', type='code')
     artifact_code.add_file("src/agents/zero_shot.py")
     wandb.log_artifact(artifact_code)
-
-    wandb.log({"accuracy": accuracy,
-                "total_tokens": zero_shot_agent.total_tokens,
-                "prompt_tokens": zero_shot_agent.prompt_tokens,
-                "completion_tokens": zero_shot_agent.completion_tokens,
-                "total_cost":zero_shot_agent.total_cost,
-                "total_time"
-            })
-    
 
     wandb.finish()
 
