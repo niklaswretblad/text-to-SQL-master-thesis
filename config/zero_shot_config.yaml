@@ -3,7 +3,7 @@
 
 # General settings
 
-current_experiment: "zero_shot_with_example_rows"
+current_experiment: "zero_shot_enclosing_quotes"
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 

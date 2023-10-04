@@ -1,4 +1,0 @@
-original_column_name,column_name,column_description,data_format,value_description
-r_regionkey,region key,unique id number identifying the region,integer,
-r_name,region name,name of the region,text,
-r_comment,region comment,comment description of the region,text,

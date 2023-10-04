@@ -6,12 +6,11 @@ from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
 from config import config, api_key
 import wandb
-
-QUESTIONS_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../data/questions.json'))
+# import langchain
+# langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
-# os.environ["WANDB_MODE"] = "offline"
+os.environ["WANDB_MODE"] = "offline"
 
 def main():
     
@@ -35,19 +34,13 @@ def main():
         request_timeout=config.llm_settings.request_timeout
     )
 
-    questions = load_json(QUESTIONS_PATH)
-    questions = [question for question in questions if question['db_id'] in config.domains]
-    questions = [question for question in questions if question['difficulty'] in config.difficulties]
-
-    wandb.run.summary['number_of_questions'] = len(questions)
-    
     data_loader     = DataLoader()    
     zero_shot_agent = ZeroShotAgent(llm)
     
-    no_questions = len(questions)
+    no_questions = len(data_loader.get_questions())
     score = 0
     accuracy = 0
-    for i, row in enumerate(questions):        
+    for i, row in enumerate(data_loader.get_questions()):      
         golden_sql = row['SQL']
         db_id = row['db_id']            
         question = row['question']
@@ -78,6 +71,7 @@ def main():
               db_id, " Success: ", success, " Accuracy: ", accuracy)
         
     
+    wandb.run.summary['number_of_questions']                = no_questions
     wandb.run.summary["accuracy"]                           = accuracy
     wandb.run.summary["total_tokens"]                       = zero_shot_agent.total_tokens
     wandb.run.summary["prompt_tokens"]                      = zero_shot_agent.prompt_tokens
@@ -86,6 +80,7 @@ def main():
     wandb.run.summary['total_predicted_execution_time']     = data_loader.total_predicted_execution_time
     wandb.run.summary['total_gold_execution_time']          = data_loader.total_gold_execution_time
     wandb.run.summary['total_openAPI_execution_time']       = zero_shot_agent.total_call_execution_time
+
 
     artifact.add(table, "query_results")
     wandb.log_artifact(artifact)

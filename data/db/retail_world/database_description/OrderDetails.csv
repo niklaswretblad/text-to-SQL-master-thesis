@@ -1,8 +1,0 @@
-original_column_name,column_name,column_description,data_format,value_description
-OrderID,Order ID,the unique id for orders,integer,
-ProductID,Product ID,the unique id for products,integer,
-UnitPrice,Unit Price,the unit price of the products,real,
-Quantity,,the quantity of the ordered products,integer,
-Discount,,the discount,real,"commonsense evidence:
-the total payment of the order = unit price * quantity * (1-discount)"
-OrderDetailID,order detail id,id of the order detail,text,

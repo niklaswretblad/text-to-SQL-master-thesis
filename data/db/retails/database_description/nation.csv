@@ -1,5 +1,0 @@
-original_column_name,column_name,column_description,data_format,value_description
-n_nationkey,nation key,unique id number identifying the nation,integer,
-n_name,nation name,name of the nation,text,
-n_regionkey,nation region key,region key number of the nation,integer,
-n_comment,nation comment,comment description of nation,text,

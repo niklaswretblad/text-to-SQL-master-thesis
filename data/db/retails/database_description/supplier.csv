@@ -1,9 +1,0 @@
-original_column_name,column_name,column_description,data_format,value_description
-s_suppkey,supply key,unique id number identifying the supply,integer,
-s_nationkey,supplier nation key,nation key of the supply,integer,
-s_comment,supplier comment,comment description of the comment,text,
-s_name,supplier name,name of the supplier,text,
-s_address,supplier address,address of the supplier,text,
-s_phone,supplier phone,phone number of the supplier,text,
-s_acctbal,supplier account balance,account balance of the supplier,real,"commonsense evidence:
-if c_acctbal < 0: this account is in debt"

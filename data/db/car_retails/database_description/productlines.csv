@@ -1,5 +1,0 @@
-original_column_name,column_name,column_description,data_format,value_description
-productLine,product line,unique product line name,text,
-textDescription,text description,text description,text,
-htmlDescription,html description,html description,text,
-image,,image,blob,
