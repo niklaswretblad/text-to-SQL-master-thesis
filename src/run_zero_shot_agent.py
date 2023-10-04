@@ -59,7 +59,7 @@ def main():
         success = data_loader.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
         score += success
-        if i > 0: accuracy = score / i                
+        if i > 0: accuracy = score / i
 
         table.add_data(question, golden_sql, predicted_sql, success)
         wandb.log({
