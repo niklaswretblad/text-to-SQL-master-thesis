@@ -131,10 +131,11 @@ class DataLoader:
             self.cursor.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table}';")
             create_statement = self.cursor.fetchone()[0]
             
-            schema_and_sample_data += f"\"{create_statement}\";\n\n"
+            schema_and_sample_data += f"{create_statement};\n\n"
             
             self.cursor.execute(f"SELECT * FROM \"{table}\" LIMIT 3;")
             rows = self.cursor.fetchall()
+            print(rows)
                      
             self.cursor.execute(f"PRAGMA table_info(\"{table}\");")
             columns = self.cursor.fetchall()
@@ -144,9 +145,9 @@ class DataLoader:
             schema_and_sample_data += f"-- Sample data from {table}:\n"
             schema_and_sample_data += f"{column_names_line}\n"
 
-         for row in rows:
-               row_line = "\t".join([str(value) for value in row])
-               schema_and_sample_data += f"{row_line}\n"
+            for row in rows:
+                  row_line = "\t".join([str(value) for value in row])
+                  schema_and_sample_data += f"{row_line}\n"
          
          schema_and_sample_data += "\n"
 
