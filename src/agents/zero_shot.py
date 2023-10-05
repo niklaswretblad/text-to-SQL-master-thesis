@@ -6,9 +6,7 @@ from agents.base_agent import BaseAgent
 from config import config
 from utils.timer import Timer
 import logging
-import langchain
-langchain.verbose = True
-import wandb
+
 
 class ZeroShotAgent(BaseAgent):
     total_tokens = 0
