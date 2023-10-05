@@ -6,8 +6,8 @@ from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
 from config import config, api_key
 import wandb
-# import langchain
-# langchain.verbose = True
+import langchain
+langchain.verbose = False
 
 # If you don't want your script to sync to the cloud
 # os.environ["WANDB_MODE"] = "offline"
@@ -42,6 +42,8 @@ def main():
     accuracy = 0
     for i, row in enumerate(data_loader.get_questions()):  
            
+        # if i == 5 or i == 26 or i == 27:
+        #     continue
         golden_sql = row['SQL']
         db_id = row['db_id']            
         print('db_id: ', db_id)
