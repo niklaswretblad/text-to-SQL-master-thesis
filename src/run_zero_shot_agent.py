@@ -1,10 +1,9 @@
 
 import os
 from datasets import get_dataset
-from utils.utils import load_json
 from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
-from config import config, api_key
+from config import api_key, load_config
 import wandb
 import langchain
 langchain.verbose = False
@@ -13,7 +12,8 @@ langchain.verbose = False
 os.environ["WANDB_MODE"] = "offline"
 
 def main():
-    
+    config = load_config("zero_shot_config.yaml")
+
     wandb.init(
         project=config.project,
         config=config,
@@ -36,6 +36,8 @@ def main():
 
     dataset = get_dataset(config.dataset)
     zero_shot_agent = ZeroShotAgent(llm)
+
+    wandb.config['prompt'] = zero_shot_agent.prompt_template
     
     no_data_points = dataset.get_number_of_data_points()
     score = 0

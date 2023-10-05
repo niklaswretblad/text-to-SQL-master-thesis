@@ -3,9 +3,8 @@ import sqlite3
 import os
 import logging
 from utils.timer import Timer
-from config import config
+from config import load_config
 from utils.utils import load_json
-
 
 
 class Dataset:
@@ -15,9 +14,10 @@ class Dataset:
 
    BASE_DB_PATH = None
    DATA_PATH = None
+   CONFIG_PATH = os.path.abspath(
+      os.path.join(os.path.dirname( __file__ ), '..', 'config/domain_config.yaml'))
 
    def __init__(self):
-      self.current_db = ""
       self.conn = None
       self.cursor = None
       self.data = []
@@ -26,10 +26,12 @@ class Dataset:
       self.last_predicted_execution_time = 0
       self.last_gold_execution_time = 0
 
+      self.current_db = ""
       self.current_database_schema = ""
+      self.config = None
 
       self.load_data()
-
+      self.load_domain_config()
 
    def load_data(self):
       """
@@ -44,6 +46,10 @@ class Dataset:
       data = load_json(self.DATA_PATH)      
 
       self.data = data
+
+
+   def load_domain_config(self):
+      self.domain_config = load_config(self.CONFIG_PATH)
 
    
    def get_number_of_data_points(self):
@@ -138,7 +144,6 @@ class Dataset:
          with Timer() as t:
             self.cursor.execute(sql)
             pred_res = self.cursor.fetchall()
-         #wandb.log({"gold_sql_execution_time": t.elapsed_time})
          
          if t.elapsed_time > 5:
             logging.info(f"Query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + pred_res)
@@ -324,8 +329,10 @@ class BIRDDataset(Dataset):
          raise ValueError("QUESTIONS_PATH must be defined in child classes")
 
       data = load_json(self.DEV_DATA_PATH)
-      data = [data_point for data_point in data if data_point['db_id'] in config.bird_dev_domains]
-      data = [data_point for data_point in data if data_point['difficulty'] in config.bird_difficulties]
+
+      if self.config is not None:
+         data = [data_point for data_point in data if data_point['db_id'] in self.config.bird_dev_domains]
+         data = [data_point for data_point in data if data_point['difficulty'] in self.config.bird_difficulties]
 
       self.data = data
 
@@ -363,8 +370,10 @@ class SpiderDataset(Dataset):
          raise ValueError("DATA_PATH must be defined in child classes")
 
       data = load_json(self.TRAIN_DATA_PATH)
-      train_data = [data_point for data_point in data if data_point['db_id'] in config.spider_train_domains]
-      dev_data = [data_point for data_point in data if data_point['db_id'] in config.spider_dev_domains]
+
+      if self.config is not None:
+         train_data = [data_point for data_point in data if data_point['db_id'] in self.config.spider_train_domains]
+         dev_data = [data_point for data_point in data if data_point['db_id'] in self.config.spider_dev_domains]
 
       self.data = train_data + dev_data
 
