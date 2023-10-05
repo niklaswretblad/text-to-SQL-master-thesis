@@ -1,13 +1,13 @@
 
 import os
-from data_interface import DataLoader
+from datasets import get_dataset
 from utils.utils import load_json
 from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
 from config import config, api_key
 import wandb
-# import langchain
-# langchain.verbose = True
+import langchain
+langchain.verbose = False
 
 # If you don't want your script to sync to the cloud
 os.environ["WANDB_MODE"] = "offline"
@@ -34,25 +34,25 @@ def main():
         request_timeout=config.llm_settings.request_timeout
     )
 
-    data_loader     = DataLoader()    
+    dataset = get_dataset(config.dataset)
     zero_shot_agent = ZeroShotAgent(llm)
     
-    no_questions = len(data_loader.get_questions())
+    no_data_points = dataset.get_number_of_data_points()
     score = 0
     accuracy = 0
-    for i, row in enumerate(data_loader.get_questions()):      
-        golden_sql = row['SQL']
-        db_id = row['db_id']            
-        question = row['question']
-        evidence = row['evidence']
-        difficulty = row['difficulty']
-
-        sql_schema = data_loader.get_schema_and_sample_data(db_id)
+    for i in range(no_data_points):
+        data_point = dataset.get_data_point(i)
+        evidence = data_point['evidence']
+        golden_sql = data_point['SQL']
+        db_id = data_point['db_id']            
+        question = data_point['question']
+        
+        sql_schema = dataset.get_schema_and_sample_data(db_id)
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)        
-        success = data_loader.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
+        success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
         score += success
-        if i > 0: accuracy = score / i
+        accuracy = score / (i + 1)
 
         table.add_data(question, golden_sql, predicted_sql, success)
         wandb.log({
@@ -61,26 +61,24 @@ def main():
             "prompt_tokens": zero_shot_agent.prompt_tokens,
             "completion_tokens": zero_shot_agent.completion_tokens,
             "total_cost": zero_shot_agent.total_cost,
-            "difficulty": difficulty,
             "openAPI_call_execution_time": zero_shot_agent.last_call_execution_time,
-            "predicted_sql_execution_time": data_loader.last_predicted_execution_time,
-            "gold_sql_execution_time": data_loader.last_gold_execution_time
+            "predicted_sql_execution_time": dataset.last_predicted_execution_time,
+            "gold_sql_execution_time": dataset.last_gold_execution_time
         }, step=i+1)
     
-        print("Percentage done: ", round(i / no_questions * 100, 2), "% Domain: ", 
+        print("Percentage done: ", round(i / no_data_points * 100, 2), "% Domain: ", 
               db_id, " Success: ", success, " Accuracy: ", accuracy)
         
     
-    wandb.run.summary['number_of_questions']                = no_questions
+    wandb.run.summary['number_of_questions']                = dataset.get_number_of_data_points()
     wandb.run.summary["accuracy"]                           = accuracy
     wandb.run.summary["total_tokens"]                       = zero_shot_agent.total_tokens
     wandb.run.summary["prompt_tokens"]                      = zero_shot_agent.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = zero_shot_agent.completion_tokens
     wandb.run.summary["total_cost"]                         = zero_shot_agent.total_cost
-    wandb.run.summary['total_predicted_execution_time']     = data_loader.total_predicted_execution_time
-    wandb.run.summary['total_gold_execution_time']          = data_loader.total_gold_execution_time
+    wandb.run.summary['total_predicted_execution_time']     = dataset.total_predicted_execution_time
+    wandb.run.summary['total_gold_execution_time']          = dataset.total_gold_execution_time
     wandb.run.summary['total_openAPI_execution_time']       = zero_shot_agent.total_call_execution_time
-
 
     artifact.add(table, "query_results")
     wandb.log_artifact(artifact)

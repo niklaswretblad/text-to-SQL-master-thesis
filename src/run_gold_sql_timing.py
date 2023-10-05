@@ -1,6 +1,6 @@
 
 import os
-from data_interface import DataLoader
+from datasets import Dataset
 from utils.utils import load_json
 from langchain.chat_models import ChatOpenAI
 from agents.zero_shot import ZeroShotAgent
@@ -35,7 +35,7 @@ def main():
     questions = [question for question in questions if question['db_id'] in config.domains]
     #questions = [question for question in questions if question['difficulty'] in config.difficulties]
     
-    data_loader = DataLoader()    
+    data_loader = Dataset()    
     for i, row in enumerate(questions):        
         golden_sql = row['SQL']
         db_id = row['db_id']
