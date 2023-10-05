@@ -1,51 +1,16 @@
 
-# config.yaml for text-to-SQL experiments
-
 # General settings
 
 current_experiment: "few_shot_experiment_8"
-project: "text-to-sql-generation"
-entity: "master-thesis-combientmix"
-group: "few_shot"
-
 experiment_description: |
   Eighth experiment of few-shot, giving examples from other domains (California_schools, toxicology, card_games), taking three challenging questions.
+group: "few_shot"
 
-current_prompt: |
-  Database schema in the form of CREATE_TABLE statements:
-  {database_schema}
+#dataset: "Spider"
+dataset: "BIRD"
 
-  Here are a few examples, "Q"  represents the question and "A" represents the corresponding SQL-query :
-  
-  Q: Who is the top spending customer and how much is the average price per single item purchased by this customer? What currency was being used?
-  A: SELECT T2.CustomerID, SUM(T2.Price / T2.Amount), T1.Currency FROM customers AS T1 INNER JOIN transactions_1k AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.CustomerID = ( SELECT CustomerID FROM yearmonth ORDER BY Consumption DESC LIMIT 1 ) GROUP BY T2.CustomerID, T1.Currency
-
-  Q: What elements are in the TR004_8_9 bond atoms?
-  A: SELECT DISTINCT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id WHERE T2.bond_id = 'TR004_8_9'
-
-  Q: What is the percentage of cards whose language is French among the Story Spotlight cards?
-  A: SELECT CAST(SUM(CASE WHEN T2.language = 'French' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.id) FROM cards AS T1 INNER JOIN foreign_data AS T2 ON T1.uuid = T2.uuid WHERE T1.isStorySpotlight = 1
-
-  Using valid SQL, answer the following question based on the tables provided above.
-  It is important to use qualified column names in the SQL-query, meaning the form "SELECT table_name.column_name FROM table_name;"
-  Hint helps you to write the correct sqlite SQL query.
-  Question: {question}
-  Hint: {evidence}
-  DO NOT return anything else except the SQL query.
-
-  
-
-# Domain settings
-domains: 
-  - financial
-#  - retail_world
-#  - retails
-#  - car_retails
-
-difficulties: 
-  - simple
-  - moderate
-  - challenging
+project: "text-to-sql-generation"
+entity: "master-thesis-combientmix"
 
 # LLM settings
 llm_settings:
@@ -55,6 +20,4 @@ llm_settings:
   token_limit: 4096
   max_response_length: 1024
 
-
-
-
+  
