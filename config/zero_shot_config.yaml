@@ -7,6 +7,8 @@ current_experiment: "zero_shot_enclosing_quotes"
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 
+experiment_description: "description of experiment"
+
 current_prompt: |
   Database schema in the form of CREATE_TABLE statements:
   {database_schema}

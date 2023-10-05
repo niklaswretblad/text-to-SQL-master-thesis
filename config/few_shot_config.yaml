@@ -1,0 +1,57 @@
+
+# config.yaml for text-to-SQL experiments
+
+# General settings
+
+current_experiment: "few_shot_experiment_1"
+project: "text-to-sql-generation"
+entity: "master-thesis-combientmix"
+group: "few_shot"
+
+experiment_description: "First experiment of few-shot, giving examples from different domain (Schools)"
+
+current_prompt: |
+  Database schema in the form of CREATE_TABLE statements:
+  {database_schema}
+
+  Using valid SQL, answer the following question based on the tables provided above.
+  It is important to use qualified column names in the SQL-query, meaning the form "SELECT table_name.column_name FROM table_name;"
+  Hint helps you to write the correct sqlite SQL query.
+  Question: {question}
+  Hint: {evidence}
+  DO NOT return anything else except the SQL query.
+
+  Here are a few examples, "Q"  represents the question and "A" represents the corresponding SQL-query :
+
+  Q: What is the school type of the school with the highest latitude? Indicate the name of the school as well as the latitude coordinates.
+  A: "SELECT T1.`School Type`, T1.`School Name`, T2.Latitude FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.Latitude = (SELECT MAX(Latitude) FROM schools)
+    
+  Q: What is the complete address of the school with the lowest excellence rate? Indicate the Street, City, Zip and State.
+  A: SELECT T2.Street, T2.City, T2.Zip, T2.State FROM schools AS T2 INNER JOIN (SELECT cds, CAST(NumGE1500 AS REAL) / NumTstTakr AS rate FROM satscores WHERE NumGE1500 IS NOT NULL AND NumTstTakr IS NOT NULL AND NumTstTakr != 0) AS T1 ON T2.CDSCode = T1.cds WHERE T1.rate = (SELECT MIN(CAST(NumGE1500 AS REAL) / NumTstTakr) AS min_rate FROM satscores WHERE NumGE1500 IS NOT NULL AND NumTstTakr IS NOT NULL AND NumTstTakr != 0) ORDER BY T2.CDSCode
+
+  Q: Consider the average difference between K-12 enrollment and 15-17 enrollment of schools that are locally funded, list the names and DOC type of schools which has a difference above this average.
+  A: SELECT T2.School, T2.DOC FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.FundingType = 'Locally funded' AND (T1.`Enrollment (K-12)` - T1.`Enrollment (Ages 5-17)`) > (SELECT AVG(T3.`Enrollment (K-12)` - T3.`Enrollment (Ages 5-17)`) FROM frpm AS T3 INNER JOIN schools AS T4 ON T3.CDSCode = T4.CDSCode WHERE T4.FundingType = 'Locally funded')
+
+# Domain settings
+domains: 
+  - financial
+#  - retail_world
+#  - retails
+#  - car_retails
+
+difficulties: 
+  - simple
+  - moderate
+  - challenging
+
+# LLM settings
+llm_settings:
+  model: "gpt-3.5-turbo"
+  temperature: 0
+  request_timeout: 60
+  token_limit: 4096
+  max_response_length: 1024
+
+
+
+
