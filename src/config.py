@@ -6,8 +6,15 @@ import logging
 import wandb
 
 
+#ZERO-SHOT-AGENT
+# Uncomment when running zero-shot-agent
+# CONFIG_PATH = os.path.abspath(
+#     os.path.join(os.path.dirname( __file__ ), '../config/zero_shot_config.yaml'))
+
+#FEW-SHOT-AGENT
+# Uncomment when running few-shot-agent
 CONFIG_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../config/zero_shot_config.yaml'))
+    os.path.join(os.path.dirname( __file__ ), '../config/few_shot_config.yaml'))
 
 # Load OpenAI API Key
 api_key = os.environ.get('OPENAI_API_KEY')
