@@ -163,8 +163,11 @@ cython_debug/
 # Logging
 *.log
 
-# WANDB
+# WANDB folder
 wandb/
+
+# Data folder
+data/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
