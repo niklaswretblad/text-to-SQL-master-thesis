@@ -6,15 +6,9 @@ import logging
 import wandb
 
 
-#ZERO-SHOT-AGENT
-# Uncomment when running zero-shot-agent
-# CONFIG_PATH = os.path.abspath(
-#     os.path.join(os.path.dirname( __file__ ), '../config/zero_shot_config.yaml'))
+CONFIG_BASE_PATH = os.path.abspath(
+    os.path.join(os.path.dirname( __file__ ), '..', 'config'))
 
-#FEW-SHOT-AGENT
-# Uncomment when running few-shot-agent
-CONFIG_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '../config/few_shot_config.yaml'))
 
 # Load OpenAI API Key
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -31,8 +25,9 @@ logging.getLogger("requests").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 # Loading config.yaml file
-def load_config():
-    with open(CONFIG_PATH, 'r') as stream:
+def load_config(config):
+    path = os.path.join(CONFIG_BASE_PATH, config)
+    with open(path, 'r') as stream:
         try:
             config_data = yaml.safe_load(stream)
             return Box(config_data)
@@ -40,7 +35,7 @@ def load_config():
             print(exc)
             return None
 
-config = load_config()
+
 
 
 
