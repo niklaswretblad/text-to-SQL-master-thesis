@@ -8,7 +8,7 @@ from utils.utils import load_json
 
 
 DB_BASE_PATH = os.path.abspath(
-   os.path.join(os.path.dirname( __file__ ), '..', 'data/db/')
+   os.path.join(os.path.dirname( __file__ ), '..', 'data/dev/dev_databases')
 )
 
 DEV_QUESTIONS_PATH = os.path.abspath(
