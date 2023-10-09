@@ -15,7 +15,7 @@ class Dataset:
    BASE_DB_PATH = None
    DATA_PATH = None
    CONFIG_PATH = os.path.abspath(
-      os.path.join(os.path.dirname( __file__ ), '..', 'config/domain_config.yaml'))
+      os.path.join(os.path.dirname( __file__ ), '..', 'config/dataset_config.yaml'))
 
    def __init__(self):
       self.conn = None
@@ -30,8 +30,9 @@ class Dataset:
       self.current_database_schema = ""
       self.config = None
 
+      self.load_config()
       self.load_data()
-      self.load_domain_config()
+      
 
    def load_data(self):
       """
@@ -48,8 +49,8 @@ class Dataset:
       self.data = data
 
 
-   def load_domain_config(self):
-      self.domain_config = load_config(self.CONFIG_PATH)
+   def load_config(self):      
+      self.config = load_config(self.CONFIG_PATH)
 
    
    def get_number_of_data_points(self):
@@ -315,7 +316,7 @@ class BIRDDataset(Dataset):
       os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev_databases/'))
 
    TRAIN_DATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev.json'))
+    os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/train/'))
 
    DEV_DATA_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev.json'))
@@ -330,10 +331,11 @@ class BIRDDataset(Dataset):
 
       data = load_json(self.DEV_DATA_PATH)
 
+      
       if self.config is not None:
          data = [data_point for data_point in data if data_point['db_id'] in self.config.bird_dev_domains]
          data = [data_point for data_point in data if data_point['difficulty'] in self.config.bird_difficulties]
-
+      
       self.data = data
 
 
@@ -345,7 +347,46 @@ class BIRDDataset(Dataset):
          domains.add(data_point['db_id'])
       
       return "\n".join([domain for domain in sorted(domains)])
+   
+   def get_bird_table_info(self, db_path):
+      """
+      Given a database name, retrieve the table schema and information 
+      from the corresponding bird-bench .csv files.
 
+      :param database_name: str, name of the database
+      :return: dict, where keys are table names and values are a string
+      containing the table information
+      """
+
+      description_folder_path = os.path.abspath(
+         os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev_databases', db_path, 'database_description'))
+      
+      if not os.path.exists(description_folder_path):
+         raise FileNotFoundError(f"No such file or directory: '{description_folder_path}'")
+      
+      table_info = {}
+      
+      for filename in os.listdir(description_folder_path):
+         if filename.endswith(".csv"):
+            table_name = filename.rstrip(".csv")
+            csv_path = os.path.join(description_folder_path, filename)
+            
+            with open(csv_path, mode='r', encoding='utf-8') as file:
+               file_contents = file.read()                                   
+                           
+            table_info[table_name] = file_contents
+      
+      return table_info
+
+   def get_bird_db_info(self, db_path):
+      table_info = self.get_bird_table_info(db_path)
+
+      db_info = ""
+      for table in table_info:
+         db_info += table_info[table]
+         db_info += "\n"
+      
+      return db_info
 
 class SpiderDataset(Dataset):
    """
@@ -369,12 +410,13 @@ class SpiderDataset(Dataset):
       if self.TRAIN_DATA_PATH is None or self.DEV_DATA_PATH is None:
          raise ValueError("DATA_PATH must be defined in child classes")
 
-      data = load_json(self.TRAIN_DATA_PATH)
+      train_data = load_json(self.TRAIN_DATA_PATH)
+      dev_data = load_json(self.DEV_DATA_PATH)
 
       if self.config is not None:
-         train_data = [data_point for data_point in data if data_point['db_id'] in self.config.spider_train_domains]
-         dev_data = [data_point for data_point in data if data_point['db_id'] in self.config.spider_dev_domains]
-
+         train_data = [data_point for data_point in train_data if data_point['db_id'] in self.config.spider_train_domains]
+         dev_data = [data_point for data_point in dev_data if data_point['db_id'] in self.config.spider_dev_domains]
+      
       self.data = train_data + dev_data
 
 
