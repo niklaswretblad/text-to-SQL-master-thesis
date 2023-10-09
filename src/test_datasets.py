@@ -8,7 +8,8 @@ class TestDBUtils(unittest.TestCase):
     def setUpClass(cls):
         # Setup: create a sample SQLite DB with one table and some data
         cls.test_db_name = "financial"
-        cls.dataset = get_dataset("BIRD")
+        cls.bird_dataset = get_dataset("BIRD")
+        #cls.spider_dataset = get_dataset("Spider")
         
     
     @classmethod
@@ -31,9 +32,23 @@ class TestDBUtils(unittest.TestCase):
     #     print("Dev domains: \n")
     #     print(dev_domains)
 
-    def test_get_bird_domains(self):
-        domains = self.dataset.get_dev_domains()
-        print(domains)
+    # def test_get_bird_domains(self):
+    #     domains = self.dataset.get_dev_domains()
+    #     print(domains)
+    
+    # def test_get_bird_table_info(self):
+    #     table_info = self.bird_dataset.get_bird_table_info("california_schools")
+    #     for table in table_info:
+    #         print(table_info[table])
+
+    # def test_get_bird_db_info(self):
+    #     db_info = self.bird_dataset.get_bird_db_info("california_schools")
+    #     print(db_info)
+
+    def test_question_filter(self):
+        for data_point in self.bird_dataset.data:
+            assert(data_point['db_id'] == 'financial')
+        
 
 
 if __name__ == "__main__":

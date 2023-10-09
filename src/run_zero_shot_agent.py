@@ -50,6 +50,9 @@ def main():
         question = data_point['question']
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
+        # bird_info = dataset.get_bird_db_info(db_id)
+        # sql_schema = sql_schema + bird_info
+
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)        
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
