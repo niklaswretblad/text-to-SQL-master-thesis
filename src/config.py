@@ -3,7 +3,6 @@ import os
 import yaml
 from box import Box
 import logging
-import wandb
 
 
 CONFIG_BASE_PATH = os.path.abspath(
