@@ -3,12 +3,12 @@
 
 # General settings
 
-current_experiment: "zero_shot_bird_table_info"
-experiment_description: "Trying out a zero-shot prompt together with birds supplied table information"
+current_experiment: "zero_shot_bird_descriptions"
+experiment_description: "Zero-shot agent with both bird db descriptions and create_table statements"
 group: "zero_shot"
 
-dataset: "Spider"
-# dataset: "BIRD"
+# dataset: "Spider"
+dataset: "BIRD"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
