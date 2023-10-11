@@ -9,8 +9,11 @@ import sqlite3
 from get_selfconsistent_output import get_sqls
 from tqdm import tqdm
 
+## Modified imports
+import os
+
 # add your openai api key
-openai.api_key = "sk-"
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 chat_prompt = [
     {
@@ -63,7 +66,8 @@ def generate_reply(messages, n):
         messages=messages,
         n=n
     )
-    # print(completions)
+    print("after connection with gpt")
+    print(completions)
     mes = completions.choices[0].message.content
     all_p_sqls = []
     for i in range(n):
@@ -158,6 +162,7 @@ if __name__ == '__main__':
                     try:
                         reply = generate_reply(messages, opt.n)
                     except Exception as e:
+                        print("main_file")
                         print(e)
                         print(f"api error, wait for 3 seconds and retry...")
                         time.sleep(3)

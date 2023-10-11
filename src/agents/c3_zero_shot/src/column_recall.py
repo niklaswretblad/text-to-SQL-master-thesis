@@ -5,8 +5,12 @@ import time
 from tqdm import tqdm
 from collections import Counter
 
+## Modified imports
+import os
+
+
 # add your openai api key
-openai.api_key = "sk-"
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 
 def parse_option():
@@ -30,6 +34,7 @@ def generate_reply(input, sc_num):
         temperature=0.7,
         n=sc_num
     )
+    print()
     tabs_cols_all = []
     for i in range(sc_num):
         raw_tab_col = completions.choices[i].message.content
@@ -191,6 +196,7 @@ if __name__ == "__main__":
             try:
                 tabs_cols_all = generate_reply([{"role": "user", "content": prompt}], sc_num)
             except:
+                print("column_recall")
                 print(f'api error, wait for 3 seconds and retry...')
                 time.sleep(3)
                 pass
