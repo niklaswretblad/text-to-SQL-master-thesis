@@ -1,0 +1,22 @@
+
+# config.yaml for text-to-SQL experiments
+
+# General settings
+
+current_experiment: "din_sql_bird_finance"
+experiment_description: "DIN-SQL agent run on the financial domain in BIRD"
+group: "DIN SQL"
+
+# dataset: "Spider"
+dataset: "BIRD"
+
+project: "text-to-sql-generation"
+entity: "master-thesis-combientmix"
+
+# LLM settings
+llm_settings:
+  model: "gpt-3.5-turbo-16k"
+  temperature: 0
+  request_timeout: 60
+  token_limit: 4096
+  max_response_length: 1024
