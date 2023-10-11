@@ -6,11 +6,11 @@ import argparse
 import json
 import time
 import openai
-from sql_post_process import fix_select_column
+from agents.c3_zero_shot.sql_post_process import fix_select_column
 import re
 import os
 import sqlite3
-from get_selfconsistent_output import get_sqls
+from agents.c3_zero_shot.get_selfconsistent_output import get_sqls
 from tqdm import tqdm
 from config import api_key, load_config
 
@@ -45,15 +45,17 @@ C3_PROMPT = [
     }
 ]
 
-class C3_agent(ZeroShotAgent):
+C3_PROMPT_TEST = "This is a test how are you?"
+
+class C3Agent(ZeroShotAgent):
 
     def __init__(self, llm):        
         self.llm = llm
 
-        self.prompt_template = C3_PROMPT
+        self.prompt_template = C3_PROMPT_TEST
         prompt = PromptTemplate(
             input_variables=["question", "database_schema", "evidence"],
-            template=self.prompt_template,
+            template=C3_PROMPT_TEST,
         )
 
         self.chain = LLMChain(llm=llm, prompt=prompt)
@@ -61,8 +63,6 @@ class C3_agent(ZeroShotAgent):
 
     # add your openai api key
     openai.api_key = api_key
-
-
 
 
     def parse_option():

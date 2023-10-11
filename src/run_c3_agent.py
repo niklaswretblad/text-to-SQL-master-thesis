@@ -19,15 +19,24 @@ import os
 import sqlite3
 from agents.c3_zero_shot.get_selfconsistent_output import get_sqls
 from tqdm import tqdm
-from agents.c3_zero_shot.c3_agent import parse_option, C3_PROMPT, generate_reply,is_valid 
+from agents.c3_zero_shot.c3_agent import C3Agent, C3_PROMPT
 
 # If you don't want your script to sync to the cloud
 os.environ["WANDB_MODE"] = "offline"
 
 def main():
     config = load_config("few_shot_config.yaml")
+    llm = ChatOpenAI(
+        openai_api_key=api_key, 
+        model_name=config.llm_settings.model,
+        temperature=config.llm_settings.temperature,
+        request_timeout=config.llm_settings.request_timeout
+    )
 
-    opt = parse_option()
+
+    c3_agent = C3Agent(llm)
+
+    opt = c3_agent.parse_option()
     print(opt)
     with open(opt.input_dataset_path) as f:
         data = json.load(f)
@@ -42,13 +51,13 @@ def main():
                 messages = C3_PROMPT.copy()
                 input = item['input_sequence']
                 messages.append({"role": "user", "content": input})
-                p_sql = generate_reply(messages, 1)[0]
+                p_sql = c3_agent.generate_reply(messages, 1)[0]
                 p_sql = 'SELECT ' + p_sql
                 p_sql = p_sql.replace("SELECT SELECT", "SELECT")
                 p_sql = fix_select_column(p_sql)
                 p_sql = p_sql.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
                 print(f'p_sql: {p_sql}')
-                if is_valid(p_sql, db_dir):
+                if c3_agent.is_valid(p_sql, db_dir):
                     break
                 else:
                     print(f're_id: {j} p_sql: {p_sql} exec error...')
@@ -69,7 +78,7 @@ def main():
                 reply = None
                 while reply is None:
                     try:
-                        reply = generate_reply(messages, opt.n)
+                        reply = c3_agent.generate_reply(messages, opt.n)
                     except Exception as e:
                         print(e)
                         print(f"api error, wait for 3 seconds and retry...")
@@ -91,7 +100,7 @@ def main():
                         p_sql = p_sql.replace("  ", " ")
                     temp.append(p_sql)
                 p_sqls = temp
-                if is_valid(p_sqls[0], db_dir):
+                if c3_agent.is_valid(p_sqls[0], db_dir):
                     break
                 else:
                     print(f're_id: {j} p_sql: {p_sqls[0]} exec error...')

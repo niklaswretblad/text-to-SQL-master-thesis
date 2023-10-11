@@ -78,3 +78,4 @@ def fix_select_column(sql):
 
     return recovered_sql
 
+
