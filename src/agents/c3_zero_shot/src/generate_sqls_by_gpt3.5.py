@@ -95,6 +95,8 @@ def get_cursor_from_path(sqlite_path: str):
 
 
 def exec_on_db_(sqlite_path: str, query: str):
+    print('inside exec, sql_path: ', sqlite_path)
+    print('inside exec, sql_query: ', query)
     query = replace_cur_year(query)
     cursor = get_cursor_from_path(sqlite_path)
     try:

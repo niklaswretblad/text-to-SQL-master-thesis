@@ -1,6 +1,11 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from agents.zero_shot import ZeroShotAgent
+from langchain.prompts import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
 
 import argparse
 import json
@@ -15,7 +20,26 @@ from tqdm import tqdm
 from config import api_key, load_config
 
 
-C3_PROMPT = [
+
+
+class C3Agent(ZeroShotAgent):
+
+    def __init__(self, llm):        
+        self.llm = llm
+
+        self.schema_linking_prompt = ChatPromptTemplate.from_messages([C3_PROMPT, human_schema_linking_prompt])
+        self.schema_link_chain = LLMChain(llm=self.llm, prompt=self.schema_linking_prompt)
+
+        self.prompt_template = C3_PROMPT_TEST
+        prompt = PromptTemplate(
+            input_variables=["question", "database_schema", "evidence"],
+            template=C3_PROMPT_TEST,
+        )
+
+        self.chain = LLMChain(llm=llm, prompt=prompt)
+
+
+    chat_prompt = [
     {
         "role": "system",
         "content": "You are now an excellent SQL writer, first I'll give you some tips and examples, and I need you to remember the tips, and do not make same mistakes."
@@ -44,22 +68,6 @@ C3_PROMPT = [
         "content": "Thank you for the tip! I'll remember to use \"INTERSECT\" or \"EXCEPT\" instead of \"IN\", \"OR\", or \"LEFT JOIN\" when I want to find records that match or don't match across two tables. Additionally, I'll make sure to use \"DISTINCT\" or \"LIMIT\" when necessary to avoid repetitive results or limit the number of results returned."
     }
 ]
-
-C3_PROMPT_TEST = "This is a test how are you?"
-
-class C3Agent(ZeroShotAgent):
-
-    def __init__(self, llm):        
-        self.llm = llm
-
-        self.prompt_template = C3_PROMPT_TEST
-        prompt = PromptTemplate(
-            input_variables=["question", "database_schema", "evidence"],
-            template=C3_PROMPT_TEST,
-        )
-
-        self.chain = LLMChain(llm=llm, prompt=prompt)
-
 
     # add your openai api key
     openai.api_key = api_key
@@ -172,7 +180,7 @@ class C3Agent(ZeroShotAgent):
                 p_sqls = []
                 for j in range(5):
                     messages = []
-                    messages = C3_PROMPT.copy()
+                    messages = chat_prompt.copy()
                     input = item['input_sequence']
                     messages.append({"role": "user", "content": input})
                     reply = None
