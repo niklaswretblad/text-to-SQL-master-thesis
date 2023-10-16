@@ -200,7 +200,8 @@ def get_matched_entries(
 def get_column_picklist(table_name: str, column_name: str, db_path: str) -> list:
     fetch_sql = "SELECT DISTINCT `{}` FROM `{}`".format(column_name, table_name)
     try:
-        # print(f"db_path: {db_path}")
+
+        print(f"db_path: {db_path}")
         conn = sqlite3.connect(db_path)
         conn.text_factory = bytes
         c = conn.cursor()

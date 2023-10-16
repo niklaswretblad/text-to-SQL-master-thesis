@@ -9,8 +9,26 @@ import sqlite3
 from get_selfconsistent_output import get_sqls
 from tqdm import tqdm
 
+## Modified imports
+import sys
+sys.path.append('/Users/fredrik/code/project/Text-to-SQL-Generation/src')
+from config import load_config
+from datasets import SpiderDataset
+import os
+# from datasets import get_dataset
+from langchain.chat_models import ChatOpenAI
+from agents.din_sql import DinSQLAgent
+from config import api_key, load_config
+import wandb
+import langchain
+langchain.verbose = False
+
+
 # add your openai api key
-openai.api_key = "sk-"
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+log_cost = 0
+
+spiderDataset=SpiderDataset()
 
 chat_prompt = [
     {
@@ -42,6 +60,28 @@ Gold SQL should be: select A from X where award = 'B' intersect select A from X 
     }
 ]
 
+column_recall_prompt = """
+Given the database tables and question, perform the following actions: 
+1 - Rank the columns in each table based on the possibility of being used in the SQL, Column that matches more with the question words or the foreign key is highly relevant and must be placed ahead. You should output them in the order of the most relevant to the least relevant.
+Explain why you choose each column.
+2 - Output a JSON object that contains all the columns in each table according to your explanation. The format should be like: 
+{
+    "table_1": ["column_1", "column_2", ......], 
+    "table_2": ["column_1", "column_2", ......],
+    "table_3": ["column_1", "column_2", ......],
+     ......
+}"""
+
+table_recall_prompt ="""
+Given the database schema and question, perform the following actions: 
+1 - Rank all the tables based on the possibility of being used in the SQL according to the question from the most relevant to the least relevant, Table or its column that matches more with the question words is highly relevant and must be placed ahead.
+2 - Check whether you consider all the tables.
+3 - Output a list object in the order of step 2, Your output should contain all the tables. The format should be like: 
+[
+    "table_1", "table_2", ...
+]
+"""
+
 
 def parse_option():
     parser = argparse.ArgumentParser("command line arguments for generate sqls")
@@ -61,9 +101,21 @@ def generate_reply(messages, n):
     completions = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
-        n=n
+        n=n,
     )
-    # print(completions)
+    global log_cost
+    token_input_cost = 0.0015/1000
+    token_output_cost = 0.002/1000
+    input_cost = completions["usage"]["prompt_tokens"]*token_input_cost
+    output_cost = completions["usage"]["completion_tokens"]*token_output_cost
+    total_cost = input_cost+output_cost
+    log_cost += total_cost
+    wandb.log({"Text-to-SQL Prompt Cost": log_cost})
+    print('Logging the price after each completion')
+    print('Prompt cost: ', total_cost)
+    print('Culiminative cost: ', log_cost, ' $ ')
+    
+    
     mes = completions.choices[0].message.content
     all_p_sqls = []
     for i in range(n):
@@ -112,14 +164,30 @@ def is_valid(sql, db_path):
     else:
         return 1
 
+def main():
+    config = load_config("/Users/fredrik/code/project/Text-to-SQL-Generation/config/c3_config.yaml")
 
-if __name__ == '__main__':
+    wandb.init(
+    project=config.project,
+    config=config,
+    name= config.current_experiment,
+    entity=config.entity,
+    id=config.run_id,
+    resume="allow"
+    )
+
+
+    artifact = wandb.Artifact('query_results', type='dataset')
+    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])    
+
     opt = parse_option()
-    print(opt)
+    print('opt: ', opt)
+
     with open(opt.input_dataset_path) as f:
         data = json.load(f)
     results = []
     p_sql_final = []
+    gold_sql = []
     if not opt.self_consistent:
         for i, item in enumerate(data):
             print("id", i)
@@ -144,8 +212,10 @@ if __name__ == '__main__':
                         print(f'generate again')
             p_sql_final.append(p_sql)
             print(p_sql_final)
+
     else:
         for i, item in enumerate(tqdm(data)):
+
             db_dir = opt.db_dir + '/' + item['db_id'] + '/' + item['db_id'] + '.sqlite'
             p_sqls = []
             for j in range(5):
@@ -158,6 +228,7 @@ if __name__ == '__main__':
                     try:
                         reply = generate_reply(messages, opt.n)
                     except Exception as e:
+                        print("main_file")
                         print(e)
                         print(f"api error, wait for 3 seconds and retry...")
                         time.sleep(3)
@@ -186,14 +257,37 @@ if __name__ == '__main__':
                     if j < 4:
                         print(f'generate again')
             result = {}
+
             result['db_id'] = item['db_id']
+            result['gold_sql'] = item['query']
             result['question'] = item['question']
             result['p_sqls'] = []
+
+
             for sql in p_sqls:
                 result['p_sqls'].append(sql)
             results.append(result)
             # time.sleep(1)
         p_sql_final = get_sqls(results, opt.n, opt.db_dir)
     with open(opt.output_dataset_path, 'w') as f:
+
+        score = 0
+        accuracy = 0
+        for index, result in enumerate(results):
+            
+            success = spiderDataset.execute_queries_and_match_data(p_sql_final[index], result['gold_sql'], "small_bank_1")
+            table.add_data(result['question'], result['gold_sql'], p_sql_final[index], success)
+            print('sucess result: ', success)
+            score += success
+            accuracy = score / (index + 1)
+            print('current accuracy: ', accuracy)
+            wandb.log({"accuracy": accuracy})
+        wandb.run.summary["accuracy"] = accuracy
+        artifact.add(table, "query_results")
+        wandb.log_artifact(artifact)
+
         for sql in p_sql_final:
             print(sql, file=f)
+
+if __name__ == '__main__':
+    main()

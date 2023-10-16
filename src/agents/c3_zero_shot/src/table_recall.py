@@ -4,10 +4,17 @@ import openai
 import time
 from tqdm import tqdm
 from collections import Counter
+import os
+import wandb
+
+import sys
+sys.path.append('/Users/fredrik/code/project/Text-to-SQL-Generation/src')
+from config import load_config
+
 
 # add your openai api key
-openai.api_key = "sk-"
-
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+log_cost = 0
 
 def parse_option():
     parser = argparse.ArgumentParser("command line arguments for recall tables")
@@ -23,6 +30,7 @@ def parse_option():
 
 
 def generate_reply(input, sc_num):
+    
     completions = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=input,
@@ -31,6 +39,18 @@ def generate_reply(input, sc_num):
         n=sc_num
         # stop=["Q:"]
     )
+    global log_cost
+    token_input_cost = 0.0015/1000
+    token_output_cost = 0.002/1000
+    input_cost = completions["usage"]["prompt_tokens"]*token_input_cost
+    output_cost = completions["usage"]["completion_tokens"]*token_output_cost
+    total_cost = input_cost+output_cost
+    log_cost += total_cost
+    wandb.log({"Table Recall Cost": log_cost})
+    print('logging the price of each completion')
+    print('prompt cost: ', total_cost)
+    print('Culiminative cost: ', log_cost, '$ ')
+    
     all_tables = []
     for i in range(sc_num):
         raw_table = completions.choices[i].message.content
@@ -76,7 +96,7 @@ def table_sc(tables_all, tables_ori):
             # print(tables_exist)
             tables_sc.append(tables_exist)
     counts = Counter(tuple(sorted(lst)) for lst in tables_sc)
-    most_list, count = counts.most_common(1)[0]
+    most_list, count = counts.most_common(7)[0]
     for table_list in tables_sc:
         if sorted(table_list) == list(most_list):
             return table_list
@@ -86,6 +106,7 @@ def info_generate(tables, data):
     info = {}
     info['db_id'] = data['db_id']
     info['question'] = data['question']
+    info['query'] = data['query']
     info['db_schema'] = []
     info['fk'] = []
     for table in tables:
@@ -112,8 +133,18 @@ instruction = """Given the database schema and question, perform the following a
 """
 
 if __name__ == "__main__":
+    config = load_config("/Users/fredrik/code/project/Text-to-SQL-Generation/config/c3_config.yaml")
+
+    wandb.init(
+    project=config.project,
+    config=config,
+    name= config.current_experiment,
+    entity=config.entity,
+    id=config.run_id,
+    resume="allow"
+    )
+
     opt = parse_option()
-    print(opt)
     with open(opt.input_dataset_path) as f:
         data_all = json.load(f)
     res = []
@@ -130,6 +161,7 @@ if __name__ == "__main__":
             try:
                 tables_all = generate_reply([{"role": "user", "content": prompt}], sc_num)
             except:
+                print("table_recall")
                 print(f'api error, wait for 3 seconds and retry...')
                 time.sleep(3)
                 pass
@@ -139,5 +171,8 @@ if __name__ == "__main__":
         tables = table_sc(tables_all, tables_ori)
         info = info_generate(tables, data)
         res.append(info)
-    with open(opt.output_dataset_path, 'w') as f:
+
+    
+    wandb.finish()
+    with open(opt.output_recalled_tables_path, 'w') as f:
         json.dump(res, f, indent=2)
