@@ -45,11 +45,19 @@ class TestDBUtils(unittest.TestCase):
     #     db_info = self.bird_dataset.get_bird_db_info("california_schools")
     #     print(db_info)
 
-    def test_question_filter(self):
-        for data_point in self.bird_dataset.data:
-            assert(data_point['db_id'] == 'financial')
-        
+    # def test_question_filter(self):
+    #     for data_point in self.bird_dataset.data:
+    #         assert(data_point['db_id'] == 'financial')
+    
+    # def test_load_database_names(self):
+    #     print("\n".join(self.bird_dataset.dev_databases))
+    #     print("\n".join(self.bird_dataset.train_databases))
 
+    def test_loaded_bird_train_domains(self):        
+        
+        for data_point in self.bird_dataset.data:
+            assert(data_point['db_id'] == 'retails')
+            
 
 if __name__ == "__main__":
     unittest.main()
