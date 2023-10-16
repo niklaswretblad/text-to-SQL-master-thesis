@@ -115,7 +115,7 @@ class Dataset:
          golden_res = self.cursor.fetchall()
 
       if t.elapsed_time > 5:
-         logging.info(f"Golden query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + golden_res)
+         logging.info(f"Golden query execution time: {t.elapsed_time:.2f} \nSQL Query:\n" + gold_sql)
       else:
          logging.info(f"Golden query execution time: {t.elapsed_time:.2f}")
       
@@ -312,15 +312,24 @@ class BIRDDataset(Dataset):
    Dataset class for the BIRD dataset.
    """
 
-   BASE_DB_PATH = os.path.abspath(
+   DEV_DB_PATH = os.path.abspath(
       os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev_databases/'))
+   
+   TRAIN_DB_PATH = os.path.abspath(
+      os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/train/train_databases/'))
 
    TRAIN_DATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/train/'))
+    os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/train/train.json'))
 
    DEV_DATA_PATH = os.path.abspath(
     os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev.json'))
    
+   def __init__(self):
+      super().__init__()
+
+      self.load_database_names()
+
+
    def load_data(self) -> None:
       """
       Load and filter questions specific to the BIRD dataset configurations.
@@ -329,26 +338,56 @@ class BIRDDataset(Dataset):
       if self.TRAIN_DATA_PATH is None or self.DEV_DATA_PATH is None:
          raise ValueError("QUESTIONS_PATH must be defined in child classes")
 
-      data = load_json(self.DEV_DATA_PATH)
+      train_data = []
+      dev_data = []
+      
+      if self.config is not None:         
+         if self.config.bird_train_domains is not None:
+            train_data = load_json(self.TRAIN_DATA_PATH)
+            train_data = [
+               data_point for data_point in train_data 
+               if data_point['db_id'] in self.config.bird_train_domains
+            ]
 
-      
-      if self.config is not None:
-         data = [data_point for data_point in data if data_point['db_id'] in self.config.bird_dev_domains]
-         data = [data_point for data_point in data if data_point['difficulty'] in self.config.bird_difficulties]
-      
-      self.data = data
+         if self.config.bird_dev_domains is not None:
+            dev_data = load_json(self.DEV_DATA_PATH)
+            dev_data = [
+               data_point for data_point in dev_data 
+               if data_point['db_id'] in self.config.bird_dev_domains
+            ]
+               
+            dev_data = [
+               data_point for data_point in dev_data 
+               if data_point['difficulty'] in self.config.bird_difficulties
+            ]
+
+      self.data = dev_data + train_data
 
 
-   def get_dev_domains(self):
-      dev_data = load_json(self.DEV_DATA_PATH)
-      
-      domains = set()
-      for data_point in dev_data:
-         domains.add(data_point['db_id'])
-      
-      return "\n".join([domain for domain in sorted(domains)])
+   def load_database_names(self):
+      self.dev_databases = os.listdir(self.DEV_DB_PATH)
+      self.train_databases = os.listdir(self.TRAIN_DB_PATH)
+
    
-   def get_bird_table_info(self, db_path):
+   def load_db(self, db_name: str) -> None:
+      """
+      Load a database into the class by connecting and setting a cursor.
+
+      Parameters:
+         db_name (str): The name of the database to load.
+      """
+      db_path = ""
+      if db_name in self.dev_databases:
+         db_path = f"{self.DEV_DB_PATH}/{db_name}/{db_name}.sqlite"
+      else:
+         db_path = f"{self.TRAIN_DB_PATH}/{db_name}/{db_name}.sqlite"
+         
+      self.conn = sqlite3.connect(db_path)      
+      self.cursor = self.conn.cursor()
+      self.current_db = db_name
+   
+
+   def get_bird_table_info(self, db_name):
       """
       Given a database name, retrieve the table schema and information 
       from the corresponding bird-bench .csv files.
@@ -358,8 +397,11 @@ class BIRDDataset(Dataset):
       containing the table information
       """
 
-      description_folder_path = os.path.abspath(
-         os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev_databases', db_path, 'database_description'))
+      description_folder_path = ""
+      if db_name in self.dev_databases:
+         description_folder_path = self.DEV_DB_PATH + f"/{db_name}/database_description"
+      else:
+         description_folder_path = self.TRAIN_DB_PATH + f"/{db_name}/database_description"
       
       if not os.path.exists(description_folder_path):
          raise FileNotFoundError(f"No such file or directory: '{description_folder_path}'")
@@ -377,8 +419,9 @@ class BIRDDataset(Dataset):
             table_info[table_name] = file_contents
       
       return table_info
+   
 
-   def get_bird_db_info(self, db_path):
+   def get_bird_db_info(self, db_path):      
       table_info = self.get_bird_table_info(db_path)
 
       db_info = ""
@@ -387,6 +430,7 @@ class BIRDDataset(Dataset):
          db_info += "\n"
       
       return db_info
+   
 
 class SpiderDataset(Dataset):
    """
@@ -414,9 +458,12 @@ class SpiderDataset(Dataset):
       dev_data = load_json(self.DEV_DATA_PATH)
 
       if self.config is not None:
-         train_data = [data_point for data_point in train_data if data_point['db_id'] in self.config.spider_train_domains]
-         dev_data = [data_point for data_point in dev_data if data_point['db_id'] in self.config.spider_dev_domains]
-      
+         if 'spider_train_domains' in self.config:
+            train_data = [data_point for data_point in train_data if data_point['db_id'] in self.config.spider_train_domains]
+         
+         if 'spider_dev_domains' in self.config:
+            dev_data = [data_point for data_point in dev_data if data_point['db_id'] in self.config.spider_dev_domains]
+   
       self.data = train_data + dev_data
 
 
