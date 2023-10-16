@@ -5,6 +5,26 @@
     "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
     "db_schema": [
       {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -24,26 +44,6 @@
           [
             "Brown"
           ]
-        ]
-      },
-      {
-        "table_name_original": "savings",
-        "table_name": "savings",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
         ]
       },
       {
@@ -313,26 +313,6 @@
         ]
       },
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "savings",
         "table_name": "savings",
         "column_names": [
@@ -346,6 +326,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -455,26 +455,6 @@
         ]
       },
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "savings",
         "table_name": "savings",
         "column_names": [
@@ -488,6 +468,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -790,26 +790,6 @@
     "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
     "db_schema": [
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -823,6 +803,26 @@
         "column_types": [
           "number",
           "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
         ],
         "db_contents": [
           [],
@@ -932,26 +932,6 @@
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
     "db_schema": [
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -965,6 +945,26 @@
         "column_types": [
           "number",
           "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
         ],
         "db_contents": [
           [],
@@ -1025,8 +1025,8 @@
         ]
       },
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
+        "table_name_original": "savings",
+        "table_name": "savings",
         "column_names": [
           "customer id",
           "balance"
@@ -1045,8 +1045,8 @@
         ]
       },
       {
-        "table_name_original": "savings",
-        "table_name": "savings",
+        "table_name_original": "checking",
+        "table_name": "checking",
         "column_names": [
           "customer id",
           "balance"
@@ -1111,6 +1111,2420 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the names of accounts whose checking balance is above the average checking balance, but savings balance is below the average savings balance.",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  >  (SELECT avg(balance) FROM checking) INTERSECT SELECT T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM savings)",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of accounts with checking balances greater than the average checking balance and savings balances below the average savings balance?",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  >  (SELECT avg(balance) FROM checking) INTERSECT SELECT T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM savings)",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the checking balance of the accounts whose savings balance is higher than the average savings balance.",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name IN (SELECT T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  >  (SELECT avg(balance) FROM savings))",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the balances of checking accounts belonging to people with savings balances greater than the average savings balance?",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name IN (SELECT T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  >  (SELECT avg(balance) FROM savings))",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "List all customers' names in the alphabetical order.",
+    "query": "SELECT name FROM accounts ORDER BY name",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of all the customers in alphabetical order?",
+    "query": "SELECT name FROM accounts ORDER BY name",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name of account that has the lowest total checking and saving balance.",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the name corresponding to the accoung with the lowest sum of checking and savings balances?",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the names and total checking and savings balances of accounts whose savings balance is higher than the average savings balance.",
+    "query": "SELECT T1.name ,  T2.balance + T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  >  (SELECT avg(balance) FROM savings)",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names and sum of checking and savings balances for accounts with savings balances higher than the average savings balance?",
+    "query": "SELECT T1.name ,  T2.balance + T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  >  (SELECT avg(balance) FROM savings)",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name and checking balance of the account with the lowest savings balance.",
+    "query": "SELECT T1.name ,  T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names and balances of checking accounts belonging to the customer with the lowest savings balance?",
+    "query": "SELECT T1.name ,  T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the number of checking accounts for each account name.",
+    "query": "SELECT count(*) ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of customers with accounts, and how many checking accounts do each of them have?",
+    "query": "SELECT count(*) ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the total saving balance for each account name.",
+    "query": "SELECT sum(T2.balance) ,  T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of customers with accounts, and what are the total savings balances for each?",
+    "query": "SELECT sum(T2.balance) ,  T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name of accounts whose checking balance is below the average checking balance.",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM checking)",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of customers with checking balances lower than the average checking balance?",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM checking)",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the saving balance of the account with the highest checking balance.",
+    "query": "SELECT T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance DESC LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the savings balance of the account belonging to the customer with the highest checking balance?",
+    "query": "SELECT T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance DESC LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the total checking and saving balance of all accounts sorted by the total balance in ascending order.",
+    "query": "SELECT T1.balance + T2.balance FROM checking AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T1.balance + T2.balance",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the sum of checking and savings balances for all customers, ordered by the total balance?",
+    "query": "SELECT T1.balance + T2.balance FROM checking AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T1.balance + T2.balance",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name and checking balance of the account with the lowest saving balance.",
+    "query": "SELECT T2.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the name and checking balance of the account which has the lowest savings balance?",
+    "query": "SELECT T2.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name, checking balance and saving balance of all accounts in the bank.",
+    "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names, checking balances, and savings balances for all customers?",
+    "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name, checking balance and savings balance of all accounts in the bank sorted by their total checking and savings balance in descending order.",
+    "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names, checking balances, and savings balances of customers, ordered by the total of checking and savings balances descending?",
+    "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name of accounts whose checking balance is higher than corresponding saving balance.",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T2.balance  >  T3.balance",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of customers with a higher checking balance than savings balance?",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T2.balance  >  T3.balance",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name and total checking and savings balance of the accounts whose savings balance is lower than corresponding checking balance.",
+    "query": "SELECT T1.name ,  T3.balance + T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  <  T2.balance",
+    "db_schema": [
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the names of customers who have a savings balance lower than their checking balance, and what is the total of their checking and savings balances?",
+    "query": "SELECT T1.name ,  T3.balance + T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  <  T2.balance",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name and savings balance of the top 3 accounts with the highest saving balance sorted by savings balance in descending order.",
+    "query": "SELECT T1.name ,  T2.balance FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T2.balance DESC LIMIT 3",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are names and savings balances of the three accounts with the highest savings balances?",
+    "query": "SELECT T1.name ,  T2.balance FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T2.balance DESC LIMIT 3",
+    "db_schema": [
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],

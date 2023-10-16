@@ -18,20 +18,20 @@ processed_dataset_path=$4
 
 
 # preprocess test set
-echo "preprocessing..."
-python src/preprocessing.py \
-    --mode "test" \
-    --table_path $tables \
-    --input_dataset_path $dataset_path \
-    --output_dataset_path "./generate_datasets/preprocessed_data.json" \
-    --db_path "$db_path" \
-    --target_type "sql"
+# echo "preprocessing..."
+# python src/preprocessing.py \
+#     --mode "test" \
+#     --table_path $tables \
+#     --input_dataset_path $dataset_path \
+#     --output_dataset_path "./generate_datasets/preprocessed_data.json" \
+#     --db_path "$db_path" \
+#     --target_type "sql"
 
-# recall tables
-echo "recall tables..."
-python src/table_recall.py \
-    --input_dataset_path "./generate_datasets/preprocessed_data.json" \
-    --output_recalled_tables_path "./generate_datasets/table_recall.json" \
+# # recall tables
+# echo "recall tables..."
+# python src/table_recall.py \
+#     --input_dataset_path "./generate_datasets/preprocessed_data.json" \
+    # --output_recalled_tables_path "./generate_datasets/table_recall.json" \
 
 # recall columns
 echo "recall columns..."

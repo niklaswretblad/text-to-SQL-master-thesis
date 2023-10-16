@@ -140,7 +140,7 @@ if __name__ == "__main__":
     config=config,
     name= config.current_experiment,
     entity=config.entity,
-    id="1342",
+    id=config.run_id,
     resume="allow"
     )
 

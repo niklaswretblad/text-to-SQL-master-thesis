@@ -98,11 +98,10 @@ def parse_option():
 
 
 def generate_reply(messages, n):
-    
     completions = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
-        n=n
+        n=n,
     )
     global log_cost
     token_input_cost = 0.0015/1000
@@ -112,8 +111,8 @@ def generate_reply(messages, n):
     total_cost = input_cost+output_cost
     log_cost += total_cost
     wandb.log({"Text-to-SQL Prompt Cost": log_cost})
-    print('logging the price of each completion')
-    print('prompt cost: ', total_cost)
+    print('Logging the price after each completion')
+    print('Prompt cost: ', total_cost)
     print('Culiminative cost: ', log_cost, ' $ ')
     
     
@@ -144,8 +143,6 @@ def get_cursor_from_path(sqlite_path: str):
 
 
 def exec_on_db_(sqlite_path: str, query: str):
-    print('inside exec, sql_path: ', sqlite_path)
-    print('inside exec, sql_query: ', query)
     query = replace_cur_year(query)
     cursor = get_cursor_from_path(sqlite_path)
     try:
@@ -175,7 +172,7 @@ def main():
     config=config,
     name= config.current_experiment,
     entity=config.entity,
-    id="1342",
+    id=config.run_id,
     resume="allow"
     )
 
@@ -259,8 +256,6 @@ def main():
                     time.sleep(0.5)
                     if j < 4:
                         print(f'generate again')
-            print('Printing a single p_sql: ', p_sql)
-            print('Printing p_sqls ', p_sqls)
             result = {}
 
             result['db_id'] = item['db_id']
@@ -279,7 +274,7 @@ def main():
         score = 0
         accuracy = 0
         for index, result in enumerate(results):
-            print('before matching queries')
+            
             success = spiderDataset.execute_queries_and_match_data(p_sql_final[index], result['gold_sql'], "small_bank_1")
             table.add_data(result['question'], result['gold_sql'], p_sql_final[index], success)
             print('sucess result: ', success)
