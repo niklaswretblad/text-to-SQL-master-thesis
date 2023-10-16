@@ -12,6 +12,11 @@ dataset_path=$2
 device="0"
 db_path=$3
 processed_dataset_path=$4
+
+# Initiating the WandB projet
+# python src/run_c3_agent.py \
+
+
 # preprocess test set
 echo "preprocessing..."
 python src/preprocessing.py \

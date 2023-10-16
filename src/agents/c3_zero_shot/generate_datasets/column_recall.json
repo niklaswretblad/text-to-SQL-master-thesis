@@ -1,0 +1,602 @@
+[
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the total savings balance of all accounts except the account with name 'Brown'.",
+    "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
+    "schema": {
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [],
+        [
+          "Brown"
+        ]
+      ],
+      "savings": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the total balance of savings accounts not belonging to someone with the name Brown?",
+    "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
+    "schema": {
+      "savings": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "name",
+        "custid"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "savings": [
+        [],
+        []
+      ],
+      "accounts": [
+        [
+          "Brown"
+        ],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "How many accounts are there in total?",
+    "query": "SELECT count(*) FROM accounts",
+    "schema": {
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Count the number of accounts.",
+    "query": "SELECT count(*) FROM accounts",
+    "schema": {
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the total checking balance in all accounts?",
+    "query": "SELECT sum(balance) FROM checking",
+    "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "name",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the total balance across checking accounts.",
+    "query": "SELECT sum(balance) FROM checking",
+    "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the average checking balance.",
+    "query": "SELECT avg(balance) FROM checking",
+    "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the average balance in checking accounts?",
+    "query": "SELECT avg(balance) FROM checking",
+    "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "How many accounts have a savings balance above the average savings balance?",
+    "query": "SELECT count(*) FROM savings WHERE balance  >  (SELECT avg(balance) FROM savings)",
+    "schema": {
+      "savings": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "savings": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the number of accounts with a savings balance that is higher than the average savings balance.",
+    "query": "SELECT count(*) FROM savings WHERE balance  >  (SELECT avg(balance) FROM savings)",
+    "schema": {
+      "savings": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "savings": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the name and id of accounts whose checking balance is below the maximum checking balance.",
+    "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
+    "schema": {
+      "checking": [
+        "custid",
+        "balance"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the customer id and name corresponding to accounts with a checking balance less than the largest checking balance?",
+    "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
+    "schema": {
+      "checking": [
+        "custid",
+        "balance"
+      ],
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the checking balance of the account whose owner's name contains the substring 'ee'?",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
+    "schema": {
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the balance of the checking account belonging to an owner whose name contains 'ee'.",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
+    "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "name",
+        "custid"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "checking": [
+        [],
+        []
+      ],
+      "accounts": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the checking balance and saving balance in the Brown's account.",
+    "query": "SELECT T2.balance ,  T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T1.name  =  'Brown'",
+    "schema": {
+      "accounts": [
+        "name",
+        "custid"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [
+          "Brown"
+        ],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    }
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What are the checking and savings balances in accounts belonging to Brown?",
+    "query": "SELECT T2.balance ,  T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T1.name  =  'Brown'",
+    "schema": {
+      "accounts": [
+        "custid",
+        "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
+      ],
+      "checking": [
+        "custid",
+        "balance"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [],
+        [
+          "Brown"
+        ]
+      ],
+      "savings": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ]
+    }
+  }
+]

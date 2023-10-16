@@ -2,7 +2,7 @@ set -e
 
 tables="../../../data/spider/tables.json"
 # dataset_path="./data/spider/dev.json"
-dataset_path="../../../data/spider/dev.json"
+dataset_path="../../../data/spider/c3_dev.json"
 db_dir="../../../data/spider/database"
 output_dataset_path="predicted_sql.txt"
 

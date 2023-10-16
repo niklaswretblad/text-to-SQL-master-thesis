@@ -1,0 +1,1930 @@
+[
+  {
+    "question": "Find the total savings balance of all accounts except the account with name 'Brown'.",
+    "db_id": "small_bank_1",
+    "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          [
+            "Brown"
+          ]
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "What is the total balance of savings accounts not belonging to someone with the name Brown?",
+    "db_id": "small_bank_1",
+    "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          [
+            "Brown"
+          ]
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "How many accounts are there in total?",
+    "db_id": "small_bank_1",
+    "query": "SELECT count(*) FROM accounts",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Count the number of accounts.",
+    "db_id": "small_bank_1",
+    "query": "SELECT count(*) FROM accounts",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "What is the total checking balance in all accounts?",
+    "db_id": "small_bank_1",
+    "query": "SELECT sum(balance) FROM checking",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Find the total balance across checking accounts.",
+    "db_id": "small_bank_1",
+    "query": "SELECT sum(balance) FROM checking",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Find the average checking balance.",
+    "db_id": "small_bank_1",
+    "query": "SELECT avg(balance) FROM checking",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "What is the average balance in checking accounts?",
+    "db_id": "small_bank_1",
+    "query": "SELECT avg(balance) FROM checking",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "How many accounts have a savings balance above the average savings balance?",
+    "db_id": "small_bank_1",
+    "query": "SELECT count(*) FROM savings WHERE balance  >  (SELECT avg(balance) FROM savings)",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Find the number of accounts with a savings balance that is higher than the average savings balance.",
+    "db_id": "small_bank_1",
+    "query": "SELECT count(*) FROM savings WHERE balance  >  (SELECT avg(balance) FROM savings)",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Find the name and id of accounts whose checking balance is below the maximum checking balance.",
+    "db_id": "small_bank_1",
+    "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "What are the customer id and name corresponding to accounts with a checking balance less than the largest checking balance?",
+    "db_id": "small_bank_1",
+    "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "What is the checking balance of the account whose owner's name contains the substring 'ee'?",
+    "db_id": "small_bank_1",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Find the balance of the checking account belonging to an owner whose name contains 'ee'.",
+    "db_id": "small_bank_1",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "Find the checking balance and saving balance in the Brown's account.",
+    "db_id": "small_bank_1",
+    "query": "SELECT T2.balance ,  T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T1.name  =  'Brown'",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          [
+            "Brown"
+          ]
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "question": "What are the checking and savings balances in accounts belonging to Brown?",
+    "db_id": "small_bank_1",
+    "query": "SELECT T2.balance ,  T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T1.name  =  'Brown'",
+    "sql": "",
+    "norm_sql": "",
+    "sql_skeleton": "",
+    "natsql": "",
+    "norm_natsql": "",
+    "natsql_skeleton": "",
+    "db_schema": [
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          [
+            "Brown"
+          ]
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      }
+    ],
+    "pk": [
+      {
+        "table_name_original": "accounts",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "savings",
+        "column_name_original": "custid"
+      },
+      {
+        "table_name_original": "checking",
+        "column_name_original": "custid"
+      }
+    ],
+    "fk": [
+      {
+        "source_table_name_original": "savings",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      },
+      {
+        "source_table_name_original": "checking",
+        "source_column_name_original": "custid",
+        "target_table_name_original": "accounts",
+        "target_column_name_original": "custid"
+      }
+    ],
+    "table_labels": [
+      0,
+      0,
+      0
+    ],
+    "column_labels": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  }
+]

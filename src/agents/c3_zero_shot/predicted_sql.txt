@@ -1,0 +1,16 @@
+SELECT SUM(s.balance) FROM savings s JOIN accounts a ON s.custid = a.custid WHERE a.name <> 'Brown';
+SELECT SUM(balance) FROM savings WHERE custid NOT IN (SELECT custid FROM accounts WHERE name = 'Brown');
+SELECT COUNT(*) AS total_accounts FROM accounts;
+SELECT COUNT(*) FROM accounts;
+SELECT Sum(balance) FROM checking;
+SELECT SUM(balance) FROM checking;
+SELECT AVG(balance) FROM checking;
+SELECT AVG(balance) FROM checking;
+SELECT COUNT(*) FROM savings WHERE balance > (SELECT AVG(balance) FROM savings)
+SELECT COUNT(*) FROM (SELECT custid, balance FROM savings WHERE balance > (SELECT AVG(balance) FROM savings)) AS subquery;
+SELECT accounts.name, accounts.custid FROM accounts JOIN checking ON checking.custid = accounts.custid WHERE checking.balance < (SELECT MAX(balance) FROM checking);
+SELECT accounts.custid, accounts.name FROM accounts INNER JOIN checking ON checking.custid = accounts.custid WHERE checking.balance < ( SELECT MAX(balance) FROM checking ) ;
+SELECT checking.balance FROM checking JOIN accounts ON checking.custid = accounts.custid WHERE accounts.name LIKE '%ee%';
+SELECT checking.balance FROM checking JOIN accounts ON checking.custid = accounts.custid WHERE accounts.name LIKE '%ee%';
+SELECT checking.balance, savings.balance FROM accounts JOIN checking ON accounts.custid = checking.custid JOIN savings ON accounts.custid = savings.custid WHERE accounts.name = 'Brown';
+SELECT checking.balance, savings.balance FROM accounts JOIN savings ON savings.custid = accounts.custid JOIN checking ON checking.custid = accounts.custid WHERE accounts.name = 'Brown';

@@ -277,6 +277,8 @@ def isFloat(string):
 
 def main(opt):
     dataset = json.load(open(opt.input_dataset_path))
+    # print('inside preprocessing, printing dataset')
+    # print(dataset)
     all_db_infos = json.load(open(opt.table_path))
 
     assert opt.mode in ["train", "eval", "test"]
@@ -356,7 +358,7 @@ def main(opt):
         preprocessed_data = {}
         preprocessed_data["question"] = question
         preprocessed_data["db_id"] = db_id
-
+        preprocessed_data["query"] = data["query"]
         preprocessed_data["sql"] = sql
         preprocessed_data["norm_sql"] = norm_sql
         preprocessed_data["sql_skeleton"] = sql_skeleton
