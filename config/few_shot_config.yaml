@@ -1,13 +1,15 @@
 
 # General settings
 
-current_experiment: "few_shot_experiment_8"
+current_experiment: "few-shot Spider Bank Expirement 2"
 experiment_description: |
-  Eighth experiment of few-shot, giving examples from other domains (California_schools, toxicology, card_games), taking three challenging questions.
+  Experiment with the whole Bank domain of the Spider dataset.
+  This experiment is a few-shot experiment, where the LLM is trained on a few examples from the dataset.
+  The LLM is then evaluated on the rest of the dataset.
 group: "few_shot"
 
-#dataset: "Spider"
-dataset: "BIRD"
+dataset: "Spider"
+# dataset: "BIRD"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
