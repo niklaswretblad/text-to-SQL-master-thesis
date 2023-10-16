@@ -2,26 +2,122 @@
 # Domain settings
 # Sets the domains to be loaded and run
 
+bird_difficulties: |-
+  simple
+  moderate
+  challenging
+
 bird_dev_domains: 
 #  - california_schools
 # card_games
 # codebase_community
 # debit_card_specializing
 # - european_football_2
-  - financial
+# - financial
 # formula_1
 # student_club
 # superhero
 # thrombosis_prediction
 # toxicology
 
-bird_difficulties: |-
-  simple
-  moderate
-  challenging
+bird_train_domains: 
+# address
+# airline
+# app_store
+# authors
+# beer_factory
+# bike_share_1
+# book_publishing_company
+# books
+# car_retails
+# cars
+# chicago_crime
+# citeseer
+# codebase_comments
+# coinmarketcap
+# college_completion
+# computer_student
+# cookbook
+# craftbeer
+# cs_semester
+# disney
+# donor
+# european_football_1
+# food_inspection
+# food_inspection_2
+# genes
+# hockey
+# human_resources
+# ice_hockey_draft
+# image_and_language
+# language_corpus
+# law_episode
+# legislator
+# mental_health_survey
+# menu
+# mondial_geo
+# movie
+# movie_3
+# movie_platform
+# movielens
+# movies_4
+# music_platform_2
+# music_tracker
+# olympics
+# professional_basketball
+# public_review_platform
+# regional_sales
+# restaurant
+# retail_complains
+# retail_world
+  - retails
+# sales
+# sales_in_weather
+# shakespeare
+# shipping
+# shooting
+# simpson_episodes
+# soccer_2016
+# social_media
+# software_company
+# student_loan
+# superstore
+# synthea
+# talkingdata
+# train_tables.json
+# trains
+# university
+# video_games
+# works_cycles
+# world
+# world_development_indicators
+
+
+spider_dev_domains:
+  - battle_death
+  # car_1
+  # concert_singer
+  # course_teach
+  # cre_Doc_Template_Mgt
+  # dog_kennels
+  # employee_hire_evaluation
+  # flight_2
+  # museum_visit
+  # network_1
+  # orchestra
+  # pets_1
+  # poker_player
+  # real_estate_properties
+  # singer
+  # student_transcripts_tracking
+  # tvshow
+  # voter_1
+  # world_1
+  # wta_1
+
 
 spider_train_domains: |-
-# activity_1
+  activity_1
 # aircraft
 # allergy_1
 # apartment_rentals
@@ -161,26 +257,3 @@ spider_train_domains: |-
 # wine_1
 # workshop_paper
 # wrestler
-
-spider_dev_domains:
-  battle_death
-  car_1
-  concert_singer
-  course_teach
-  cre_Doc_Template_Mgt
-  dog_kennels
-  employee_hire_evaluation
-  flight_2
-  museum_visit
-  network_1
-  orchestra
-  pets_1
-  poker_player
-  real_estate_properties
-  singer
-  student_transcripts_tracking
-  tvshow
-  voter_1
-  world_1
-  wta_1
-

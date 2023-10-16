@@ -3,6 +3,7 @@ import os
 from datasets import get_dataset
 from langchain.chat_models import ChatOpenAI
 from config import api_key, load_config
+from agents.zero_shot import ZeroShotAgent
 import wandb
 import langchain
 langchain.verbose = False
