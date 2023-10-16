@@ -17,13 +17,16 @@ A: SELECT DISTINCT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.a
 Q: What is the percentage of cards whose language is French among the Story Spotlight cards?
 A: SELECT CAST(SUM(CASE WHEN T2.language = 'French' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.id) FROM cards AS T1 INNER JOIN foreign_data AS T2 ON T1.uuid = T2.uuid WHERE T1.isStorySpotlight = 1
 
+Hint helps you to write the correct sqlite SQL query.
 Using valid SQL, answer the following question based on the tables provided above.
 It is important to use qualified column names in the SQL-query, meaning the form "SELECT table_name.column_name FROM table_name;"
-Hint helps you to write the correct sqlite SQL query.
+
 Question: {question}
 Hint: {evidence}
 DO NOT return anything else except the SQL query.
 """
+
+
 
 class FewShotAgent(ZeroShotAgent):
 

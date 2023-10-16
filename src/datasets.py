@@ -458,10 +458,10 @@ class SpiderDataset(Dataset):
       dev_data = load_json(self.DEV_DATA_PATH)
 
       if self.config is not None:
-         if 'spider_train_domains' in self.config:
+         if self.config.spider_train_domains is not None:
             train_data = [data_point for data_point in train_data if data_point['db_id'] in self.config.spider_train_domains]
          
-         if 'spider_dev_domains' in self.config:
+         if self.config.spider_dev_domains is not None:
             dev_data = [data_point for data_point in dev_data if data_point['db_id'] in self.config.spider_dev_domains]
    
       self.data = train_data + dev_data

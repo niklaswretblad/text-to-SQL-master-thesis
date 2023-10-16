@@ -9,7 +9,7 @@ import langchain
 langchain.verbose = False
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"
+# os.environ["WANDB_MODE"] = "offline"#
 
 def main():
     config = load_config("few_shot_config.yaml")
@@ -43,8 +43,9 @@ def main():
     score = 0
     accuracy = 0
     for i in range(no_data_points):
-        # if i == 5 or i == 26 or i == 27:
-        #     continue
+        # if i == 5: #or i == 26 or i == 27:
+        #     break
+            # continue
 
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']

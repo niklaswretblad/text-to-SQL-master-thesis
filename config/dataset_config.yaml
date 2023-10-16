@@ -8,7 +8,7 @@ bird_dev_domains:
 # codebase_community
 # debit_card_specializing
 # - european_football_2
-  - financial
+# - financial
 # formula_1
 # student_club
 # superhero
@@ -20,123 +20,123 @@ bird_difficulties: |-
   moderate
   challenging
 
-spider_train_domains: |-
-# activity_1
-# aircraft
-# allergy_1
-# apartment_rentals
-# architecture
-# assets_maintenance
-# baseball_1
-# behavior_monitoring
-# bike_1
-# body_builder
-# book_2
-# browser_web
-# candidate_poll
-# chinook_1
-# cinema
-# city_record
-# climbing
-# club_1
-# coffee_shop
-# college_1
-# college_2
-# college_3
-# company_1
-# company_employee
-# company_office
-# county_public_safety
-# cre_Doc_Control_Systems
-# cre_Doc_Tracking_DB
-# cre_Docs_and_Epenses
-# cre_Drama_Workshop_Groups
-# cre_Theme_park
-# csu_1
-# culture_company
-# customer_complaints
-# customer_deliveries
-# customers_and_addresses
-# customers_and_invoices
-# customers_and_products_contacts
-# customers_campaigns_ecommerce
-# customers_card_transactions
-# debate
-# decoration_competition
-# department_management
-# department_store
-# device
-# document_management
-# dorm_1
-# driving_school
-# e_government
-# e_learning
-# election
-# election_representative
-# entertainment_awards
-# entrepreneur
-# epinions_1
-# farm
-# film_rank
-# flight_1
-# flight_4
-# flight_company
-# formula_1
-# game_1
-# game_injury
-# gas_company
-# gymnast
-# hospital_1
-# hr_1
-# icfp_1
-# inn_1
-# insurance_and_eClaims
-# insurance_fnol
-# insurance_policies
-# journal_committee
-# loan_1
-# local_govt_and_lot
-# local_govt_in_alabama
-# local_govt_mdm
-# machine_repair
-# manufactory_1
-# manufacturer
-# match_season
-# medicine_enzyme_interaction
-# mountain_photos
-# movie_1
-# music_1
-# music_2
-# music_4
-# musical
-# network_2
-# news_report
-# party_host
-# party_people
-# performance_attendance
-# perpetrator
-# phone_1
-# phone_market
-# pilot_record
-# product_catalog
-# products_for_hire
-# products_gen_characteristics
-# program_share
-# protein_institute
-# race_track
-# railway
-# restaurant_1
-# riding_club
-# roller_coaster
-# sakila_1
-# school_bus
-# school_finance
-# school_player
-# scientist_1
-# ship_1
-# ship_mission
-# shop_membership
-# small_bank_1
+spider_train_domains: 
+  # activity_1
+  # aircraft
+  # allergy_1
+  # apartment_rentals
+  # architecture
+  # assets_maintenance
+  # baseball_1
+  # behavior_monitoring
+  # bike_1
+  # body_builder
+  # book_2
+  # browser_web
+  # candidate_poll
+  # chinook_1
+  # cinema
+  # city_record
+  # climbing
+  # club_1
+  # coffee_shop
+  # college_1
+  # college_2
+  # college_3
+  # company_1
+  # company_employee
+  # company_office
+  # county_public_safety
+  # cre_Doc_Control_Systems
+  # cre_Doc_Tracking_DB
+  # cre_Docs_and_Epenses
+  # cre_Drama_Workshop_Groups
+  # cre_Theme_park
+  # csu_1
+  # culture_company
+  # customer_complaints
+  # customer_deliveries
+  # customers_and_addresses
+  # customers_and_invoices
+  # customers_and_products_contacts
+  # customers_campaigns_ecommerce
+  # customers_card_transactions
+  # debate
+  # decoration_competition
+  # department_management
+  # department_store
+  # device
+  # document_management
+  # dorm_1
+  # driving_school
+  # e_government
+  # e_learning
+  # election
+  # election_representative
+  # entertainment_awards
+  # entrepreneur
+  # epinions_1
+  # farm
+  # film_rank
+  # flight_1
+  # flight_4
+  # flight_company
+  # formula_1
+  # game_1
+  # game_injury
+  # gas_company
+  # gymnast
+  # hospital_1
+  # hr_1
+  # icfp_1
+  # inn_1
+  # insurance_and_eClaims
+  # insurance_fnol
+  # insurance_policies
+  # journal_committee
+  # loan_1
+  # local_govt_and_lot
+  # local_govt_in_alabama
+  # local_govt_mdm
+  # machine_repair
+  # manufactory_1
+  # manufacturer
+  # match_season
+  # medicine_enzyme_interaction
+  # mountain_photos
+  # movie_1
+  # music_1
+  # music_2
+  # music_4
+  # musical
+  # network_2
+  # news_report
+  # party_host
+  # party_people
+  # performance_attendance
+  # perpetrator
+  # phone_1
+  # phone_market
+  # pilot_record
+  # product_catalog
+  # products_for_hire
+  # products_gen_characteristics
+  # program_share
+  # protein_institute
+  # race_track
+  # railway
+  # restaurant_1
+  # riding_club
+  # roller_coaster
+  # sakila_1
+  # school_bus
+  # school_finance
+  # school_player
+  # scientist_1
+  # ship_1
+  # ship_mission
+  # shop_membership
+  - small_bank_1
 # soccer_1
 # soccer_2
 # solvency_ii
@@ -163,24 +163,24 @@ spider_train_domains: |-
 # wrestler
 
 spider_dev_domains:
-  battle_death
-  car_1
-  concert_singer
-  course_teach
-  cre_Doc_Template_Mgt
-  dog_kennels
-  employee_hire_evaluation
-  flight_2
-  museum_visit
-  network_1
-  orchestra
-  pets_1
-  poker_player
-  real_estate_properties
-  singer
-  student_transcripts_tracking
-  tvshow
-  voter_1
-  world_1
-  wta_1
+  # battle_death
+  # car_1
+  # concert_singer
+  # course_teach
+  # cre_Doc_Template_Mgt
+  # dog_kennels
+  # employee_hire_evaluation
+  # flight_2
+  # museum_visit
+  # network_1
+  # orchestra
+  # pets_1
+  # poker_player
+  # real_estate_properties
+  # singer
+  # student_transcripts_tracking
+  # tvshow
+  # voter_1
+  # world_1
+  # wta_1
 
