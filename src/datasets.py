@@ -454,17 +454,26 @@ class SpiderDataset(Dataset):
       if self.TRAIN_DATA_PATH is None or self.DEV_DATA_PATH is None:
          raise ValueError("DATA_PATH must be defined in child classes")
 
-      train_data = load_json(self.TRAIN_DATA_PATH)
-      dev_data = load_json(self.DEV_DATA_PATH)
-
-      if self.config is not None:
+      train_data = []
+      dev_data = []
+      
+      if self.config is not None:         
          if self.config.spider_train_domains is not None:
-            train_data = [data_point for data_point in train_data if data_point['db_id'] in self.config.spider_train_domains]
-         
+            train_data = load_json(self.TRAIN_DATA_PATH)
+            train_data = [
+               data_point for data_point in train_data 
+               if data_point['db_id'] in self.config.spider_train_domains
+            ]
+
          if self.config.spider_dev_domains is not None:
-            dev_data = [data_point for data_point in dev_data if data_point['db_id'] in self.config.spider_dev_domains]
-   
-      self.data = train_data + dev_data
+            dev_data = load_json(self.DEV_DATA_PATH)
+            dev_data = [
+               data_point for data_point in dev_data 
+               if data_point['db_id'] in self.config.spider_dev_domains
+            ]
+               
+
+      self.data = dev_data + train_data
 
 
    def get_data_point(self, index: int) -> None:

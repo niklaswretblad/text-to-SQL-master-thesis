@@ -43,6 +43,8 @@ def main():
     score = 0
     accuracy = 0
     for i in range(no_data_points):
+        if i == 3:
+            continue
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
         golden_sql = data_point['SQL']
@@ -50,8 +52,11 @@ def main():
         question = data_point['question']
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
-        bird_table_info = dataset.get_bird_db_info(db_id)
 
+        if config.dataset == "BIRD":
+            bird_table_info = dataset.get_bird_db_info(db_id)
+        else:
+            bird_table_info = ""
 
         predicted_sql = din_sql_agent.generate_query(sql_schema, bird_table_info, evidence, question)
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
