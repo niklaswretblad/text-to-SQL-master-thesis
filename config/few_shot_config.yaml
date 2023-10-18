@@ -1,7 +1,7 @@
 
 # General settings
 
-current_experiment: "few-shot Spider Bank Expirement 2"
+current_experiment: "few-shot Spider Bank Experiment 2"
 experiment_description: |
   Experiment with the whole Bank domain of the Spider dataset.
   This experiment is a few-shot experiment, where the LLM is trained on a few examples from the dataset.

@@ -4,13 +4,13 @@
     "question": "Find the total savings balance of all accounts except the account with name 'Brown'.",
     "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
     "schema": {
-      "savings": [
-        "custid",
-        "balance"
-      ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
       ],
       "checking": [
         "custid",
@@ -22,22 +22,22 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "savings": [
-        [],
-        []
-      ],
       "accounts": [
         [],
         [
           "Brown"
         ]
       ],
+      "savings": [
+        [],
+        []
+      ],
       "checking": [
         [],
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# accounts ( custid, name(\"Brown\") )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total savings balance of all accounts except the account with name 'Brown'.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name(\"Brown\") )\n# savings ( custid, balance )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total savings balance of all accounts except the account with name 'Brown'.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -164,13 +164,13 @@
         "balance",
         "custid"
       ],
-      "savings": [
-        "balance",
-        "custid"
-      ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "savings": [
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -182,16 +182,16 @@
         [],
         []
       ],
-      "savings": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "savings": [
         [],
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What is the total checking balance in all accounts?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# accounts ( custid, name )\n# savings ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What is the total checking balance in all accounts?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -203,8 +203,8 @@
         "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -229,7 +229,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total balance across checking accounts.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total balance across checking accounts.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -321,8 +321,8 @@
         "name"
       ],
       "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -343,7 +343,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# accounts ( custid, name )\n# checking ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### How many accounts have a savings balance above the average savings balance?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### How many accounts have a savings balance above the average savings balance?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -426,13 +426,13 @@
     "question": "What are the customer id and name corresponding to accounts with a checking balance less than the largest checking balance?",
     "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
     "schema": {
-      "accounts": [
-        "custid",
-        "name"
-      ],
       "checking": [
         "custid",
         "balance"
+      ],
+      "accounts": [
+        "custid",
+        "name"
       ],
       "savings": [
         "custid",
@@ -444,11 +444,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
+      "checking": [
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
@@ -457,17 +457,13 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the customer id and name corresponding to accounts with a checking balance less than the largest checking balance?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the customer id and name corresponding to accounts with a checking balance less than the largest checking balance?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
     "question": "What is the checking balance of the account whose owner's name contains the substring 'ee'?",
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
     "schema": {
-      "accounts": [
-        "name",
-        "custid"
-      ],
       "checking": [
         "balance",
         "custid"
@@ -475,6 +471,10 @@
       "savings": [
         "balance",
         "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
       ]
     },
     "fk": [
@@ -482,10 +482,6 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
-        [],
-        []
-      ],
       "checking": [
         [],
         []
@@ -493,22 +489,26 @@
       "savings": [
         [],
         []
+      ],
+      "accounts": [
+        [],
+        []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name, custid )\n# checking ( balance, custid )\n# savings ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What is the checking balance of the account whose owner's name contains the substring 'ee'?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What is the checking balance of the account whose owner's name contains the substring 'ee'?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
     "question": "Find the balance of the checking account belonging to an owner whose name contains 'ee'.",
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
     "schema": {
-      "accounts": [
-        "custid",
-        "name"
-      ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "name",
+        "custid"
       ],
       "savings": [
         "custid",
@@ -520,11 +520,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
+      "checking": [
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
@@ -533,7 +533,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the balance of the checking account belonging to an owner whose name contains 'ee'.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# accounts ( name, custid )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the balance of the checking account belonging to an owner whose name contains 'ee'.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -544,11 +544,11 @@
         "custid",
         "name"
       ],
-      "savings": [
+      "checking": [
         "custid",
         "balance"
       ],
-      "checking": [
+      "savings": [
         "custid",
         "balance"
       ]
@@ -564,16 +564,16 @@
           "Brown"
         ]
       ],
-      "savings": [
+      "checking": [
         [],
         []
       ],
-      "checking": [
+      "savings": [
         [],
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name(\"Brown\") )\n# savings ( custid, balance )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the checking balance and saving balance in the Brown's account.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name(\"Brown\") )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the checking balance and saving balance in the Brown's account.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -581,16 +581,16 @@
     "query": "SELECT T2.balance ,  T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T1.name  =  'Brown'",
     "schema": {
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -599,10 +599,10 @@
     ],
     "db_contents": {
       "accounts": [
-        [],
         [
           "Brown"
-        ]
+        ],
+        []
       ],
       "savings": [
         [],
@@ -613,7 +613,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name(\"Brown\") )\n# savings ( custid, balance )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the checking and savings balances in accounts belonging to Brown?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name(\"Brown\"), custid )\n# savings ( balance, custid )\n# checking ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the checking and savings balances in accounts belonging to Brown?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -629,8 +629,8 @@
         "custid"
       ],
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ]
     },
     "fk": [
@@ -651,7 +651,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the names of accounts whose checking balance is above the average checking balance, but savings balance is below the average savings balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( name, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the names of accounts whose checking balance is above the average checking balance, but savings balance is below the average savings balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -697,16 +697,16 @@
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name IN (SELECT T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  >  (SELECT avg(balance) FROM savings))",
     "schema": {
       "savings": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "accounts": [
         "custid",
         "name"
       ],
       "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -727,7 +727,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# accounts ( custid, name )\n# checking ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the checking balance of the accounts whose savings balance is higher than the average savings balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the checking balance of the accounts whose savings balance is higher than the average savings balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -739,8 +739,8 @@
         "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -765,7 +765,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the balances of checking accounts belonging to people with savings balances greater than the average savings balance?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# checking ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the balances of checking accounts belonging to people with savings balances greater than the average savings balance?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -848,6 +848,44 @@
     "question": "Find the name of account that has the lowest total checking and saving balance.",
     "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
     "schema": {
+      "accounts": [
+        "name",
+        "custid"
+      ],
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ]
+    },
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ],
+    "db_contents": {
+      "accounts": [
+        [],
+        []
+      ],
+      "checking": [
+        [],
+        []
+      ],
+      "savings": [
+        [],
+        []
+      ]
+    },
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name, custid )\n# checking ( balance, custid )\n# savings ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name of account that has the lowest total checking and saving balance.\nSELECT"
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "What is the name corresponding to the accoung with the lowest sum of checking and savings balances?",
+    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
+    "schema": {
       "checking": [
         "balance",
         "custid"
@@ -879,45 +917,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( name, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name of account that has the lowest total checking and saving balance.\nSELECT"
-  },
-  {
-    "db_id": "small_bank_1",
-    "question": "What is the name corresponding to the accoung with the lowest sum of checking and savings balances?",
-    "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
-    "schema": {
-      "checking": [
-        "custid",
-        "balance"
-      ],
-      "savings": [
-        "custid",
-        "balance"
-      ],
-      "accounts": [
-        "custid",
-        "name"
-      ]
-    },
-    "fk": [
-      "savings.custid = accounts.custid",
-      "checking.custid = accounts.custid"
-    ],
-    "db_contents": {
-      "checking": [
-        [],
-        []
-      ],
-      "savings": [
-        [],
-        []
-      ],
-      "accounts": [
-        [],
-        []
-      ]
-    },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( custid, balance )\n# savings ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What is the name corresponding to the accoung with the lowest sum of checking and savings balances?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( name, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What is the name corresponding to the accoung with the lowest sum of checking and savings balances?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -928,13 +928,13 @@
         "balance",
         "custid"
       ],
-      "checking": [
-        "balance",
-        "custid"
-      ],
       "accounts": [
-        "name",
-        "custid"
+        "custid",
+        "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -946,16 +946,16 @@
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "checking": [
         [],
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# checking ( balance, custid )\n# accounts ( name, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the names and total checking and savings balances of accounts whose savings balance is higher than the average savings balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the names and total checking and savings balances of accounts whose savings balance is higher than the average savings balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -963,12 +963,12 @@
     "query": "SELECT T1.name ,  T2.balance + T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  >  (SELECT avg(balance) FROM savings)",
     "schema": {
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -993,7 +993,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names and sum of checking and savings balances for accounts with savings balances higher than the average savings balance?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# checking ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names and sum of checking and savings balances for accounts with savings balances higher than the average savings balance?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1004,13 +1004,13 @@
         "custid",
         "balance"
       ],
-      "checking": [
-        "custid",
-        "balance"
-      ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -1022,16 +1022,16 @@
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "checking": [
         [],
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name and checking balance of the account with the lowest savings balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name and checking balance of the account with the lowest savings balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1039,8 +1039,8 @@
     "query": "SELECT T1.name ,  T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
     "schema": {
       "savings": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "checking": [
         "custid",
@@ -1069,7 +1069,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names and balances of checking accounts belonging to the customer with the lowest savings balance?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names and balances of checking accounts belonging to the customer with the lowest savings balance?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1077,8 +1077,8 @@
     "query": "SELECT count(*) ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
     "schema": {
       "accounts": [
-        "name",
-        "custid"
+        "custid",
+        "name"
       ],
       "checking": [
         "custid",
@@ -1107,7 +1107,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name, custid )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the number of checking accounts for each account name.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the number of checking accounts for each account name.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1152,13 +1152,13 @@
     "question": "Find the total saving balance for each account name.",
     "query": "SELECT sum(T2.balance) ,  T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
     "schema": {
-      "accounts": [
-        "custid",
-        "name"
-      ],
       "savings": [
         "custid",
         "balance"
+      ],
+      "accounts": [
+        "custid",
+        "name"
       ],
       "checking": [
         "custid",
@@ -1170,11 +1170,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
+      "savings": [
         [],
         []
       ],
-      "savings": [
+      "accounts": [
         [],
         []
       ],
@@ -1183,7 +1183,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# savings ( custid, balance )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total saving balance for each account name.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total saving balance for each account name.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1267,8 +1267,8 @@
     "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM checking)",
     "schema": {
       "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "accounts": [
         "custid",
@@ -1297,7 +1297,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# accounts ( custid, name )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names of customers with checking balances lower than the average checking balance?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names of customers with checking balances lower than the average checking balance?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1309,8 +1309,8 @@
         "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -1335,7 +1335,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the saving balance of the account with the highest checking balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the saving balance of the account with the highest checking balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1380,17 +1380,17 @@
     "question": "Find the total checking and saving balance of all accounts sorted by the total balance in ascending order.",
     "query": "SELECT T1.balance + T2.balance FROM checking AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T1.balance + T2.balance",
     "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ],
       "accounts": [
         "custid",
         "name"
-      ],
-      "checking": [
-        "custid",
-        "balance"
-      ],
-      "savings": [
-        "custid",
-        "balance"
       ]
     },
     "fk": [
@@ -1398,10 +1398,6 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
-        [],
-        []
-      ],
       "checking": [
         [],
         []
@@ -1409,9 +1405,13 @@
       "savings": [
         [],
         []
+      ],
+      "accounts": [
+        [],
+        []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total checking and saving balance of all accounts sorted by the total balance in ascending order.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the total checking and saving balance of all accounts sorted by the total balance in ascending order.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1457,16 +1457,16 @@
     "query": "SELECT T2.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
     "schema": {
       "savings": [
-        "balance",
-        "custid"
-      ],
-      "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -1478,16 +1478,16 @@
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "checking": [
         [],
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( balance, custid )\n# checking ( balance, custid )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name and checking balance of the account with the lowest saving balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name and checking balance of the account with the lowest saving balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1537,8 +1537,8 @@
         "name"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
         "custid",
@@ -1563,7 +1563,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name, checking balance and saving balance of all accounts in the bank.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( balance, custid )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name, checking balance and saving balance of all accounts in the bank.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1571,16 +1571,16 @@
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid",
     "schema": {
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -1601,24 +1601,24 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names, checking balances, and savings balances for all customers?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name, custid )\n# checking ( balance, custid )\n# savings ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names, checking balances, and savings balances for all customers?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
     "question": "Find the name, checking balance and savings balance of all accounts in the bank sorted by their total checking and savings balance in descending order.",
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
     "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ],
       "accounts": [
         "name",
         "custid"
-      ],
-      "checking": [
-        "custid",
-        "balance"
-      ],
-      "savings": [
-        "custid",
-        "balance"
       ]
     },
     "fk": [
@@ -1626,10 +1626,6 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
-        [],
-        []
-      ],
       "checking": [
         [],
         []
@@ -1637,9 +1633,13 @@
       "savings": [
         [],
         []
+      ],
+      "accounts": [
+        [],
+        []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name, custid )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name, checking balance and savings balance of all accounts in the bank sorted by their total checking and savings balance in descending order.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( balance, custid )\n# savings ( balance, custid )\n# accounts ( name, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name, checking balance and savings balance of all accounts in the bank sorted by their total checking and savings balance in descending order.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1647,16 +1647,16 @@
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
     "schema": {
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -1677,7 +1677,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( custid, name )\n# checking ( custid, balance )\n# savings ( custid, balance )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names, checking balances, and savings balances of customers, ordered by the total of checking and savings balances descending?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# accounts ( name, custid )\n# checking ( balance, custid )\n# savings ( balance, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names, checking balances, and savings balances of customers, ordered by the total of checking and savings balances descending?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1760,11 +1760,11 @@
     "question": "Find the name and total checking and savings balance of the accounts whose savings balance is lower than corresponding checking balance.",
     "query": "SELECT T1.name ,  T3.balance + T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  <  T2.balance",
     "schema": {
-      "checking": [
+      "savings": [
         "custid",
         "balance"
       ],
-      "savings": [
+      "checking": [
         "custid",
         "balance"
       ],
@@ -1778,11 +1778,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "checking": [
+      "savings": [
         [],
         []
       ],
-      "savings": [
+      "checking": [
         [],
         []
       ],
@@ -1791,7 +1791,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# checking ( custid, balance )\n# savings ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name and total checking and savings balance of the accounts whose savings balance is lower than corresponding checking balance.\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### Find the name and total checking and savings balance of the accounts whose savings balance is lower than corresponding checking balance.\nSELECT"
   },
   {
     "db_id": "small_bank_1",
@@ -1807,8 +1807,8 @@
         "balance"
       ],
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ]
     },
     "fk": [
@@ -1829,7 +1829,7 @@
         []
       ]
     },
-    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# checking ( custid, balance )\n# accounts ( custid, name )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names of customers who have a savings balance lower than their checking balance, and what is the total of their checking and savings balances?\nSELECT"
+    "input_sequence": "### Complete sqlite SQL query only and with no explanation, and do not select extra columns that are not explicitly requested in the query. \n ### Sqlite SQL tables, with their properties: \n#\n# savings ( custid, balance )\n# checking ( custid, balance )\n# accounts ( name, custid )\n# savings.custid = accounts.custid\n# checking.custid = accounts.custid\n#\n### What are the names of customers who have a savings balance lower than their checking balance, and what is the total of their checking and savings balances?\nSELECT"
   },
   {
     "db_id": "small_bank_1",
