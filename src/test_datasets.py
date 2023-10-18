@@ -17,9 +17,9 @@ class TestDBUtils(unittest.TestCase):
         pass
 
 
-    # def test_get_schema_and_sample_data(self):
-    #     result = self.dataset.get_schema_and_sample_data(self.test_db_name)
-    #     print(result)
+    def test_get_schema_and_sample_data(self):
+        result = self.bird_dataset.get_schema_and_sample_data(self.test_db_name)
+        print(result)
         
     # def test_get_spider_domains(self):
     #     dev_domains = self.dataset.get_dev_domains()
@@ -53,10 +53,10 @@ class TestDBUtils(unittest.TestCase):
     #     print("\n".join(self.bird_dataset.dev_databases))
     #     print("\n".join(self.bird_dataset.train_databases))
 
-    def test_loaded_bird_train_domains(self):        
+    # def test_loaded_bird_train_domains(self):        
         
-        for data_point in self.bird_dataset.data:
-            assert(data_point['db_id'] == 'retails')
+    #     for data_point in self.bird_dataset.data:
+    #         assert(data_point['db_id'] == 'retails')
             
 
 if __name__ == "__main__":

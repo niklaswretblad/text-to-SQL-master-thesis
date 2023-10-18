@@ -1,0 +1,9 @@
+
+
+# Identifies how many times a specific table occurs in the golden sql of a failed generated query
+
+"gold_sql": ".* district .*",\s*"predicted_sql": ".*",\s*"success": 0
+
+
+
+
