@@ -82,7 +82,6 @@ Given the database schema and question, perform the following actions:
 ]
 """
 
-
 def parse_option():
     parser = argparse.ArgumentParser("command line arguments for generate sqls")
     parser.add_argument("--input_dataset_path", type=str)
@@ -97,25 +96,44 @@ def parse_option():
     return opt
 
 
-def generate_reply(messages, n):
+def generate_reply(messages, n,index, type):
     completions = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
         n=n,
     )
-    global log_cost
     token_input_cost = 0.0015/1000
     token_output_cost = 0.002/1000
-    input_cost = completions["usage"]["prompt_tokens"]*token_input_cost
-    output_cost = completions["usage"]["completion_tokens"]*token_output_cost
-    total_cost = input_cost+output_cost
-    log_cost += total_cost
-    wandb.log({"Text-to-SQL Prompt Cost": log_cost})
-    print('Logging the price after each completion')
-    print('Prompt cost: ', total_cost)
-    print('Culiminative cost: ', log_cost, ' $ ')
+    print('current index in generate_reply: ', index)
+    global log_cost
+
+    if type == "sc":
+        if index==0:
+            log_cost = 0
+        print('self consistent')
+        input_cost = completions["usage"]["prompt_tokens"]*token_input_cost
+        output_cost = completions["usage"]["completion_tokens"]*token_output_cost
+        total_cost = input_cost+output_cost
+        log_cost += total_cost
+        # wandb.log({"C3 Self-Consistency Prompt Cost": log_cost, "SC_prompt_step": index+1})
+        print('Logging the price after each completion')
+        print('Prompt cost: ', total_cost)
+        print('Culiminative cost: ', log_cost, ' $ ')
+    else:
+        if index==0:
+            log_cost = 0
+        print('text to sql')
+        input_cost = completions["usage"]["prompt_tokens"]*token_input_cost
+        output_cost = completions["usage"]["completion_tokens"]*token_output_cost
+        total_cost = input_cost+output_cost
+        log_cost += total_cost
+        # wandb.log({"Text-to-SQL Prompt Cost": log_cost, "Text_to_sql_step": index+1})
+        print('Logging the price after each completion')
+        print('Prompt cost: ', total_cost)
+        print('Culiminative cost: ', log_cost, ' $ ')
+
     
-    
+
     mes = completions.choices[0].message.content
     all_p_sqls = []
     for i in range(n):
@@ -176,9 +194,13 @@ def main():
     resume="allow"
     )
 
+    wandb.define_metric("C3 Self-Consistency Prompt Cost", step_metric="SC_prompt_step")
+    wandb.define_metric("Text-to-SQL Prompt Cost", step_metric="Text_to_sql_step")
+    wandb.define_metric("accuracy", step_metric="accuracy_step")
+
 
     artifact = wandb.Artifact('query_results', type='dataset')
-    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])    
+    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"]) 
 
     opt = parse_option()
     print('opt: ', opt)
@@ -197,7 +219,7 @@ def main():
                 messages = chat_prompt.copy()
                 input = item['input_sequence']
                 messages.append({"role": "user", "content": input})
-                p_sql = generate_reply(messages, 1)[0]
+                p_sql = generate_reply(messages, 1, i+j, type="sc")[0]
                 p_sql = 'SELECT ' + p_sql
                 p_sql = p_sql.replace("SELECT SELECT", "SELECT")
                 p_sql = fix_select_column(p_sql)
@@ -226,7 +248,7 @@ def main():
                 reply = None
                 while reply is None:
                     try:
-                        reply = generate_reply(messages, opt.n)
+                        reply = generate_reply(messages, opt.n, i, type="normal")
                     except Exception as e:
                         print("main_file")
                         print(e)
@@ -273,6 +295,7 @@ def main():
 
         score = 0
         accuracy = 0
+    
         for index, result in enumerate(results):
             
             success = spiderDataset.execute_queries_and_match_data(p_sql_final[index], result['gold_sql'], "small_bank_1")
@@ -281,7 +304,7 @@ def main():
             score += success
             accuracy = score / (index + 1)
             print('current accuracy: ', accuracy)
-            wandb.log({"accuracy": accuracy})
+            wandb.log({"accuracy": accuracy}, step=index+1)
         wandb.run.summary["accuracy"] = accuracy
         artifact.add(table, "query_results")
         wandb.log_artifact(artifact)

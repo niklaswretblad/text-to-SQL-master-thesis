@@ -3,13 +3,13 @@
 
 # General settings
 
-current_experiment: "C3 Spider Bank Expirement 1"
+current_experiment: "C3 Spider Bank Accuracy test"
 experiment_description: "Experiment with the whole Bank domain of the Spider dataset."
 group: "C3 Zero Shot"
-run_id: "1330"
+run_id: "1221"
 
-# dataset: "Spider"
-dataset: "BIRD"
+dataset: "Spider"
+# dataset: "BIRD"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"

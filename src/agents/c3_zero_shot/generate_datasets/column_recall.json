@@ -4,13 +4,13 @@
     "question": "Find the total savings balance of all accounts except the account with name 'Brown'.",
     "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
     "schema": {
-      "savings": [
-        "custid",
-        "balance"
-      ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "savings": [
+        "custid",
+        "balance"
       ],
       "checking": [
         "custid",
@@ -22,15 +22,15 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "savings": [
-        [],
-        []
-      ],
       "accounts": [
         [],
         [
           "Brown"
         ]
+      ],
+      "savings": [
+        [],
+        []
       ],
       "checking": [
         [],
@@ -160,13 +160,13 @@
         "balance",
         "custid"
       ],
-      "savings": [
-        "balance",
-        "custid"
-      ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "savings": [
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -178,11 +178,11 @@
         [],
         []
       ],
-      "savings": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "savings": [
         [],
         []
       ]
@@ -198,8 +198,8 @@
         "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -313,8 +313,8 @@
         "name"
       ],
       "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -415,13 +415,13 @@
     "question": "What are the customer id and name corresponding to accounts with a checking balance less than the largest checking balance?",
     "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
     "schema": {
-      "accounts": [
-        "custid",
-        "name"
-      ],
       "checking": [
         "custid",
         "balance"
+      ],
+      "accounts": [
+        "custid",
+        "name"
       ],
       "savings": [
         "custid",
@@ -433,11 +433,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
+      "checking": [
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
@@ -452,10 +452,6 @@
     "question": "What is the checking balance of the account whose owner's name contains the substring 'ee'?",
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
     "schema": {
-      "accounts": [
-        "name",
-        "custid"
-      ],
       "checking": [
         "balance",
         "custid"
@@ -463,6 +459,10 @@
       "savings": [
         "balance",
         "custid"
+      ],
+      "accounts": [
+        "custid",
+        "name"
       ]
     },
     "fk": [
@@ -470,15 +470,15 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
-        [],
-        []
-      ],
       "checking": [
         [],
         []
       ],
       "savings": [
+        [],
+        []
+      ],
+      "accounts": [
         [],
         []
       ]
@@ -489,13 +489,13 @@
     "question": "Find the balance of the checking account belonging to an owner whose name contains 'ee'.",
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
     "schema": {
-      "accounts": [
-        "custid",
-        "name"
-      ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
+      ],
+      "accounts": [
+        "name",
+        "custid"
       ],
       "savings": [
         "custid",
@@ -507,11 +507,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
+      "checking": [
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
@@ -530,11 +530,11 @@
         "custid",
         "name"
       ],
-      "savings": [
+      "checking": [
         "custid",
         "balance"
       ],
-      "checking": [
+      "savings": [
         "custid",
         "balance"
       ]
@@ -550,11 +550,11 @@
           "Brown"
         ]
       ],
-      "savings": [
+      "checking": [
         [],
         []
       ],
-      "checking": [
+      "savings": [
         [],
         []
       ]
@@ -566,16 +566,16 @@
     "query": "SELECT T2.balance ,  T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T1.name  =  'Brown'",
     "schema": {
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -584,10 +584,10 @@
     ],
     "db_contents": {
       "accounts": [
-        [],
         [
           "Brown"
-        ]
+        ],
+        []
       ],
       "savings": [
         [],
@@ -613,8 +613,8 @@
         "custid"
       ],
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ]
     },
     "fk": [
@@ -679,16 +679,16 @@
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name IN (SELECT T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  >  (SELECT avg(balance) FROM savings))",
     "schema": {
       "savings": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "accounts": [
         "custid",
         "name"
       ],
       "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -720,8 +720,8 @@
         "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -826,16 +826,16 @@
     "question": "Find the name of account that has the lowest total checking and saving balance.",
     "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
     "schema": {
+      "accounts": [
+        "name",
+        "custid"
+      ],
       "checking": [
         "balance",
         "custid"
       ],
       "savings": [
         "balance",
-        "custid"
-      ],
-      "accounts": [
-        "name",
         "custid"
       ]
     },
@@ -844,15 +844,15 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
+      "accounts": [
+        [],
+        []
+      ],
       "checking": [
         [],
         []
       ],
       "savings": [
-        [],
-        []
-      ],
-      "accounts": [
         [],
         []
       ]
@@ -864,16 +864,16 @@
     "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
     "schema": {
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ]
     },
     "fk": [
@@ -904,13 +904,13 @@
         "balance",
         "custid"
       ],
-      "checking": [
-        "balance",
-        "custid"
-      ],
       "accounts": [
-        "name",
-        "custid"
+        "custid",
+        "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -922,11 +922,11 @@
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "checking": [
         [],
         []
       ]
@@ -938,12 +938,12 @@
     "query": "SELECT T1.name ,  T2.balance + T3.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  >  (SELECT avg(balance) FROM savings)",
     "schema": {
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -978,13 +978,13 @@
         "custid",
         "balance"
       ],
-      "checking": [
-        "custid",
-        "balance"
-      ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -996,11 +996,11 @@
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "checking": [
         [],
         []
       ]
@@ -1012,8 +1012,8 @@
     "query": "SELECT T1.name ,  T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
     "schema": {
       "savings": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "checking": [
         "custid",
@@ -1049,8 +1049,8 @@
     "query": "SELECT count(*) ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
     "schema": {
       "accounts": [
-        "name",
-        "custid"
+        "custid",
+        "name"
       ],
       "checking": [
         "custid",
@@ -1122,13 +1122,13 @@
     "question": "Find the total saving balance for each account name.",
     "query": "SELECT sum(T2.balance) ,  T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
     "schema": {
-      "accounts": [
-        "custid",
-        "name"
-      ],
       "savings": [
         "custid",
         "balance"
+      ],
+      "accounts": [
+        "custid",
+        "name"
       ],
       "checking": [
         "custid",
@@ -1140,11 +1140,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
+      "savings": [
         [],
         []
       ],
-      "savings": [
+      "accounts": [
         [],
         []
       ],
@@ -1234,8 +1234,8 @@
     "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM checking)",
     "schema": {
       "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "accounts": [
         "custid",
@@ -1275,8 +1275,8 @@
         "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "accounts": [
         "custid",
@@ -1344,17 +1344,17 @@
     "question": "Find the total checking and saving balance of all accounts sorted by the total balance in ascending order.",
     "query": "SELECT T1.balance + T2.balance FROM checking AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T1.balance + T2.balance",
     "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ],
       "accounts": [
         "custid",
         "name"
-      ],
-      "checking": [
-        "custid",
-        "balance"
-      ],
-      "savings": [
-        "custid",
-        "balance"
       ]
     },
     "fk": [
@@ -1362,15 +1362,15 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
-        [],
-        []
-      ],
       "checking": [
         [],
         []
       ],
       "savings": [
+        [],
+        []
+      ],
+      "accounts": [
         [],
         []
       ]
@@ -1419,16 +1419,16 @@
     "query": "SELECT T2.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T3.balance LIMIT 1",
     "schema": {
       "savings": [
-        "balance",
-        "custid"
-      ],
-      "checking": [
-        "balance",
-        "custid"
+        "custid",
+        "balance"
       ],
       "accounts": [
         "custid",
         "name"
+      ],
+      "checking": [
+        "custid",
+        "balance"
       ]
     },
     "fk": [
@@ -1440,11 +1440,11 @@
         [],
         []
       ],
-      "checking": [
+      "accounts": [
         [],
         []
       ],
-      "accounts": [
+      "checking": [
         [],
         []
       ]
@@ -1497,8 +1497,8 @@
         "name"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
         "custid",
@@ -1530,16 +1530,16 @@
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid",
     "schema": {
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -1566,17 +1566,17 @@
     "question": "Find the name, checking balance and savings balance of all accounts in the bank sorted by their total checking and savings balance in descending order.",
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
     "schema": {
+      "checking": [
+        "balance",
+        "custid"
+      ],
+      "savings": [
+        "balance",
+        "custid"
+      ],
       "accounts": [
         "name",
         "custid"
-      ],
-      "checking": [
-        "custid",
-        "balance"
-      ],
-      "savings": [
-        "custid",
-        "balance"
       ]
     },
     "fk": [
@@ -1584,15 +1584,15 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "accounts": [
-        [],
-        []
-      ],
       "checking": [
         [],
         []
       ],
       "savings": [
+        [],
+        []
+      ],
+      "accounts": [
         [],
         []
       ]
@@ -1604,16 +1604,16 @@
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
     "schema": {
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ],
       "checking": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ],
       "savings": [
-        "custid",
-        "balance"
+        "balance",
+        "custid"
       ]
     },
     "fk": [
@@ -1714,11 +1714,11 @@
     "question": "Find the name and total checking and savings balance of the accounts whose savings balance is lower than corresponding checking balance.",
     "query": "SELECT T1.name ,  T3.balance + T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  <  T2.balance",
     "schema": {
-      "checking": [
+      "savings": [
         "custid",
         "balance"
       ],
-      "savings": [
+      "checking": [
         "custid",
         "balance"
       ],
@@ -1732,11 +1732,11 @@
       "checking.custid = accounts.custid"
     ],
     "db_contents": {
-      "checking": [
+      "savings": [
         [],
         []
       ],
-      "savings": [
+      "checking": [
         [],
         []
       ],
@@ -1760,8 +1760,8 @@
         "balance"
       ],
       "accounts": [
-        "custid",
-        "name"
+        "name",
+        "custid"
       ]
     },
     "fk": [

@@ -5,26 +5,6 @@
     "query": "SELECT sum(T2.balance) FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid WHERE T1.name != 'Brown'",
     "db_schema": [
       {
-        "table_name_original": "savings",
-        "table_name": "savings",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -44,6 +24,26 @@
           [
             "Brown"
           ]
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
+        ],
+        "db_contents": [
+          [],
+          []
         ]
       },
       {
@@ -313,26 +313,6 @@
         ]
       },
       {
-        "table_name_original": "savings",
-        "table_name": "savings",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -346,6 +326,26 @@
         "column_types": [
           "number",
           "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "savings",
+        "table_name": "savings",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
         ],
         "db_contents": [
           [],
@@ -790,26 +790,6 @@
     "query": "SELECT T1.custid ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT max(balance) FROM checking)",
     "db_schema": [
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "checking",
         "table_name": "checking",
         "column_names": [
@@ -823,6 +803,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -861,26 +861,6 @@
     "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
     "db_schema": [
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "checking",
         "table_name": "checking",
         "column_names": [
@@ -919,18 +899,7 @@
           [],
           []
         ]
-      }
-    ],
-    "fk": [
-      "savings.custid = accounts.custid",
-      "checking.custid = accounts.custid"
-    ]
-  },
-  {
-    "db_id": "small_bank_1",
-    "question": "Find the balance of the checking account belonging to an owner whose name contains 'ee'.",
-    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
-    "db_schema": [
+      },
       {
         "table_name_original": "accounts",
         "table_name": "accounts",
@@ -950,7 +919,18 @@
           [],
           []
         ]
-      },
+      }
+    ],
+    "fk": [
+      "savings.custid = accounts.custid",
+      "checking.custid = accounts.custid"
+    ]
+  },
+  {
+    "db_id": "small_bank_1",
+    "question": "Find the balance of the checking account belonging to an owner whose name contains 'ee'.",
+    "query": "SELECT T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T1.name LIKE '%ee%'",
+    "db_schema": [
       {
         "table_name_original": "checking",
         "table_name": "checking",
@@ -965,6 +945,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -1025,8 +1025,8 @@
         ]
       },
       {
-        "table_name_original": "savings",
-        "table_name": "savings",
+        "table_name_original": "checking",
+        "table_name": "checking",
         "column_names": [
           "customer id",
           "balance"
@@ -1045,8 +1045,8 @@
         ]
       },
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
+        "table_name_original": "savings",
+        "table_name": "savings",
         "column_names": [
           "customer id",
           "balance"
@@ -1575,6 +1575,26 @@
     "query": "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance LIMIT 1",
     "db_schema": [
       {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
         "table_name_original": "checking",
         "table_name": "checking",
         "column_names": [
@@ -1608,26 +1628,6 @@
         "column_types": [
           "number",
           "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
         ],
         "db_contents": [
           [],
@@ -1737,26 +1737,6 @@
         ]
       },
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -1770,6 +1750,26 @@
         "column_types": [
           "number",
           "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
         ],
         "db_contents": [
           [],
@@ -1879,26 +1879,6 @@
         ]
       },
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -1912,6 +1892,26 @@
         "column_types": [
           "number",
           "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
         ],
         "db_contents": [
           [],
@@ -2143,26 +2143,6 @@
     "query": "SELECT sum(T2.balance) ,  T1.name FROM accounts AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid GROUP BY T1.name",
     "db_schema": [
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "savings",
         "table_name": "savings",
         "column_names": [
@@ -2176,6 +2156,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -2569,26 +2569,6 @@
     "query": "SELECT T1.balance + T2.balance FROM checking AS T1 JOIN savings AS T2 ON T1.custid  =  T2.custid ORDER BY T1.balance + T2.balance",
     "db_schema": [
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "checking",
         "table_name": "checking",
         "column_names": [
@@ -2622,6 +2602,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -2731,26 +2731,6 @@
         ]
       },
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
-        "column_names": [
-          "customer id",
-          "balance"
-        ],
-        "column_names_original": [
-          "custid",
-          "balance"
-        ],
-        "column_types": [
-          "number",
-          "number"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "accounts",
         "table_name": "accounts",
         "column_names": [
@@ -2764,6 +2744,26 @@
         "column_types": [
           "number",
           "text"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "checking",
+        "table_name": "checking",
+        "column_names": [
+          "customer id",
+          "balance"
+        ],
+        "column_names_original": [
+          "custid",
+          "balance"
+        ],
+        "column_types": [
+          "number",
+          "number"
         ],
         "db_contents": [
           [],
@@ -2995,26 +2995,6 @@
     "query": "SELECT T2.balance ,  T3.balance ,  T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid ORDER BY T2.balance + T3.balance DESC",
     "db_schema": [
       {
-        "table_name_original": "accounts",
-        "table_name": "accounts",
-        "column_names": [
-          "customer id",
-          "name"
-        ],
-        "column_names_original": [
-          "custid",
-          "name"
-        ],
-        "column_types": [
-          "number",
-          "text"
-        ],
-        "db_contents": [
-          [],
-          []
-        ]
-      },
-      {
         "table_name_original": "checking",
         "table_name": "checking",
         "column_names": [
@@ -3048,6 +3028,26 @@
         "column_types": [
           "number",
           "number"
+        ],
+        "db_contents": [
+          [],
+          []
+        ]
+      },
+      {
+        "table_name_original": "accounts",
+        "table_name": "accounts",
+        "column_names": [
+          "customer id",
+          "name"
+        ],
+        "column_names_original": [
+          "custid",
+          "name"
+        ],
+        "column_types": [
+          "number",
+          "text"
         ],
         "db_contents": [
           [],
@@ -3279,8 +3279,8 @@
     "query": "SELECT T1.name ,  T3.balance + T2.balance FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid JOIN savings AS T3 ON T1.custid  =  T3.custid WHERE T3.balance  <  T2.balance",
     "db_schema": [
       {
-        "table_name_original": "checking",
-        "table_name": "checking",
+        "table_name_original": "savings",
+        "table_name": "savings",
         "column_names": [
           "customer id",
           "balance"
@@ -3299,8 +3299,8 @@
         ]
       },
       {
-        "table_name_original": "savings",
-        "table_name": "savings",
+        "table_name_original": "checking",
+        "table_name": "checking",
         "column_names": [
           "customer id",
           "balance"

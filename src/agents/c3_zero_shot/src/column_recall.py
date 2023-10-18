@@ -31,7 +31,7 @@ def parse_option():
     return opt
 
 
-def generate_reply(input, sc_num):
+def generate_reply(input, sc_num, index):
     completions = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=input,
@@ -46,7 +46,7 @@ def generate_reply(input, sc_num):
     output_cost = completions["usage"]["completion_tokens"]*token_output_cost
     total_cost = input_cost+output_cost
     log_cost += total_cost
-    wandb.log({"Column Recall Cost": log_cost})
+    wandb.log({"Column Recall Cost": log_cost, "column_recall_step": index+1})
     print('logging the price of each completion')
     print('prompt cost: ', total_cost)
     print('Culiminative cost: ', log_cost, '$ ')
@@ -201,6 +201,9 @@ if __name__ == "__main__":
     id=config.run_id,
     resume="allow"
     )
+
+    wandb.define_metric("Column Recall Cost", step_metric="column_recall_step")
+
     opt = parse_option()
     print(opt)
     with open(opt.input_recalled_tables_path) as f:
@@ -221,7 +224,7 @@ if __name__ == "__main__":
         tabs_cols_all = None
         while tabs_cols_all is None:
             try:
-                tabs_cols_all = generate_reply([{"role": "user", "content": prompt}], sc_num)
+                tabs_cols_all = generate_reply([{"role": "user", "content": prompt}], sc_num, i)
             except:
                 print("column_recall")
                 print(f'api error, wait for 3 seconds and retry...')
