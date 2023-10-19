@@ -19,16 +19,15 @@ if not os.path.exists(ARTIFACTS_PATH):
     os.makedirs(ARTIFACTS_PATH)
 
 # Download all artifacts and put them in the corresponding run folder
-for run in api.runs(f"{ENTITY}/{PROJECT_NAME}"):    
-    print(run.name)
-    for artifact in run.logged_artifacts():        
+for run in api.runs(f"{ENTITY}/{PROJECT_NAME}"):        
+    for i, artifact in enumerate(run.logged_artifacts()):        
         if artifact.name.startswith("query_results"):
             
             a_p = f"{ENTITY}/{PROJECT_NAME}/{artifact.name}"            
             artifact_ref = api.artifact(f"{ENTITY}/{PROJECT_NAME}/{artifact.name}")
             artifact_dir = artifact_ref.download()
 
-            dest_path = os.path.join(ARTIFACTS_PATH, f"{run.name}_{artifact_name}.table")
+            dest_path = os.path.join(ARTIFACTS_PATH, f"{run.name}")    
             os.rename(artifact_dir, dest_path)
             print(f"Downloaded {artifact_name} for run {run.name} to {dest_path}")
             
