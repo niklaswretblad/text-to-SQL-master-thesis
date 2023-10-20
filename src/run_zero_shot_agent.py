@@ -9,7 +9,7 @@ import langchain
 langchain.verbose = False
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"
+# os.environ["WANDB_MODE"] = "offline"
 
 def main():
     config = load_config("zero_shot_config.yaml")

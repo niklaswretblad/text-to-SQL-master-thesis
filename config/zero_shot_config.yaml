@@ -3,8 +3,8 @@
 
 # General settings
 
-current_experiment: "zero_shot_bird_descriptions"
-experiment_description: "Zero-shot agent with both bird db descriptions and create_table statements"
+current_experiment: "Zero-shot BIRD descriptions and retail domain"
+experiment_description: "Zero-shot agent with both bird db descriptions and create_table statements, on both financial and retail domains of bird"
 group: "zero_shot"
 
 # dataset: "Spider"
@@ -16,7 +16,7 @@ entity: "master-thesis-combientmix"
 # LLM settings
 llm_settings:
   model: "gpt-3.5-turbo"
-  temperature: 0
+  temperature: 0.2
   request_timeout: 60
   token_limit: 4096
   max_response_length: 1024

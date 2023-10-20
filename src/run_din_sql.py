@@ -42,9 +42,7 @@ def main():
     no_data_points = dataset.get_number_of_data_points()
     score = 0
     accuracy = 0
-    for i in range(no_data_points):
-        if i == 3:
-            continue
+    for i in range(no_data_points):        
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
         golden_sql = data_point['SQL']

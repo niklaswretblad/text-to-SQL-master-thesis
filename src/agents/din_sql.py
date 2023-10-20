@@ -1230,10 +1230,10 @@ class DinSQLAgent(ZeroShotAgent):
             self.completion_tokens += cb.completion_tokens
 
         if finall_sql is not None:
-            one_liner_sql_query = finall_sql.replace('\n', '').replace('\r', '')
+            one_liner_sql_query = finall_sql.replace('\n', ' ').replace('\r', ' ')
         else:
             if sql_query is not None:
-                one_liner_sql_query = sql_query.replace('\n', '').replace('\r', '')
+                one_liner_sql_query = sql_query.replace('\n', ' ').replace('\r', ' ')
             else:
                 one_liner_sql_query = "SELECT * FROM table LIMIT 1;" # no query generated, placeholder to avoid errors
 
