@@ -70,7 +70,7 @@ bird_train_domains:
 # restaurant
 # retail_complains
 # retail_world
-  - retails
+  # - retails
 # sales
 # sales_in_weather
 # shakespeare

@@ -427,7 +427,7 @@ class BIRDDataset(Dataset):
       db_info = ""
       for table in table_info:
          db_info += table_info[table]
-         db_info += "\n"
+         db_info += "\n\n"
       
       return db_info
    
