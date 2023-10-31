@@ -6,13 +6,15 @@ from config import api_key, load_config
 from agents.zero_shot import ZeroShotAgent
 import wandb
 import langchain
-langchain.verbose = True
+# langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
 # os.environ["WANDB_MODE"] = "offline"
 
 def main():
     config = load_config("zero_shot_config.yaml")
+    print('config: ', config.dataset)
+
 
     wandb.init(
         project=config.project,

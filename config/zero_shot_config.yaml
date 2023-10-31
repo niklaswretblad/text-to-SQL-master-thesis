@@ -6,7 +6,7 @@
 current_experiment: "Zero-shot updated dev, financial only"
 experiment_description: | 
   Zero-shot agent with both bird db descriptions,create_table statements and example rows, on financial dataset only.
-  This is a rerun of the zero-shot with examples row experiment but with the new dev set published 25 sep 2023.
+  This is a rerun of the zero-shot with examples row experiment but with the new dev set published 25 sep 2023./a
 group: "zero_shot"
 
 # dataset: "Spider"
