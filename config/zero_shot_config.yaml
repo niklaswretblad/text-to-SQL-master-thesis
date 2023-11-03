@@ -8,7 +8,8 @@ experiment_description: "Zero-shot agent with both bird db descriptions and crea
 group: "zero_shot"
 
 # dataset: "Spider"
-dataset: "BIRD"
+# dataset: "BIRD"
+dataset: "BIRDFixedFinancial"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
@@ -16,7 +17,7 @@ entity: "master-thesis-combientmix"
 # LLM settings
 llm_settings:
   model: "gpt-3.5-turbo"
-  temperature: 0.2
+  temperature: 0.0
   request_timeout: 60
   token_limit: 4096
   max_response_length: 1024

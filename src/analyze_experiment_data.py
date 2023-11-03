@@ -4,6 +4,7 @@ import os
 import json
 import csv
 
+
 ARTIFACTS_PATH = os.path.abspath(
       os.path.join(os.path.dirname( __file__ ), '..', 'results', 'artifacts'))
 
@@ -54,7 +55,7 @@ def process_experiment_file(file_path):
             "gold_group_by": count_group_by(gold_sql),
             "predicted_group_by": count_group_by(predicted_sql),
             "gold_counts": count_counts(gold_sql),
-            "predicted_counts": count_counts(predicted_sql)                                                
+            "predicted_counts": count_counts(predicted_sql)                             
         }
         
         results.append(result)
