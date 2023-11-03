@@ -183,9 +183,9 @@ class Dataset:
          self.cursor.execute(f"PRAGMA table_info(\"{table_name}\");")
          columns = self.cursor.fetchall()
          for column in columns:
-               col_name = column[1]
-               col_type = column[2]
-               res = res + f"  Column: {col_name}, Type: {col_type}\n"         
+            col_name = column[1]
+            col_type = column[2]
+            res = res + f"  Column: {col_name}, Type: {col_type}\n"         
 
       logging.info(res)
       return res              
@@ -246,12 +246,13 @@ class Dataset:
             column_names = [column[1] for column in columns]
             column_names_line = "\t".join(column_names)
             
-            schema_and_sample_data += f"Three rows from {table} table:\n"
-            schema_and_sample_data += f"{column_names_line}\n"
+            # schema_and_sample_data += f"Three rows from {table} table:\n"
+            # schema_and_sample_data += f"{column_names_line}\n"
 
-            for row in rows:
-                  row_line = "\t".join([str(value) for value in row])
-                  schema_and_sample_data += f"{row_line}\n"
+            # for row in rows:
+            #       row_line = "\t".join([str(value) for value in row])
+            #       schema_and_sample_data += f"{row_line}\n"
+
             schema_and_sample_data += "\n"
 
          schema_and_sample_data += "\n"
@@ -514,10 +515,15 @@ class SpiderDataset(Dataset):
       return "\n".join([domain for domain in sorted(domains)])
       
 
+class BIRDFixedFinancialDataset(BIRDDataset):
+   DEV_DATA_PATH = os.path.abspath(
+      os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/financial_fixed.json'))
+
 
 DATASET_LOADERS = {
     'BIRD': BIRDDataset,
     'Spider': SpiderDataset,
+    'BIRDFixedFinancial': BIRDFixedFinancialDataset
 }
 
 def get_dataset(dataset_name):

@@ -10,7 +10,8 @@ experiment_description: |
 group: "zero_shot"
 
 # dataset: "Spider"
-dataset: "BIRD"
+# dataset: "BIRD"
+dataset: "BIRDFixedFinancial"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
