@@ -13,7 +13,7 @@ bird_dev_domains:
 # codebase_community
 # debit_card_specializing
 # - european_football_2
-  - financial
+ - financial
 # formula_1
 # student_club
 # superhero
@@ -70,7 +70,7 @@ bird_train_domains:
 # restaurant
 # retail_complains
 # retail_world
-  - retails
+  # - retails
 # sales
 # sales_in_weather
 # shakespeare

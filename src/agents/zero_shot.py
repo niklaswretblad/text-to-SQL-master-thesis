@@ -10,12 +10,14 @@ ZERO_SHOT_PROMPT = """
 Database schema in the form of CREATE_TABLE statements:
 {database_schema}
 
-Using valid SQL, answer the following question based on the tables provided above.
-It is important to use qualified column names in the SQL-query, meaning the form "SELECT table_name.column_name FROM table_name;"
+Using valid SQL, answer the following question based on the tables provided above. 
+It is important to use qualified column names in the SQL-query, meaning the form 
+\"SELECT table_name.column_name FROM table_name;\"
+
 Hint helps you to write the correct sqlite SQL query.
 Question: {question}
 Hint: {evidence}
-DO NOT return anything else except the SQL query.
+'DO NOT return anything else except the SQL query.
 """
 
 class ZeroShotAgent(BaseAgent):
