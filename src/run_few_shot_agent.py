@@ -9,7 +9,7 @@ import langchain
 langchain.verbose = False
 
 # If you don't want your script to sync to the cloud
-# os.environ["WANDB_MODE"] = "offline"#
+os.environ["WANDB_MODE"] = "offline"#
 
 def main():
     config = load_config("few_shot_config.yaml")
@@ -54,7 +54,7 @@ def main():
         question = data_point['question']
 
         sql_schema = dataset.get_schema_and_sample_data(db_id)
-        predicted_sql = few_shot_agent.generate_query(sql_schema, question, evidence)        
+        predicted_sql = few_shot_agent.generate_query(sql_schema, question, evidence)  
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
         score += success

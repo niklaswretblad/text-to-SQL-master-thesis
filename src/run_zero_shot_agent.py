@@ -9,7 +9,7 @@ import langchain
 # langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
-# os.environ["WANDB_MODE"] = "offline"
+os.environ["WANDB_MODE"] = "offline"
 
 def main():
     config = load_config("zero_shot_config.yaml")
@@ -57,7 +57,7 @@ def main():
             bird_info = dataset.get_bird_db_info(db_id)
             sql_schema = sql_schema + bird_info
 
-        predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)        
+        predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
         score += success
