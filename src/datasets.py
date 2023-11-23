@@ -122,11 +122,11 @@ class Dataset:
       self.last_gold_execution_time = t.elapsed_time
       self.total_gold_execution_time += t.elapsed_time      
 
-      logging.debug("Predicted data:")
-      logging.debug(set(pred_res))
-      logging.debug("Gold data:")
-      logging.debug(set(golden_res))
-      
+      # logging.debug("Predicted data:")
+      # logging.debug(set(pred_res))
+      # logging.debug("Gold data:")
+      # logging.debug(set(golden_res))
+
       equal = (set(pred_res) == set(golden_res))
       return int(equal)
    
@@ -528,12 +528,18 @@ class BIRDExperimentalFinancialDataset(BIRDDataset):
    DEV_DATA_PATH = os.path.abspath(
       os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/financial_experimental.json'))
 
+class BIRDFixedFinancialGoldSQL(BIRDDataset):
+   DEV_DATA_PATH = os.path.abspath(
+      os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/financial_gold_fixed.json'))
+
+
 
 DATASET_LOADERS = {
     'BIRD': BIRDDataset,
     'Spider': SpiderDataset,
     'BIRDFixedFinancial': BIRDFixedFinancialDataset,
-    'BIRDExperimentalFinancial': BIRDExperimentalFinancialDataset
+    'BIRDExperimentalFinancial': BIRDExperimentalFinancialDataset,
+    'BIRDFixedFinancialGoldSQL': BIRDFixedFinancialGoldSQL
 }
 
 def get_dataset(dataset_name):

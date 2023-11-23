@@ -3,15 +3,15 @@
 
 # General settings
 
-current_experiment: "Zero-shot updated dev, financial only"
+current_experiment: "Zero-shot corrected gold-queries only"
 experiment_description: | 
-  Zero-shot agent with both bird db descriptions,create_table statements and example rows, on financial dataset only.
-  This is a rerun of the zero-shot with examples row experiment but with the new dev set published 25 sep 2023./a
+  Zero-shot agent with both bird db descriptions,create_table statements and example rows, on financial dataset with corrected gold queries only.
 group: "zero_shot"
 
 # dataset: "Spider"
 # dataset: "BIRD"
-dataset: "BIRDFixedFinancial"
+# dataset: "BIRDFixedFinancial"
+dataset: "BIRDFixedFinancialGoldSQL"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
