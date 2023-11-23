@@ -1,0 +1,25 @@
+
+# config.yaml for autocorrect experiments
+
+# General settings
+
+current_experiment: "Classifying Questions Quality"
+experiment_description: | 
+  Classfying the quality of questions using GPT, only input is instructions and the questions.
+group: "autocrrect"
+
+# dataset: "Spider"
+# dataset: "BIRD"
+# dataset: "BIRDFixedFinancial"
+dataset: "BIRDFixedFinancialGoldSQL"
+
+project: "text-to-sql-generation"
+entity: "master-thesis-combientmix"
+
+# LLM settings
+llm_settings:
+  model: "gpt-3.5-turbo"
+  temperature: 0
+  request_timeout: 60
+  token_limit: 4096
+  max_response_length: 1024
