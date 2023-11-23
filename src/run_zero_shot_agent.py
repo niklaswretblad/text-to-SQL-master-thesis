@@ -67,7 +67,7 @@ def main():
         else:
             bird_table_info = ""
 
-        predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)        
+        predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
 
         score += success
