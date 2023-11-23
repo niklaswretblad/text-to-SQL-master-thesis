@@ -5,7 +5,7 @@ import logging
 from utils.timer import Timer
 from config import load_config
 from utils.utils import load_json
-
+from collections import Counter
 
 class Dataset:
    """
@@ -127,7 +127,7 @@ class Dataset:
       # logging.debug("Gold data:")
       # logging.debug(set(golden_res))
 
-      equal = (set(pred_res) == set(golden_res))
+      equal = (Counter(pred_res) == Counter(golden_res))
       return int(equal)
    
 
