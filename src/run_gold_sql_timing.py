@@ -3,7 +3,7 @@ import os
 from datasets import Dataset
 from utils.utils import load_json
 from langchain.chat_models import ChatOpenAI
-from agents.zero_shot import ZeroShotAgent
+from sql_agents.zero_shot import ZeroShotAgent
 from config import config, api_key
 import wandb
 
