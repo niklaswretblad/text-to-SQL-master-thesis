@@ -41,21 +41,15 @@ def process_experiment_file(file_path):
         gold_sql = entry["gold_sql"]
         predicted_sql = entry['predicted_sql']
         predicted_sql = predicted_sql.replace("\n", " ")
+        difficulty = entry['difficulty'] if 'difficulty' in entry else ""
         result = {
             "question": entry["question"],
             "gold_sql": gold_sql,
             "predicted_sql": predicted_sql,
             "success": entry['success'],
+            'difficulty': difficulty,
             "gold_tables": get_tables(gold_sql),
-            "predicted_tables": get_tables(predicted_sql),
-            "gold_joins": count_joins(gold_sql),
-            "predicted_joins": count_joins(predicted_sql),
-            "gold_subqueries": count_subqueries(gold_sql),
-            "predicted_subqueries": count_subqueries(predicted_sql),
-            "gold_group_by": count_group_by(gold_sql),
-            "predicted_group_by": count_group_by(predicted_sql),
-            "gold_counts": count_counts(gold_sql),
-            "predicted_counts": count_counts(predicted_sql)                             
+            "predicted_tables": get_tables(predicted_sql)                        
         }
         
         results.append(result)
