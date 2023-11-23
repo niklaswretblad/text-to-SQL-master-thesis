@@ -90,7 +90,7 @@ def main():
         
     
     wandb.run.summary['number_of_questions']                = dataset.get_number_of_data_points()
-    wandb.run.summary["accuracy"]                           = accuracy
+    wandb.run.summary["accuracy"]                           = score / no_data_points
     wandb.run.summary["total_tokens"]                       = zero_shot_agent.total_tokens
     wandb.run.summary["prompt_tokens"]                      = zero_shot_agent.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = zero_shot_agent.completion_tokens
