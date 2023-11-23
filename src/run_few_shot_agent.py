@@ -43,10 +43,6 @@ def main():
     score = 0
     accuracy = 0
     for i in range(no_data_points):
-        # if i == 5: #or i == 26 or i == 27:
-        #     break
-            # continue
-
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
         golden_sql = data_point['SQL']

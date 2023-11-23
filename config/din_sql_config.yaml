@@ -3,12 +3,16 @@
 
 # General settings
 
-current_experiment: "DIN-SQL BIRD financial"
-experiment_description: "DIN-SQL agent run on the financial domain in BIRD"
+current_experiment: "DIN-SQL BIRD Fixed Financial"
+experiment_description: "DIN-SQL agent run on our fixed financial domain"
 group: "DIN SQL"
 
 # dataset: "Spider"
-dataset: "BIRD"
+# dataset: "BIRD"
+# dataset: "BIRDFixedFinancial"
+# dataset: "BIRDExperimentalFinancial"
+dataset: "BIRDFixedFinancialGoldSQL"
+
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"

@@ -9,7 +9,7 @@ import langchain
 # langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"
+# os.environ["WANDB_MODE"] = "offline"
 
 def main():
     config = load_config("zero_shot_config.yaml")
@@ -19,12 +19,12 @@ def main():
     wandb.init(
         project=config.project,
         config=config,
-        name= config.current_experiment,
+        name=config.current_experiment,
         entity=config.entity
     )
 
     artifact = wandb.Artifact('query_results', type='dataset')
-    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])    
+    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success", "Difficulty"])
 
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
     wandb.define_metric("gold_sql_execution_time", summary="mean")
@@ -50,12 +50,22 @@ def main():
         golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
+        difficulty = ""
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
         
-        if config.dataset == "BIRD":
-            bird_info = dataset.get_bird_db_info(db_id)
-            sql_schema = sql_schema + bird_info
+        if (config.dataset == "BIRD" or 
+            config.dataset == "BIRDFixedFinancial" or 
+            config.dataset == "BIRDExperimentalFinancial" or 
+            config.dataset == "BIRDFixedFinancialGoldSQL"):
+
+            # bird_table_info = dataset.get_bird_db_info(db_id)
+            # sql_schema = sql_schema + bird_table_info
+
+            if 'difficulty' in data_point:
+                difficulty = data_point['difficulty']
+        else:
+            bird_table_info = ""
 
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
@@ -63,7 +73,7 @@ def main():
         score += success
         accuracy = score / (i + 1)
 
-        table.add_data(question, golden_sql, predicted_sql, success)
+        table.add_data(question, golden_sql, predicted_sql, success, difficulty)
         wandb.log({
             "accuracy": accuracy,
             "total_tokens": zero_shot_agent.total_tokens,
@@ -80,7 +90,7 @@ def main():
         
     
     wandb.run.summary['number_of_questions']                = dataset.get_number_of_data_points()
-    wandb.run.summary["accuracy"]                           = accuracy
+    wandb.run.summary["accuracy"]                           = score / no_data_points
     wandb.run.summary["total_tokens"]                       = zero_shot_agent.total_tokens
     wandb.run.summary["prompt_tokens"]                      = zero_shot_agent.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = zero_shot_agent.completion_tokens
