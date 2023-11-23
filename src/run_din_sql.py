@@ -22,10 +22,11 @@ def main():
     )
 
     artifact = wandb.Artifact('query_results', type='dataset')
-    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])    
+    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success", "Difficulty"])
 
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
     wandb.define_metric("gold_sql_execution_time", summary="mean")
+    wandb.define_metric("success", summary="mean")
 
     llm = ChatOpenAI(
         openai_api_key=api_key, 
@@ -36,8 +37,6 @@ def main():
 
     dataset = get_dataset(config.dataset)
     din_sql_agent = DinSQLAgent(llm)
-
-    # wandb.config['prompt'] = din_sql_agent.prompt_template
     
     no_data_points = dataset.get_number_of_data_points()
     score = 0
@@ -48,11 +47,19 @@ def main():
         golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
-        
+        difficulty = ""
+
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
-        if config.dataset == "BIRD":
+        if (config.dataset == "BIRD" or 
+            config.dataset == "BIRDFixedFinancial" or 
+            config.dataset == "BIRDExperimentalFinancial" or 
+            config.dataset == "BIRDFixedFinancialGoldSQL"):
+
             bird_table_info = dataset.get_bird_db_info(db_id)
+
+            if 'difficulty' in data_point:
+                difficulty = data_point['difficulty']
         else:
             bird_table_info = ""
 
@@ -62,9 +69,9 @@ def main():
         score += success
         accuracy = score / (i + 1)
 
-        table.add_data(question, golden_sql, predicted_sql, success)
+        table.add_data(question, golden_sql, predicted_sql, success, difficulty)
         wandb.log({
-            "accuracy": accuracy,
+            "success": success,
             "total_tokens": din_sql_agent.total_tokens,
             "prompt_tokens": din_sql_agent.prompt_tokens,
             "completion_tokens": din_sql_agent.completion_tokens,
@@ -79,7 +86,7 @@ def main():
         
     
     wandb.run.summary['number_of_questions']                = dataset.get_number_of_data_points()
-    wandb.run.summary["accuracy"]                           = accuracy
+    wandb.run.summary["accuracy"]                           = score / no_data_points
     wandb.run.summary["total_tokens"]                       = din_sql_agent.total_tokens
     wandb.run.summary["prompt_tokens"]                      = din_sql_agent.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = din_sql_agent.completion_tokens
@@ -90,10 +97,6 @@ def main():
 
     artifact.add(table, "query_results")
     wandb.log_artifact(artifact)
-
-    artifact_code = wandb.Artifact('code', type='code')
-    artifact_code.add_file("src/agents/zero_shot.py")
-    wandb.log_artifact(artifact_code)
 
     wandb.finish()
 
