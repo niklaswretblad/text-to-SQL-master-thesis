@@ -2,7 +2,7 @@
 import os
 from datasets import get_dataset
 from langchain.chat_models import ChatOpenAI
-from agents.few_shot import FewShotAgent
+from sql_agents.few_shot import FewShotAgent
 from config import api_key, load_config
 import wandb
 import langchain
