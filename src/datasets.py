@@ -328,7 +328,7 @@ class BIRDDataset(Dataset):
     os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/train/train.json'))
 
    DEV_DATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev_test.json'))
+    os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/dev.json'))
    
    def __init__(self):
       super().__init__()
