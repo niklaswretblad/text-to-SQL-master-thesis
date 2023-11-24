@@ -3,22 +3,22 @@
 
 # General settings
 
-current_experiment: "Classifying Questions Quality"
+current_experiment: "Classifying Questions Quality GPT-4"
 experiment_description: | 
-  Classfying the quality of questions using GPT, only input is instructions and the questions.
+  Classfying the quality of questions using GPT, only input is instructions and the questions, with "gpt-4".
 group: "autocrrect"
 
 # dataset: "Spider"
-# dataset: "BIRD"
+dataset: "BIRD"
 # dataset: "BIRDFixedFinancial"
-dataset: "BIRDFixedFinancialGoldSQL"
+# dataset: "BIRDFixedFinancialGoldSQL"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 
 # LLM settings
 llm_settings:
-  model: "gpt-3.5-turbo"
+  model: "gpt-4"
   temperature: 0
   request_timeout: 60
   token_limit: 4096
