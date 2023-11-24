@@ -42,6 +42,7 @@ def process_experiment_file(file_path):
         predicted_sql = entry['predicted_sql']
         predicted_sql = predicted_sql.replace("\n", " ")
         difficulty = entry['difficulty'] if 'difficulty' in entry else ""
+        
         result = {
             "question": entry["question"],
             "gold_sql": gold_sql,
