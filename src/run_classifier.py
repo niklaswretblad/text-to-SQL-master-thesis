@@ -29,7 +29,7 @@ Question:
 {question}
 """
 
-class Classifier(BaseClassifier):
+class Classifier():
     
     total_tokens = 0
     prompt_tokens = 0 
@@ -44,7 +44,7 @@ class Classifier(BaseClassifier):
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
             input_variables=["question", "database_schema","evidence"],
-            template=ZERO_SHOT_PROMPT,
+            template=CLASSIFIY_PROMPT,
         )
 
         self.chain = LLMChain(llm=llm, prompt=prompt)
