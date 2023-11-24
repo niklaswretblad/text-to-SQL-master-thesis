@@ -50,22 +50,21 @@ def main():
         golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
-        difficulty = ""
+        difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
         
-        if (config.dataset == "BIRD" or 
-            config.dataset == "BIRDFixedFinancial" or 
-            config.dataset == "BIRDExperimentalFinancial" or 
-            config.dataset == "BIRDFixedFinancialGoldSQL"):
+        # if (config.dataset == "BIRD" or 
+        #     config.dataset == "BIRDFixedFinancial" or 
+        #     config.dataset == "BIRDExperimentalFinancial" or 
+        #     config.dataset == "BIRDFixedFinancialGoldSQL"):
 
             # bird_table_info = dataset.get_bird_db_info(db_id)
-            # sql_schema = sql_schema + bird_table_info
+            # sql_schema = sql_schema + bird_table_info            
+        # else:
+            # bird_table_info = ""
 
-            if 'difficulty' in data_point:
-                difficulty = data_point['difficulty']
-        else:
-            bird_table_info = ""
+        
 
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)

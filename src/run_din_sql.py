@@ -47,7 +47,7 @@ def main():
         golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
-        difficulty = ""
+        difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
 
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
@@ -56,10 +56,7 @@ def main():
             config.dataset == "BIRDExperimentalFinancial" or 
             config.dataset == "BIRDFixedFinancialGoldSQL"):
 
-            bird_table_info = dataset.get_bird_db_info(db_id)
-
-            if 'difficulty' in data_point:
-                difficulty = data_point['difficulty']
+            bird_table_info = dataset.get_bird_db_info(db_id)            
         else:
             bird_table_info = ""
 
