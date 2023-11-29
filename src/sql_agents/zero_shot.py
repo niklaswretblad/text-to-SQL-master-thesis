@@ -2,7 +2,7 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.callbacks import get_openai_callback
-from agents.base_agent import BaseAgent
+from sql_agents.base_agent import BaseAgent
 from utils.timer import Timer
 import logging
 

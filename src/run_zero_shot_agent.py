@@ -5,7 +5,6 @@ from langchain.chat_models import ChatOpenAI
 from config import api_key, load_config
 from sql_agents.zero_shot import ZeroShotAgent
 import wandb
-import langchain
 # langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
@@ -13,8 +12,6 @@ import langchain
 
 def main():
     config = load_config("zero_shot_config.yaml")
-    print('config: ', config.dataset)
-
 
     wandb.init(
         project=config.project,
@@ -52,19 +49,19 @@ def main():
         question = data_point['question']
         difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
         
-        sql_schema = dataset.get_schema_and_sample_data(db_id)
+        sql_schema = dataset.get_schema_and_sample_data(db_id)        
         
-        # if (config.dataset == "BIRD" or 
-        #     config.dataset == "BIRDFixedFinancial" or 
-        #     config.dataset == "BIRDExperimentalFinancial" or 
-        #     config.dataset == "BIRDFixedFinancialGoldSQL"):
+        if (config.dataset == "BIRD" or 
+            config.dataset == "BIRDFixedFinancial" or 
+            config.dataset == "BIRDExperimentalFinancial" or 
+            config.dataset == "BIRDFixedFinancialGoldSQL"):
 
-            # bird_table_info = dataset.get_bird_db_info(db_id)
-            # sql_schema = sql_schema + bird_table_info            
-        # else:
-            # bird_table_info = ""
-
+            bird_table_info = dataset.get_bird_db_info(db_id)
+            sql_schema = sql_schema + bird_table_info            
+        else:
+            bird_table_info = ""
         
+        evidence = ""
 
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)
@@ -102,7 +99,7 @@ def main():
     wandb.log_artifact(artifact)
 
     artifact_code = wandb.Artifact('code', type='code')
-    artifact_code.add_file("src/agents/zero_shot.py")
+    artifact_code.add_file("src/sql_agents/zero_shot.py")
     wandb.log_artifact(artifact_code)
 
     wandb.finish()

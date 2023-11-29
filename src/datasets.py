@@ -532,6 +532,9 @@ class BIRDFixedFinancialGoldSQL(BIRDDataset):
    DEV_DATA_PATH = os.path.abspath(
       os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/financial_gold_fixed.json'))
 
+class BIRDCorrectedFinancialGoldAnnotated(BIRDDataset):
+   DEV_DATA_PATH = os.path.abspath(
+      os.path.join(os.path.dirname( __file__ ), '..', 'data/BIRD/dev/corrected_financial_annotated.json'))
 
 
 DATASET_LOADERS = {
@@ -539,7 +542,8 @@ DATASET_LOADERS = {
     'Spider': SpiderDataset,
     'BIRDFixedFinancial': BIRDFixedFinancialDataset,
     'BIRDExperimentalFinancial': BIRDExperimentalFinancialDataset,
-    'BIRDFixedFinancialGoldSQL': BIRDFixedFinancialGoldSQL
+    'BIRDFixedFinancialGoldSQL': BIRDFixedFinancialGoldSQL,
+    'BIRDCorrectedFinancialGoldAnnotated': BIRDCorrectedFinancialGoldAnnotated
 }
 
 def get_dataset(dataset_name):

@@ -40,8 +40,7 @@ Otherwise, return the integer 1.
 
 Do not return anything else than the mark as a sole number, or in other words do not return any corresponding text or explanations.
 
-Question:
-{question}
+Question: {question}
 """
 
 
@@ -60,7 +59,6 @@ class Classifier():
 
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
-            input_variables=["question", "database_schema","evidence"],
             # input_variables=["question", "database_schema","evidence"],
             input_variables=["question", "database_schema"],
             template=CLASSIFIY_PROMPT,
@@ -69,14 +67,11 @@ class Classifier():
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
 
-    # def generate_query(self, database_schema, question, evidence):
-    def generate_query(self, question, database_schema):
+    def classify_question(self, question):
         with get_openai_callback() as cb:
             with Timer() as t:
                 response = self.chain.run({
-                    'database_schema': database_schema,
                     'question': question,
-                    # "evidence": evidence
                 })
 
             logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
@@ -93,8 +88,6 @@ class Classifier():
 
 def main():
     config = load_config("classifier_config.yaml")
-    print('config: ', config.dataset)
-
 
     wandb.init(
         project=config.project,
@@ -128,11 +121,10 @@ def main():
         db_id = data_point['db_id']            
         question = data_point['question']
         difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
-
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
-        classified_quality = classifier.generate_query(question, sql_schema)   
+        classified_quality = classifier.classify_question(question)   
 
         if (classified_quality == 1 or classified_quality == '1'):
             no_correct += 1
