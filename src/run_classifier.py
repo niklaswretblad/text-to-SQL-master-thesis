@@ -19,26 +19,31 @@ langchain.verbose = True
 CLASSIFIY_PROMPT = """
 This instruction is regarding text-to-SQL generation, or in other words converting natural language questions into SQL queries using LLMs. 
 The dataset used is consisting of questions and their corresponding golden SQL queries. 
-However, some of the questions in the data are poorly formulated or contain errors.
+However, some of the questions in the data are poorly formulated or contain errors. You are a text-to-SQL expert able to identify poorly formulated questions.
 
 A question is considered poorly formulated if it is: 
 
-1. Ambigiuous, unspecific or in someway could result in a misinterpretation that leads to a incorrect predicted SQL-query.
+1. Ambigiuous, unspecific or in someway could result in a misinterpretation that leads to an incorrectly predicted SQL-query.
 
-2. Contains spelling errors or grammatical errors that would result in a incorrect predicted SQL-query.
+2. Contains spelling errors or grammatical errors that would result in an incorrectly predicted SQL-query.
 
 If the questions is not formulated in the above way it is considered good formulated.
 
-Furthermore, you will be given the question’s corresponding gold SQL query (the true query). 
-Given that information could you use that to decide if a question is good or badly formulated?
+Furthermore, you will be given the database schema of the database corresponding to the question. 
+Please also try to identify whether the question is well or poorly formulated with the database schema in mind. 
 
-If you find a poorly formulated questions please mark this question with the integer 0.
-If you find a good formulated question please mark this question with the integer 1.
+Database schema: 
+{database_schema}
 
-Do not return anything else than the mark as sole number and no corresponding text.
+If you find anything in the questions that would make it difficult for a text-to-SQL model to predict the correct SQL-query please mark this question with the integer 0.
+Otherwise, return the integer 1.
+
+Do not return anything else than the mark as a sole number, or in other words do not return any corresponding text or explanations.
 
 Question: {question}
 """
+
+
 
 class Classifier():
     
@@ -54,7 +59,7 @@ class Classifier():
 
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
-            input_variables=["question"],
+            input_variables=["question", "database_schema","evidence"],
             template=CLASSIFIY_PROMPT,
         )
 
