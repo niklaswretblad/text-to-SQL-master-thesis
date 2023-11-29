@@ -38,20 +38,28 @@ def process_experiment_file(file_path):
     columns = []
     results = []    
     for entry in data:
-        gold_sql = entry["gold_sql"]
-        predicted_sql = entry['predicted_sql']
-        predicted_sql = predicted_sql.replace("\n", " ")
-        difficulty = entry['difficulty'] if 'difficulty' in entry else ""
-        result = {
-            "question": entry["question"],
-            "gold_sql": gold_sql,
-            "predicted_sql": predicted_sql,
-            "success": entry['success'],
-            'difficulty': difficulty,
-            "gold_tables": get_tables(gold_sql),
-            "predicted_tables": get_tables(predicted_sql)                        
-        }
-        
+        print('length of entry: ',len(entry))
+        if (len(entry) == 5):
+            gold_sql = entry["gold_sql"]
+            predicted_sql = entry['predicted_sql']
+            predicted_sql = predicted_sql.replace("\n", " ")
+            difficulty = entry['difficulty'] if 'difficulty' in entry else ""
+            result = {
+                "question": entry["question"],
+                "gold_sql": gold_sql,
+                "predicted_sql": predicted_sql,
+                "success": entry['success'],
+                'difficulty': difficulty,
+                "gold_tables": get_tables(gold_sql),
+                "predicted_tables": get_tables(predicted_sql)                        
+            }
+        else:
+            difficulty = entry['difficulty'] if 'difficulty' in entry else ""
+            result = {
+                "question": entry["question"],
+                "classified_quality": entry["classified_quality"],
+                'difficulty': difficulty,
+            }
         results.append(result)
 
     if len(results) > 0:

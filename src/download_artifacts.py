@@ -46,13 +46,21 @@ for experiment in os.listdir(RESULTS_PATH):
         reformatted_experiment = []
         table = load_json(table_path)
         
-        for question in table['data']:                
-            reformatted_question = {
-                'question': question[0],
-                'gold_sql': question[1],
-                'predicted_sql': question[2],
-                'success': question[3]
-            }
+        for question in table['data']:
+            if (len(question) == 5):                
+                reformatted_question = {
+                    'question': question[0],
+                    'gold_sql': question[1],
+                    'predicted_sql': question[2],
+                    'success': question[3],
+                    'difficulty': question[4]
+                }
+            else:
+                reformatted_question = {
+                    'question': question[0],
+                    'classified_quality': question[1],
+                    'difficulty': question[2]
+                }
 
             reformatted_experiment.append(reformatted_question)
 
