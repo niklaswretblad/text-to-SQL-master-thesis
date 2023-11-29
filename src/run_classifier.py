@@ -37,8 +37,7 @@ If you find a good formulated question please mark this question with the intege
 
 Do not return anything else than the mark as sole number and no corresponding text.
 
-Question:
-{question}
+Question: {question}
 """
 
 class Classifier():
@@ -55,26 +54,18 @@ class Classifier():
 
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
-<<<<<<< HEAD
-            input_variables=["question", "database_schema","evidence"],
-=======
-            # input_variables=["question", "database_schema","evidence"],
             input_variables=["question"],
->>>>>>> 2bd65d4107397e61f3855f6887ee4571fdccb476
             template=CLASSIFIY_PROMPT,
         )
 
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
 
-    # def generate_query(self, database_schema, question, evidence):
-    def generate_query(self, question):
+    def classify_question(self, question):
         with get_openai_callback() as cb:
             with Timer() as t:
                 response = self.chain.run({
-                    # 'database_schema': database_schema,
                     'question': question,
-                    # "evidence": evidence
                 })
 
             logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
@@ -91,8 +82,6 @@ class Classifier():
 
 def main():
     config = load_config("classifier_config.yaml")
-    print('config: ', config.dataset)
-
 
     wandb.init(
         project=config.project,
@@ -123,28 +112,23 @@ def main():
     for i in range(no_data_points):
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
-        # golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
-        difficulty = ""
+        difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
         
-        if (config.dataset == "BIRD" or 
-            config.dataset == "BIRDFixedFinancial" or 
-            config.dataset == "BIRDExperimentalFinancial" or 
-            config.dataset == "BIRDFixedFinancialGoldSQL"):
+        # if (config.dataset == "BIRD" or 
+        #     config.dataset == "BIRDFixedFinancial" or 
+        #     config.dataset == "BIRDExperimentalFinancial" or 
+        #     config.dataset == "BIRDFixedFinancialGoldSQL"):
 
-            # bird_table_info = dataset.get_bird_db_info(db_id)
-            # sql_schema = sql_schema + bird_table_info
+        #     # bird_table_info = dataset.get_bird_db_info(db_id)
+        #     # sql_schema = sql_schema + bird_table_info
+        # else:
+        #     bird_table_info = ""
 
-            if 'difficulty' in data_point:
-                difficulty = data_point['difficulty']
-        else:
-            bird_table_info = ""
-
-        # classification = classifier.generate_query(database_schema, question, evidence)   
-        classified_quality = classifier.generate_query(question)   
+        classified_quality = classifier.classify_question(question)   
 
         if (classified_quality == 1 or classified_quality == '1'):
             no_correct += 1
