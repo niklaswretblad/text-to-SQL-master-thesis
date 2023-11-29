@@ -60,8 +60,16 @@ class Classifier():
 
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
+<<<<<<< HEAD
+            input_variables=["question", "database_schema","evidence"],
+=======
             # input_variables=["question", "database_schema","evidence"],
+<<<<<<< HEAD
             input_variables=["question", "database_schema"],
+=======
+            input_variables=["question"],
+>>>>>>> 2bd65d4107397e61f3855f6887ee4571fdccb476
+>>>>>>> 1ec58d491c3bcaf90fbb68e40f2beea145a7c946
             template=CLASSIFIY_PROMPT,
         )
 

@@ -48,6 +48,7 @@ def main():
         golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
+        difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
 
         sql_schema = dataset.get_schema_and_sample_data(db_id)
         predicted_sql = few_shot_agent.generate_query(sql_schema, question, evidence)  
@@ -56,7 +57,7 @@ def main():
         score += success
         accuracy = score / (i + 1)
 
-        table.add_data(question, golden_sql, predicted_sql, success)
+        table.add_data(question, golden_sql, predicted_sql, success, difficulty)
         wandb.log({
             "accuracy": accuracy,
             "total_tokens": few_shot_agent.total_tokens,
