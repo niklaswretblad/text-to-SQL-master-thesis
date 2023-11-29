@@ -125,27 +125,13 @@ def main():
     for i in range(no_data_points):
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
-        # golden_sql = data_point['SQL']
         db_id = data_point['db_id']            
         question = data_point['question']
-        difficulty = ""
+        difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
+
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
-        
-        if (config.dataset == "BIRD" or 
-            config.dataset == "BIRDFixedFinancial" or 
-            config.dataset == "BIRDExperimentalFinancial" or 
-            config.dataset == "BIRDFixedFinancialGoldSQL"):
 
-            # bird_table_info = dataset.get_bird_db_info(db_id)
-            # sql_schema = sql_schema + bird_table_info
-
-            if 'difficulty' in data_point:
-                difficulty = data_point['difficulty']
-        else:
-            bird_table_info = ""
-
-        # classification = classifier.generate_query(database_schema, question, evidence)   
         classified_quality = classifier.generate_query(question, sql_schema)   
 
         if (classified_quality == 1 or classified_quality == '1'):
@@ -153,10 +139,22 @@ def main():
         else:
             no_incorrect += 1
 
+        #Precision
+        precision = no_correct / (no_correct + no_incorrect)
+
+        #Recall
+        recall = no_correct / no_data_points
+
+        #F1
+        f1 = 2 * ((precision * recall) / (precision + recall))
+
         table.add_data(question, classified_quality, difficulty)
         wandb.log({
             "no_correct": no_correct,
             "no_incorrect": no_incorrect,
+            "precision": precision,
+            "recall": recall,
+            "f1": f1,
             "total_tokens": classifier.total_tokens,
             "prompt_tokens": classifier.prompt_tokens,
             "completion_tokens": classifier.completion_tokens,
