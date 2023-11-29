@@ -86,6 +86,8 @@ class Classifier():
             return response
 
 
+accepted_faults = [1, 2, 3]
+
 def main():
     config = load_config("classifier_config.yaml")
 
@@ -106,14 +108,17 @@ def main():
         request_timeout=config.llm_settings.request_timeout
     )
 
-    dataset = get_dataset(config.dataset)
+    dataset = get_dataset("BIRDCorrectedFinancialGoldAnnotated")
     classifier = Classifier(llm)
 
     wandb.config['prompt'] = classifier.prompt_template
 
     no_data_points = dataset.get_number_of_data_points()
-    no_correct = 0
-    no_incorrect = 0
+
+    tp = 0
+    fp = 0
+    tn = 0
+    fn = 0
     
     for i in range(no_data_points):
         data_point = dataset.get_data_point(i)
@@ -121,32 +126,25 @@ def main():
         db_id = data_point['db_id']            
         question = data_point['question']
         difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
+        annotated_question_quality = data_point["annotation"]
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
-        classified_quality = classifier.classify_question(question)   
+        classified_quality = classifier.classify_question(question)
 
-        if (classified_quality == 1 or classified_quality == '1'):
-            no_correct += 1
+        annotated_question_qualities = set(annotated_question_quality)
+        if classified_quality.isdigit() and int(classified_quality) == 1:            
+            if any(element in annotated_question_qualities for element in accepted_faults):
+                tp += 1
+            else:
+                fp += 1
+        elif classified_quality.isdigit() and int(classified_quality) == 0:
+            tn += 1
         else:
-            no_incorrect += 1
-
-        #Precision
-        precision = no_correct / (no_correct + no_incorrect)
-
-        #Recall
-        recall = no_correct / no_data_points
-
-        #F1
-        f1 = 2 * ((precision * recall) / (precision + recall))
+            fn += 1       
 
         table.add_data(question, classified_quality, difficulty)
-        wandb.log({
-            "no_correct": no_correct,
-            "no_incorrect": no_incorrect,
-            "precision": precision,
-            "recall": recall,
-            "f1": f1,
+        wandb.log({                      
             "total_tokens": classifier.total_tokens,
             "prompt_tokens": classifier.prompt_tokens,
             "completion_tokens": classifier.completion_tokens,
@@ -156,8 +154,14 @@ def main():
     
         print("Quality : (1=good, 0=bad): ", classified_quality)
         
-    
-    wandb.run.summary['number_of_questions']                = dataset.get_number_of_data_points()
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f1 = 2 * ((precision * recall) / (precision + recall))
+    accuracy = tp + tn / (tp + tn + fp + fn)
+    wandb.run.summary['accuracy']                          = accuracy
+    wandb.run.summary['precision']                          = precision
+    wandb.run.summary['recall']                             = recall
+    wandb.run.summary['f1']                                 = f1
     wandb.run.summary["total_tokens"]                       = classifier.total_tokens
     wandb.run.summary["prompt_tokens"]                      = classifier.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = classifier.completion_tokens
