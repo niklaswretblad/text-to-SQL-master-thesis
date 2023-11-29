@@ -11,39 +11,48 @@ import logging
 from config import api_key, load_config
 import wandb
 import langchain
-langchain.verbose = True
+# langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
-# os.environ["WANDB_MODE"] = "offline"
+os.environ["WANDB_MODE"] = "offline"
 
 CLASSIFIY_PROMPT = """
+You are a text-to-SQL expert able to identify poorly formulated questions in natural language.
 This instruction is regarding text-to-SQL generation, or in other words converting natural language questions into SQL queries using LLMs. 
-The dataset used is consisting of questions and their corresponding golden SQL queries. 
-However, some of the questions in the data are poorly formulated or contain errors. You are a text-to-SQL expert able to identify poorly formulated questions.
+The dataset used is consisting of questions and their corresponding golden SQL queries. You will be given the database schema of the database corresponding to the question.
+Furthermore, you will also be given a hint that provides information that is needed to correctly convert the question and interpret the database schema.  
+However, some of the questions in the data are poorly formulated or contain errors. 
 
-A question is considered poorly formulated if it is: 
+Below is a classification scheme for the questions that are to be converted into SQL queries. 
 
-1. Ambigiuous, unspecific or in someway could result in a misinterpretation that leads to an incorrectly predicted SQL-query.
+0 = Correct question. May still contain minor errors in language or minor ambiguities that do not affect the interpretation and generation of the SQL query
+1 = Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query
+1 = The question is wrongly formulated when considering the structure of the database schema. The information that the question is asking for is not possible to accurately retrieve from the database.
+1 = The question is unspecific in which columns that are to be returned. The question is not asking for a specific column, but asks generally about a table in the database.
 
-2. Contains spelling errors or grammatical errors that would result in an incorrectly predicted SQL-query.
+Here are some examples of questions that would be classified with 1 and an explanation of why:
 
-If the questions is not formulated in the above way it is considered good formulated.
+Example: List the customer who made the transaction id : 3682978
+Explanation: The question is unspecific in which columns that are to be returned. It asks to list the customers, but does not specify which columns that are to be returned from the client table. 
 
-Furthermore, you will be given the database schema of the database corresponding to the question. 
-Please also try to identify whether the question is well or poorly formulated with the database schema in mind. 
+Example: Which district has the largest amount of female clients?
+Explanation: The question is unspecific in which columns that are to be returned. It asks "which district", but does not specify which columns that are to be returned from the district table. 
 
 Database schema: 
+
 {database_schema}
 
-If you find anything in the questions that would make it difficult for a text-to-SQL model to predict the correct SQL-query please mark this question with the integer 0.
-Otherwise, return the integer 1.
+Hint:
+{evidence}
 
-Do not return anything else than the mark as a sole number, or in other words do not return any corresponding text or explanations.
+Please classify the question below according to the classification scheme above.
+
+Do not return anything else than the mark as a sole number. Do not return any corresponding text or explanations.
 
 Question: {question}
 """
 
-
+#1 = Gray area, minor errors that may or may not affect the interpretation and generation of the SQL query.
 
 class Classifier():
     
@@ -60,18 +69,20 @@ class Classifier():
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
             # input_variables=["question", "database_schema","evidence"],
-            input_variables=["question", "database_schema"],
+            input_variables=["question", "database_schema", "evidence"],
             template=CLASSIFIY_PROMPT,
         )
 
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
 
-    def classify_question(self, question):
+    def classify_question(self, question, schema, evidence):
         with get_openai_callback() as cb:
             with Timer() as t:
                 response = self.chain.run({
                     'question': question,
+                    'database_schema': schema,
+                    'evidence': evidence,
                 })
 
             logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
@@ -86,7 +97,7 @@ class Classifier():
             return response
 
 
-accepted_faults = [1, 2, 3]
+accepted_faults = [1, 3]
 
 def main():
     config = load_config("classifier_config.yaml")
@@ -130,7 +141,7 @@ def main():
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
-        classified_quality = classifier.classify_question(question)
+        classified_quality = classifier.classify_question(question, sql_schema, evidence)
 
         annotated_question_qualities = set(annotated_question_quality)
         if classified_quality.isdigit() and int(classified_quality) == 1:            
@@ -139,10 +150,11 @@ def main():
             else:
                 fp += 1
         elif classified_quality.isdigit() and int(classified_quality) == 0:
-            tn += 1
-        else:
-            fn += 1       
-
+            if any(element in annotated_question_qualities for element in accepted_faults):
+                fn += 1
+            else:
+                tn += 1
+        
         table.add_data(question, classified_quality, difficulty)
         wandb.log({                      
             "total_tokens": classifier.total_tokens,
@@ -152,13 +164,14 @@ def main():
             "openAPI_call_execution_time": classifier.last_call_execution_time,
         }, step=i+1)
     
-        print("Quality : (1=good, 0=bad): ", classified_quality)
+        print("Predicted quality: ", classified_quality, " Annotated quality: ", " ".join(map(str, annotated_question_quality)))
         
     precision = tp / (tp + fp)
     recall = tp / (tp + fn)
     f1 = 2 * ((precision * recall) / (precision + recall))
     accuracy = tp + tn / (tp + tn + fp + fn)
-    wandb.run.summary['accuracy']                          = accuracy
+
+    wandb.run.summary['accuracy']                           = accuracy
     wandb.run.summary['precision']                          = precision
     wandb.run.summary['recall']                             = recall
     wandb.run.summary['f1']                                 = f1

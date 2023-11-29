@@ -10,16 +10,17 @@ experiment_description: |
 group: "autocrrect"
 
 # dataset: "Spider"
-dataset: "BIRD"
+# dataset: "BIRD"
 # dataset: "BIRDFixedFinancial"
 # dataset: "BIRDFixedFinancialGoldSQL"
+dataset: BIRDCorrectedFinancialGoldAnnotated
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
 
 # LLM settings
 llm_settings:
-  model: "gpt-4"
+  model: "gpt-3.5-turbo"
   temperature: 0
   request_timeout: 60
   token_limit: 4096
