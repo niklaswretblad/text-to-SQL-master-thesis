@@ -7,7 +7,6 @@ from langchain.callbacks import get_openai_callback
 from utils.timer import Timer
 import logging
 
-
 from config import api_key, load_config
 import wandb
 import langchain
@@ -43,10 +42,7 @@ Do not return anything else than the mark as a sole number, or in other words do
 Question: {question}
 """
 
-
-
 class Classifier():
-    
     total_tokens = 0
     prompt_tokens = 0 
     total_cost = 0
@@ -59,7 +55,8 @@ class Classifier():
 
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
-            input_variables=["question", "database_schema","evidence"],
+            # input_variables=["question", "database_schema","evidence"],
+            input_variables=["question", "database_schema"],
             template=CLASSIFIY_PROMPT,
         )
 
@@ -133,7 +130,7 @@ def main():
         # else:
         #     bird_table_info = ""
 
-        classified_quality = classifier.classify_question(question)   
+        classified_quality = classifier.classify_question(question)
 
         if (classified_quality == 1 or classified_quality == '1'):
             no_correct += 1
