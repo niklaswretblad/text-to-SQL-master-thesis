@@ -58,8 +58,8 @@ class Classifier():
 
         self.prompt_template = LOGICAL_REASONING_PROMPT
         prompt = PromptTemplate(    
-            # input_variables=["question", "database_schema","evidence"],
-            input_variables=["question", "database_schema", "evidence"],
+            # input_variables=["question", "database_schema", "evidence"],
+            input_variables=["question", "evidence"],
             template=LOGICAL_REASONING_PROMPT,
         )
 
@@ -69,9 +69,9 @@ class Classifier():
     def classify_question(self, question, schema, evidence):
         with get_openai_callback() as cb:
             with Timer() as t:
-                response = self.chain.run({
+                response = self.reasoning_chain.run({
                     'question': question,
-                    'database_schema': schema,
+                    # 'database_schema': schema,
                     'evidence': evidence,
                 })
 
@@ -121,7 +121,8 @@ def main():
     tn = 0
     fn = 0
     
-    for i in range(no_data_points):
+    # for i in range(no_data_points):
+    for i in range(10):
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
         db_id = data_point['db_id']            
@@ -131,6 +132,7 @@ def main():
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
+        # classified_quality = classifier.classify_question(question, sql_schema, evidence)
         classified_quality = classifier.classify_question(question, sql_schema, evidence)
 
         annotated_question_qualities = set(annotated_question_quality)
