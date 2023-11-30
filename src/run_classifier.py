@@ -13,7 +13,7 @@ import langchain
 # langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"
+# os.environ["WANDB_MODE"] = "offline"
 
 CLASSIFIY_PROMPT = """
 You are a text-to-SQL expert able to identify poorly formulated questions in natural language.
@@ -28,6 +28,7 @@ Below is a classification scheme for the questions that are to be converted into
 1 = The question is wrongly formulated when considering the structure of the database schema. The information that the question is asking for is not possible to accurately retrieve from the database.
 1 = The question is unspecific in which columns that are to be returned. The question is not asking for a specific column, but asks generally about a table in the database.
 
+Also please assume that all dates, values, names and numbers in the questions are correct. 
 
 Here are some examples of questions that would be classified with 0 and an explanation of why:
 
@@ -65,11 +66,11 @@ Database schema:
 Hint:
 {evidence}
 
-Please classify the question below according to the classification scheme above.
-
-Do not return anything else than the mark as a sole number. Do not return any corresponding text or explanations.
+Please classify the question below according to the classification scheme above, the examples and the hint provided.
 
 Question: {question}
+
+In your answer DO NOT return anything else than the mark as a sole number. Do not return any corresponding text or explanations. 
 """
 
 #1 = Gray area, minor errors that may or may not affect the interpretation and generation of the SQL query.
@@ -184,11 +185,12 @@ def main():
         }, step=i+1)
     
         print("Predicted quality: ", classified_quality, " Annotated quality: ", " ".join(map(str, annotated_question_quality)))
+        # print('Question: ', question)
         
     precision = tp / (tp + fp)
     recall = tp / (tp + fn)
     f1 = 2 * ((precision * recall) / (precision + recall))
-    accuracy = tp + tn / (tp + tn + fp + fn)
+    accuracy = (tp + tn) / (tp + tn + fp + fn)
 
     wandb.run.summary['accuracy']                           = accuracy
     wandb.run.summary['precision']                          = precision
