@@ -15,61 +15,32 @@ import langchain
 # If you don't want your script to sync to the cloud
 os.environ["WANDB_MODE"] = "offline"
 
-CLASSIFIY_PROMPT = """
-You are a text-to-SQL expert able to identify poorly formulated questions in natural language.
-The dataset used is consisting of questions and their corresponding golden SQL queries. You will be given the database schema of the database corresponding to the question.
-Furthermore, you will also be given a hint that provides additional information that is needed to correctly convert the question and interpret the database schema.  
-However, some of the questions in the data are poorly formulated or contain errors. 
+LOGICAL_REASONING_PROMPT = """
+I am doing text-to-SQL generation, but some of the questions in my dataset are bad. 
+You are a text-to-SQL expert able to identify questions that are formulated poorly or which contain errors. 
+What do you think about the following question? Note that some questions might contain errors, but would still be good enough to convert into a SQL query. 
+The hint below also provides some additional information needed to convert the SQL query. Assume that the hint is available to the text-to-SQL model. 
 
-Below is a classification scheme for the questions that are to be converted into SQL queries. 
-
-0 = Correct question. May still contain minor errors in language or minor ambiguities that do not affect the interpretation and generation of the SQL query
-1 = Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query
-1 = The question is wrongly formulated when considering the structure of the database schema. The information that the question is asking for is not possible to accurately retrieve from the database.
-1 = The question is unspecific in which columns that are to be returned. The question is not asking for a specific column, but asks generally about a table in the database.
-
-
-Here are some examples of questions that would be classified with 0 and an explanation of why:
-
-Example 1: List the id of the customer who made the transaction id : 3682978
-Explanation: Clear and correct question.
-
-Example 2: What is the name of the district that has the largest amount of female clients?
-Explanation: Specific and  correct question.
-
-Example 3: What is the disposition id(s) of the oldest client in the Prague region?
-Explanation: The question is open for disposition ids which is correct when considering the sql-schema.
-
-Example 4: What was the average number of withdrawal transactions conducted by female clients from the Prague region during the year 1998?
-Explanation: Clear and correct question.
-
-Here are some examples of questions that would be classified with 1 and an explanation of why:
-
-Example 1: List the customer who made the transaction id 3682978
-Explanation: The question is unspecific in which columns that are to be returned. It asks to list the customers, but does not specify which columns that are to be returned from the client table. 
-
-Example 2: Which district has the largest amount of female clients?
-Explanation: The question is unspecific in which columns that are to be returned. It asks "which district", but does not specify which columns that are to be returned from the district table. 
-
-Example 3: What is the disposition id of the oldest client in the Prague region?
-Explanation: The question is wrongly formulated when considering the structure of the database schema. There can be multiple disposition ids for a client, 
-since a client can have multiple accounts. The question is not asking for a specific disposition id, but asks generally about a client.
-
-Example 4: What is the average amount of transactions done in the year of 1998 ?
-Explanation: Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query.
-
-Database schema: 
-
-{database_schema}
-
-Hint:
-{evidence}
-
-Please classify the question below according to the classification scheme above.
-
-Do not return anything else than the mark as a sole number. Do not return any corresponding text or explanations.
+Hint: {evidence}
 
 Question: {question}
+"""
+
+QUESTION_CLASSIFICATION_PROMPT = """
+I am doing text-to-SQL generation, but some of the questions in my dataset are bad. 
+You are a text-to-SQL expert able to identify questions that are formulated poorly or which contain errors. 
+Note that some questions might contain errors, but would still be good enough to convert into a SQL query. 
+
+In a previous question I asked you to reason about the quality of the question and if the question would be valid to generate a SQL query from. 
+Based on the question and your reasoning in the previous step, please classify the question 
+
+Hint: {evidence}
+
+Question: {question}
+
+Your reasoning: {thoughts}
+
+
 """
 
 #1 = Gray area, minor errors that may or may not affect the interpretation and generation of the SQL query.
@@ -85,14 +56,14 @@ class Classifier():
     def __init__(self, llm):        
         self.llm = llm
 
-        self.prompt_template = CLASSIFIY_PROMPT
+        self.prompt_template = LOGICAL_REASONING_PROMPT
         prompt = PromptTemplate(    
             # input_variables=["question", "database_schema","evidence"],
             input_variables=["question", "database_schema", "evidence"],
-            template=CLASSIFIY_PROMPT,
+            template=LOGICAL_REASONING_PROMPT,
         )
 
-        self.chain = LLMChain(llm=llm, prompt=prompt)
+        self.reasoning_chain = LLMChain(llm=llm, prompt=prompt)
 
 
     def classify_question(self, question, schema, evidence):
