@@ -16,34 +16,77 @@ import langchain
 os.environ["WANDB_MODE"] = "offline"
 
 LOGICAL_REASONING_PROMPT = """
-I am doing text-to-SQL generation, but some of the questions in my dataset are bad. 
-You are a text-to-SQL expert able to identify questions that are formulated poorly or which contain errors. 
-What do you think about the following question? Note that some questions might contain errors, but would still be good enough to convert into a SQL query. 
-The hint below also provides some additional information needed to convert the SQL query. Assume that the hint is available to the text-to-SQL model. 
+You are a text-to-SQL expert able to identify poorly formulated questions in natural language.
+The dataset used is consisting of questions and their corresponding golden SQL queries. You will be given the database schema of the database corresponding to the question and query.
+Furthermore, you will also be given a hint that provides additional information that is needed to correctly convert the question and interpret the database schema.  
+However, some of the questions in the data are poorly formulated or contain errors. 
+
+Below is a classification scheme for the questions that are to be converted into SQL queries. 
+
+0 = Correct question. May still contain minor errors in language or minor ambiguities that do not affect the interpretation and generation of the SQL query
+1 = Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query
+1 = The question is wrongly formulated when considering the structure of the database schema. The information that the question is asking for is not possible to accurately retrieve from the database.
+1 = The question is unspecific in which columns that are to be returned. The question is not asking for a specific column, but asks generally about a table in the database.
+
+Here are some examples of questions that would be classified with 0 and an explanation of why:
+
+Example 1: List the id of the customer who made the transaction id : 3682978
+Explanation: Clear and correct question.
+
+Example 2: What is the name of the district that has the largest amount of female clients?
+Explanation: Specific and  correct question.
+
+Example 3: What is the disposition id(s) of the oldest client in the Prague region?
+Explanation: The question is open for disposition ids which is correct when considering the sql-schema.
+
+Example 4: What was the average number of withdrawal transactions conducted by female clients from the Prague region during the year 1998?
+Explanation: Clear and correct question.
+
+Here are some examples of questions that would be classified with 1 and an explanation of why:
+
+Example 1: List the customer who made the transaction id 3682978
+Explanation: The question is unspecific in which columns that are to be returned. It asks to list the customers, but does not specify which columns that are to be returned from the client table. 
+
+Example 2: Which district has the largest amount of female clients?
+Explanation: The question is unspecific in which columns that are to be returned. It asks "which district", but does not specify which columns that are to be returned from the district table. 
+
+Example 3: What is the disposition id of the oldest client in the Prague region?
+Explanation: The question is wrongly formulated when considering the structure of the database schema. There can be multiple disposition ids for a client, 
+since a client can have multiple accounts. The question is not asking for a specific disposition id, but asks generally about a client.
+
+Example 4: What is the average amount of transactions done in the year of 1998 ?
+Explanation: Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query.
+
+Database schema: 
+
+{database_schema}
 
 Hint: {evidence}
+
+What do you think about the following question? Remember that some questions might contain errors, but would still be good enough to convert into a SQL query. 
+Also please assume that all dates, values, names and numbers in the questions are in the correct format and valid against the databse so you do not need to reason about them.
 
 Question: {question}
 """
 
 QUESTION_CLASSIFICATION_PROMPT = """
 I am doing text-to-SQL generation, but some of the questions in my dataset are bad. 
-You are a text-to-SQL expert able to identify questions that are formulated poorly or which contain errors. 
+You are a text-to-SQL expert able to identify questions that are formulated poorly or that contain errors. 
 Note that some questions might contain errors, but would still be good enough to convert into a SQL query. 
 
 In a previous question I asked you to reason about the quality of the question and if the question would be valid to generate a SQL query from. 
-Based on the question and your reasoning in the previous step, please classify the question 
+Based on the question and your reasoning in the previous step, please classify the question as either good or bad, where
 
-Hint: {evidence}
+0 = good
+1 = bad
 
 Question: {question}
 
 Your reasoning: {thoughts}
 
-
+Do not return anything except your classification as a sole number. Do not, under any circumstance, return any corresponding text or explanations.
 """
 
-#1 = Gray area, minor errors that may or may not affect the interpretation and generation of the SQL query.
 
 class Classifier():
     total_tokens = 0
@@ -56,23 +99,43 @@ class Classifier():
     def __init__(self, llm):        
         self.llm = llm
 
-        self.prompt_template = LOGICAL_REASONING_PROMPT
-        prompt = PromptTemplate(    
-            # input_variables=["question", "database_schema","evidence"],
+        self.reasoning_template = LOGICAL_REASONING_PROMPT
+        prompt = PromptTemplate(            
             input_variables=["question", "database_schema", "evidence"],
-            template=LOGICAL_REASONING_PROMPT,
+            template=self.reasoning_template,
         )
-
         self.reasoning_chain = LLMChain(llm=llm, prompt=prompt)
+
+        self.classification_template = QUESTION_CLASSIFICATION_PROMPT
+        prompt = PromptTemplate(            
+            input_variables=["question", "thoughts"],
+            template=self.classification_template,
+        )
+        self.classification_chain = LLMChain(llm=llm, prompt=prompt)
 
 
     def classify_question(self, question, schema, evidence):
         with get_openai_callback() as cb:
             with Timer() as t:
-                response = self.chain.run({
-                    'question': question,
+                response = self.reasoning_chain.run({
                     'database_schema': schema,
                     'evidence': evidence,
+                    'question': question
+                })
+
+            logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
+            
+            self.last_call_execution_time = t.elapsed_time
+            self.total_call_execution_time += t.elapsed_time
+            self.total_tokens += cb.total_tokens
+            self.prompt_tokens += cb.prompt_tokens
+            self.total_cost += cb.total_cost
+            self.completion_tokens += cb.completion_tokens
+
+            with Timer() as t:
+                response = self.classification_chain.run({
+                    'question': question,
+                    'thoughts': response
                 })
 
             logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
@@ -111,8 +174,6 @@ def main():
 
     dataset = get_dataset("BIRDCorrectedFinancialGoldAnnotated")
     classifier = Classifier(llm)
-
-    wandb.config['prompt'] = classifier.prompt_template
 
     no_data_points = dataset.get_number_of_data_points()
 
@@ -159,7 +220,7 @@ def main():
     precision = tp / (tp + fp)
     recall = tp / (tp + fn)
     f1 = 2 * ((precision * recall) / (precision + recall))
-    accuracy = tp + tn / (tp + tn + fp + fn)
+    accuracy = (tp + tn) / (tp + tn + fp + fn)
 
     wandb.run.summary['accuracy']                           = accuracy
     wandb.run.summary['precision']                          = precision
