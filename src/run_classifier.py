@@ -30,13 +30,35 @@ Below is a classification scheme for the questions that are to be converted into
 1 = The question is wrongly formulated when considering the structure of the database schema. The information that the question is asking for is not possible to accurately retrieve from the database.
 1 = The question is unspecific in which columns that are to be returned. The question is not asking for a specific column, but asks generally about a table in the database.
 
+
+Here are some examples of questions that would be classified with 0 and an explanation of why:
+
+Example 1: List the id of the customer who made the transaction id : 3682978
+Explanation: Clear and correct question.
+
+Example 2: What is the name of the district that has the largest amount of female clients?
+Explanation: Specific and  correct question.
+
+Example 3: What is the disposition id(s) of the oldest client in the Prague region?
+Explanation: The question is open for disposition ids which is correct when considering the sql-schema.
+
+Example 4: What was the average number of withdrawal transactions conducted by female clients from the Prague region during the year 1998?
+Explanation: Clear and correct question.
+
 Here are some examples of questions that would be classified with 1 and an explanation of why:
 
-Example: List the customer who made the transaction id : 3682978
+Example 1: List the customer who made the transaction id : 3682978
 Explanation: The question is unspecific in which columns that are to be returned. It asks to list the customers, but does not specify which columns that are to be returned from the client table. 
 
-Example: Which district has the largest amount of female clients?
+Example 2: Which district has the largest amount of female clients?
 Explanation: The question is unspecific in which columns that are to be returned. It asks "which district", but does not specify which columns that are to be returned from the district table. 
+
+Example 3: What is the disposition id of the oldest client in the Prague region?
+Explanation: The question is wrongly formulated when considering the structure of the database schema. There can be multiple disposition ids for a client, 
+since a client can have multiple accounts. The question is not asking for a specific disposition id, but asks generally about a client.
+
+Example 4: What is the average amount of transactions done in the year of 1998 ?
+Explanation: Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query.
 
 Database schema: 
 
