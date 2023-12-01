@@ -28,22 +28,6 @@ Below is a classification scheme for the questions that are to be converted into
 1 = The question is wrongly formulated when considering the structure of the database schema. The information that the question is asking for is not possible to accurately retrieve from the database.
 1 = The question is unspecific in which columns that are to be returned. The question is not asking for a specific column, but asks generally about a table in the database.
 
-Also please assume that all dates, values, names and numbers in the questions are correct. 
-
-Here are some examples of questions that would be classified with 0 and an explanation of why:
-
-Example 1: List the id of the customer who made the transaction id : 3682978
-Explanation: Clear and correct question.
-
-Example 2: What is the name of the district that has the largest amount of female clients?
-Explanation: Specific and  correct question.
-
-Example 3: What is the disposition id(s) of the oldest client in the Prague region?
-Explanation: The question is open for disposition ids which is correct when considering the sql-schema.
-
-Example 4: What was the average number of withdrawal transactions conducted by female clients from the Prague region during the year 1998?
-Explanation: Clear and correct question.
-
 Here are some examples of questions that would be classified with 1 and an explanation of why:
 
 Example 1: List the customer who made the transaction id 3682978
@@ -59,21 +43,42 @@ since a client can have multiple accounts. The question is not asking for a spec
 Example 4: What is the average amount of transactions done in the year of 1998 ?
 Explanation: Is unclear, ambiguous, unspecific or contain grammatical errors that surely is going to affect the interpretation and generation of the SQL query.
 
-Database schema: 
+Here are some examples of questions that would be classified with 0 and an explanation of why:
 
+Example 1: List the id of the customer who made the transaction id : 3682978
+Explanation: Clear and correct question.
+
+Example 2: What is the name of the district that has the largest amount of female clients?
+Explanation: Specific and  correct question.
+
+Example 3: What is the disposition id(s) of the oldest client in the Prague region?
+Explanation: The question is open for disposition ids which is correct when considering the sql-schema.
+
+Example 4: What was the average number of withdrawal transactions conducted by female clients from the Prague region during the year 1998?
+Explanation: Clear and correct question.
+
+Database schema: 
 {database_schema}
 
 Hint:
 {evidence}
 
-Please classify the question below according to the classification scheme above, the examples and the hint provided.
+Below you will be provided with the correct SQL-query that represents what the questions is trying to ask for.
 
-Question: {question}
+Gold query: 
+{gold_query}
+
+Please classify the question below according to the classification scheme above, the examples, the hint and the SQL gold query provided.
+Also please assume that all dates, values, names and numbers in the questions are correct. 
+
+Question: 
+{question}
 
 In your answer DO NOT return anything else than the mark as a sole number. Do not return any corresponding text or explanations. 
 """
 
 #1 = Gray area, minor errors that may or may not affect the interpretation and generation of the SQL query.
+
 
 class Classifier():
     total_tokens = 0
@@ -89,20 +94,21 @@ class Classifier():
         self.prompt_template = CLASSIFIY_PROMPT
         prompt = PromptTemplate(    
             # input_variables=["question", "database_schema","evidence"],
-            input_variables=["question", "database_schema", "evidence"],
+            input_variables=["question", "database_schema", "evidence", 'gold_query'],
             template=CLASSIFIY_PROMPT,
         )
 
         self.chain = LLMChain(llm=llm, prompt=prompt)
 
 
-    def classify_question(self, question, schema, evidence):
+    def classify_question(self, question, schema, evidence, gold_query):
         with get_openai_callback() as cb:
             with Timer() as t:
                 response = self.chain.run({
                     'question': question,
                     'database_schema': schema,
                     'evidence': evidence,
+                    'gold_query': gold_query
                 })
 
             logging.info(f"OpenAI API execution time: {t.elapsed_time:.2f}")
@@ -156,12 +162,13 @@ def main():
         evidence = data_point['evidence']
         db_id = data_point['db_id']            
         question = data_point['question']
+        gold_query = data_point['SQL']
         difficulty = data_point['difficulty'] if 'difficulty' in data_point else ""
         annotated_question_quality = data_point["annotation"]
         
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
-        classified_quality = classifier.classify_question(question, sql_schema, evidence)
+        classified_quality = classifier.classify_question(question, sql_schema, evidence, gold_query)
 
         annotated_question_qualities = set(annotated_question_quality)
         if classified_quality.isdigit() and int(classified_quality) == 1:            

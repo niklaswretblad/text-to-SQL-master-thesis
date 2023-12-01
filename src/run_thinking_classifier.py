@@ -182,8 +182,8 @@ def main():
     tn = 0
     fn = 0
     
-    # for i in range(no_data_points):
-    for i in range(10):
+    for i in range(no_data_points):
+    # for i in range(10):
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
         db_id = data_point['db_id']            
@@ -194,7 +194,8 @@ def main():
         sql_schema = dataset.get_schema_and_sample_data(db_id)
 
         # classified_quality = classifier.classify_question(question, sql_schema, evidence)
-        classified_quality = classifier.classify_question(question, sql_schema, evidence)
+        # classified_quality = classifier.classify_question(question, sql_schema, evidence)
+        classified_quality = '0'
 
         annotated_question_qualities = set(annotated_question_quality)
         if classified_quality.isdigit() and int(classified_quality) == 1:            
@@ -219,15 +220,15 @@ def main():
     
         print("Predicted quality: ", classified_quality, " Annotated quality: ", " ".join(map(str, annotated_question_quality)))
         
-    precision = tp / (tp + fp)
-    recall = tp / (tp + fn)
-    f1 = 2 * ((precision * recall) / (precision + recall))
+    # precision = tp / (tp + fp)
+    # recall = tp / (tp + fn)
+    # f1 = 2 * ((precision * recall) / (precision + recall))
     accuracy = (tp + tn) / (tp + tn + fp + fn)
 
     wandb.run.summary['accuracy']                           = accuracy
-    wandb.run.summary['precision']                          = precision
-    wandb.run.summary['recall']                             = recall
-    wandb.run.summary['f1']                                 = f1
+    # wandb.run.summary['precision']                          = precision
+    # wandb.run.summary['recall']                             = recall
+    # wandb.run.summary['f1']                                 = f1
     wandb.run.summary["total_tokens"]                       = classifier.total_tokens
     wandb.run.summary["prompt_tokens"]                      = classifier.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = classifier.completion_tokens
