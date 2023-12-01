@@ -287,7 +287,8 @@ def main():
     tn = 0
     fn = 0
     
-    for i in range(no_data_points):
+    # for i in range(no_data_points):
+    for i in range(10):
         data_point = dataset.get_data_point(i)
         evidence = data_point['evidence']
         db_id = data_point['db_id']            
@@ -297,6 +298,7 @@ def main():
         
         sql_schema = dataset.get_bird_table_info(db_id)
 
+        # classified_quality = classifier.classify_question(question, sql_schema, evidence)
         classified_quality = classifier.classify_question(question, sql_schema, evidence)
 
         annotated_question_qualities = set(annotated_question_quality)
