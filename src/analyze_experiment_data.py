@@ -38,7 +38,6 @@ def process_experiment_file(file_path):
     columns = []
     results = []    
     for entry in data:
-<<<<<<< HEAD
         print('length of entry: ',len(entry))
         if (len(entry) == 5):
             gold_sql = entry["gold_sql"]
@@ -61,23 +60,6 @@ def process_experiment_file(file_path):
                 "classified_quality": entry["classified_quality"],
                 'difficulty': difficulty,
             }
-=======
-        gold_sql = entry["gold_sql"]
-        predicted_sql = entry['predicted_sql']
-        predicted_sql = predicted_sql.replace("\n", " ")
-        difficulty = entry['difficulty'] if 'difficulty' in entry else ""
-        
-        result = {
-            "question": entry["question"],
-            "gold_sql": gold_sql,
-            "predicted_sql": predicted_sql,
-            "success": entry['success'],
-            'difficulty': difficulty,
-            "gold_tables": get_tables(gold_sql),
-            "predicted_tables": get_tables(predicted_sql)                        
-        }
-        
->>>>>>> 1ec58d491c3bcaf90fbb68e40f2beea145a7c946
         results.append(result)
 
     if len(results) > 0:
