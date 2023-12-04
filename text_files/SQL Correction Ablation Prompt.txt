@@ -1,0 +1,127 @@
+
+I am doing text-to-SQL generation, or in other words converting questions in natural language to SQL queries. 
+I have a dataset consisting of questions and their corresponding golden SQL queries, where some of the SQL queries has shown to be incorrect.
+You are a text-to-SQL expert able to identify SQL queries in my dataset that are incorrect or which contain errors. 
+
+They can either be incorrect in terms of the SQL syntax, or they can be incorrect in joining the wrong tables and interpreting the database relations incorrectly. 
+
+You will be provided with three things: 
+
+1. The database schema of the corresponding database
+2. The question in natural language that the SQL query corresponds to
+3. A hint that provides information needed to accurately convert the natural language question into a SQL query
+
+Database schema: 
+
+CREATE TABLE account
+(
+account_id  INTEGER default 0 not null
+primary key,
+district_id INTEGER default 0 not null,
+frequency   TEXT   not null,
+date        DATE          not null,
+foreign key (district_id) references district (district_id)
+);
+
+CREATE TABLE card
+(
+card_id INTEGER default 0 not null
+primary key,
+disp_id INTEGER           not null,
+type    TEXT    not null,
+issued  DATE          not null,
+foreign key (disp_id) references disp (disp_id)
+);
+
+CREATE TABLE client
+(
+client_id   INTEGER        not null
+primary key,
+gender      TEXT not null,
+birth_date  DATE       not null,
+district_id INTEGER        not null,
+foreign key (district_id) references district (district_id)
+);
+
+CREATE TABLE disp
+(
+disp_id    INTEGER        not null
+primary key,
+client_id  INTEGER        not null,
+account_id INTEGER        not null,
+type      TEXT not null,
+foreign key (account_id) references account (account_id),
+foreign key (client_id) references client (client_id)
+);
+
+CREATE TABLE district
+(
+district_id INTEGER default 0 not null
+primary key,
+A2          TEXT   not null,
+A3          TEXT   not null,
+A4          TEXT       not null,
+A5          TEXT           not null,
+A6          TEXT           not null,
+A7          TEXT           not null,
+A8          INTEGER        not null,
+A9          INTEGER           not null,
+A10         REAL not null,
+A11         INTEGER           not null,
+A12         REAL null,
+A13         REAL not null,
+A14         INTEGER           not null,
+A15         INTEGER        null,
+A16         INTEGER          not null
+);
+
+CREATE TABLE loan
+(
+loan_id    INTEGER default 0 not null
+primary key,
+account_id INTEGER           not null,
+date       DATE          not null,
+amount     INTEGER           not null,
+duration   INTEGER           not null,
+payments   REAL not null,
+status     TEXT    not null,
+foreign key (account_id) references account (account_id)
+);
+
+CREATE TABLE `order`
+(
+order_id   INTEGER default 0 not null
+primary key,
+account_id INTEGER           not null,
+bank_to    TEXT    not null,
+account_to INTEGER           not null,
+amount     REAL not null,
+k_symbol   TEXT    not null,
+foreign key (account_id) references account (account_id)
+);
+
+CREATE TABLE trans
+(
+trans_id   INTEGER default 0    not null
+primary key,
+account_id INTEGER default 0    not null,
+date       DATE             not null,
+type       TEXT       not null,
+operation  TEXT      null,
+amount     INTEGER              not null,
+balance    INTEGER             not null,
+k_symbol   TEXT      null,
+bank       TEXT       null,
+account    INTEGER          null,
+foreign key (account_id) references account (account_id)
+);
+
+Hint: 
+
+Question: For the client who applied for a loan of the amount 98832 USD  on 1996/1/3, when was his/her birthday?
+
+Please correct the below SQL query. Also please assume that all dates, values, names and numbers in the questions and SQL queries are correct. 
+
+Query: SELECT T3.birth_date FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN client AS T3 ON T2.district_id = T3.district_id WHERE T1.date = '1996-01-03' AND T1.amount = 98832
+
+DO NOT under any circumstance return anything else except the corrected SQL query. Do not return any explanations or other type of text.
