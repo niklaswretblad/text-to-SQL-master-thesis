@@ -3,10 +3,10 @@
 
 # General settings
 
-current_experiment: "Question Classification few-shot with all examples and gold-query GPT-4"
+current_experiment: "Question Few Shot Classification of 4 categories, GPT-4 "
 experiment_description: | 
-  Classfying the quality of questions using GPT, input is instructions, questions and the database schema, with gpt-4.
-  The questions are classified based on if GPT would like to change the question or not, based on if the instructions could be ambiguous or not.
+  Classfying the quality of questions using GPT, input is instructions, questions and the database schema, with GPT-4.
+  The questions are classified based on four categories which are provided with examples in the prompt.
 group: "autocrrect"
 
 # dataset: "Spider"
