@@ -412,7 +412,7 @@ class BIRDDataset(Dataset):
       if not os.path.exists(description_folder_path):
          raise FileNotFoundError(f"No such file or directory: '{description_folder_path}'")
       
-      table_info = {}
+      table_info = ""
       
       for filename in os.listdir(description_folder_path):
          if filename.endswith(".csv"):
@@ -421,8 +421,9 @@ class BIRDDataset(Dataset):
             
             with open(csv_path, mode='r', encoding='utf-8') as file:
                file_contents = file.read()                                   
-                           
-            table_info[table_name] = file_contents
+            
+            table_info += "Table " + table_name + "\n"
+            table_info += file_contents
       
       return table_info
    

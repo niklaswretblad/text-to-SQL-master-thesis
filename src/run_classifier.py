@@ -13,10 +13,10 @@ import matplotlib.pyplot as plt
 from config import api_key, load_config
 import wandb
 import langchain
-# langchain.verbose = True
+langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
-# os.environ["WANDB_MODE"] = "offline"
+os.environ["WANDB_MODE"] = "offline"
 
 CLASSIFIY_PROMPT = """
 You are a text-to-SQL expert able to identify poorly formulated questions in natural language.
