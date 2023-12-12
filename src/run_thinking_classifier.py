@@ -328,15 +328,15 @@ def main():
     
         print("Predicted quality: ", classified_quality, " Annotated quality: ", " ".join(map(str, annotated_question_quality)))
         
-    # precision = tp / (tp + fp)
-    # recall = tp / (tp + fn)
-    # f1 = 2 * ((precision * recall) / (precision + recall))
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f1 = 2 * ((precision * recall) / (precision + recall))
     accuracy = (tp + tn) / (tp + tn + fp + fn)
 
     wandb.run.summary['accuracy']                           = accuracy
-    # wandb.run.summary['precision']                          = precision
-    # wandb.run.summary['recall']                             = recall
-    # wandb.run.summary['f1']                                 = f1
+    wandb.run.summary['precision']                          = precision
+    wandb.run.summary['recall']                             = recall
+    wandb.run.summary['f1']                                 = f1
     wandb.run.summary["total_tokens"]                       = classifier.total_tokens
     wandb.run.summary["prompt_tokens"]                      = classifier.prompt_tokens
     wandb.run.summary["completion_tokens"]                  = classifier.completion_tokens
