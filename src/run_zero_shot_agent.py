@@ -56,12 +56,12 @@ def main():
             config.dataset == "BIRDExperimentalFinancial" or 
             config.dataset == "BIRDFixedFinancialGoldSQL"):
 
-            bird_table_info = dataset.get_bird_db_info(db_id)
+            bird_table_info = dataset.get_bird_table_info(db_id)
             sql_schema = sql_schema + bird_table_info            
         else:
             bird_table_info = ""
         
-        evidence = ""
+        # evidence = ""
 
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)

@@ -1,15 +1,14 @@
 
 # General settings
 
-current_experiment: "Few-shot updated dev, financial only"
+current_experiment: "Few-shot corrected queries only"
 experiment_description: |
-  Experiment rerun with the updated dev dataset that was updated 25 sep 2023. Rerunning the few_shot_experiment_6.
-  Description: Sixth experiment of few-shot, giving examples from same domain (Financial), 
-  taking three challenging questions, NOT skipping those questions when running the experiement.
+  Few-shot corrected queries only
 group: "few_shot"
 
 # dataset: "Spider"
-dataset: "BIRD"
+# dataset: "BIRD"
+dataset: "BIRDFixedFinancialGoldSQL"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"

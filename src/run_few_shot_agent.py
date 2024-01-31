@@ -9,7 +9,7 @@ import langchain
 langchain.verbose = False
 
 # If you don't want your script to sync to the cloud
-os.environ["WANDB_MODE"] = "offline"#
+# os.environ["WANDB_MODE"] = "offline"#
 
 def main():
     config = load_config("few_shot_config.yaml")
@@ -22,7 +22,7 @@ def main():
     )
 
     artifact = wandb.Artifact('query_results', type='dataset')
-    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success"])    
+    table = wandb.Table(columns=["Question", "Gold Query", "Predicted Query", "Success", "Difficulty"])    
 
     wandb.define_metric("predicted_sql_execution_time", summary="mean")
     wandb.define_metric("gold_sql_execution_time", summary="mean")
@@ -87,7 +87,7 @@ def main():
     wandb.log_artifact(artifact)
 
     artifact_code = wandb.Artifact('code', type='code')
-    artifact_code.add_file("src/agents/zero_shot.py")
+    artifact_code.add_file("src/sql_agents/zero_shot.py")
     wandb.log_artifact(artifact_code)
 
     wandb.finish()

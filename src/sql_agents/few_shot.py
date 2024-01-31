@@ -1,6 +1,6 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-from agents.zero_shot import ZeroShotAgent
+from sql_agents.zero_shot import ZeroShotAgent
 
 FEW_SHOT_PROMPT = """
 "Database schema in the form of CREATE_TABLE statements:

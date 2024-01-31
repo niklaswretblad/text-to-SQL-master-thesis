@@ -3,16 +3,16 @@
 
 # General settings
 
-current_experiment: "Zero-shot corrected financial, CREATE_TABLE statements and BIRD schema, NO HINTS"
+current_experiment: "Zero-shot corrected gold queries only"
 experiment_description: | 
-  Zero-shot agent with BIRD descriptions + CREATE_TABLE statements but without hints on corrected financial dataset
+  Zero-shot agent with BIRD descriptions + CREATE_TABLE statements on corrected sql queries only
 # Zero-shot agent with both bird db descriptions,create_table statements and example rows, on financial dataset with corrected gold queries only.
 group: "zero_shot"
 
 # dataset: "Spider"
 # dataset: "BIRD"
-dataset: "BIRDFixedFinancial"
-# dataset: "BIRDFixedFinancialGoldSQL"
+# dataset: "BIRDFixedFinancial"
+dataset: "BIRDFixedFinancialGoldSQL"
 
 project: "text-to-sql-generation"
 entity: "master-thesis-combientmix"
