@@ -1,6 +1,6 @@
 
 
-from agents.zero_shot import ZeroShotAgent
+from sql_agents.zero_shot import ZeroShotAgent
 import re
 from typing import List, Tuple
 from utils.timer import Timer

@@ -251,12 +251,12 @@ class Dataset:
             column_names = [column[1] for column in columns]
             column_names_line = "\t".join(column_names)
             
-            # schema_and_sample_data += f"Three rows from {table} table:\n"
-            # schema_and_sample_data += f"{column_names_line}\n"
+            schema_and_sample_data += f"Three rows from {table} table:\n"
+            schema_and_sample_data += f"{column_names_line}\n"
 
-            # for row in rows:
-            #       row_line = "\t".join([str(value) for value in row])
-            #       schema_and_sample_data += f"{row_line}\n"
+            for row in rows:
+                  row_line = "\t".join([str(value) for value in row])
+                  schema_and_sample_data += f"{row_line}\n"
 
             schema_and_sample_data += "\n"
 
@@ -348,12 +348,12 @@ class BIRDDataset(Dataset):
       dev_data = []
       
       if self.config is not None:         
-         if self.config.bird_train_domains is not None:
-            train_data = load_json(self.TRAIN_DATA_PATH)
-            train_data = [
-               data_point for data_point in train_data 
-               if data_point['db_id'] in self.config.bird_train_domains
-            ]
+         # if self.config.bird_train_domains is not None:
+            # train_data = load_json(self.TRAIN_DATA_PATH)
+            # train_data = [
+            #    data_point for data_point in train_data 
+            #    if data_point['db_id'] in self.config.bird_train_domains
+            # ]
 
          if self.config.bird_dev_domains is not None:
             dev_data = load_json(self.DEV_DATA_PATH)
@@ -372,7 +372,7 @@ class BIRDDataset(Dataset):
 
    def load_database_names(self):
       self.dev_databases = os.listdir(self.DEV_DB_PATH)
-      self.train_databases = os.listdir(self.TRAIN_DB_PATH)
+      # self.train_databases = os.listdir(self.TRAIN_DB_PATH)
 
    
    def load_db(self, db_name: str) -> None:
@@ -425,18 +425,20 @@ class BIRDDataset(Dataset):
             table_info += "Table " + table_name + "\n"
             table_info += file_contents
       
+         table_info += "\n\n"
+
       return table_info
    
 
    def get_bird_db_info(self, db_path):      
       table_info = self.get_bird_table_info(db_path)
 
-      db_info = ""
-      for table in table_info:
-         db_info += table_info[table]
-         db_info += "\n\n"
+      # db_info = ""
+      # for table in table_info:
+      #    db_info += table_info[table]
+      #    db_info += "\n\n"
       
-      return db_info
+      return table_info
    
 
 class SpiderDataset(Dataset):

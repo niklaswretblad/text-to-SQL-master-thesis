@@ -6,17 +6,38 @@ from sql_agents.din_sql import DinSQLAgent
 from config import api_key, load_config
 import wandb
 import langchain
-langchain.verbose = False
+from box import Box
+# langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
 # os.environ["WANDB_MODE"] = "offline"
 
 def main():
-    config = load_config("din_sql_config.yaml")
+    config = {
+        # WANDB Experiment information
+        "current_experiment": "DIN-SQL 3.5 on original dataset",
+        "experiment_description": "",
+        "group": "din_sql",
+        "project": "text-to-sql-generation",
+        "entity": "master-thesis-combientmix",
+
+        # LLM Hyperparams
+        "model_name": "gpt-3.5-turbo-16k",
+        "temperature": 0,
+        "request_timeout": 120,
+
+        # Dataset choice
+        # "dataset": "Spider",
+        # "dataset": "BIRD",
+        "dataset": "BIRDFixedFinancial",
+        # "dataset": "BIRDFixedFinancialGoldSQL",
+    }
+
+    config = Box(config)
 
     wandb.init(
-        project=config.project,
         config=config,
+        project=config.project,        
         name= config.current_experiment,
         entity=config.entity
     )
@@ -30,9 +51,9 @@ def main():
 
     llm = ChatOpenAI(
         openai_api_key=api_key, 
-        model_name=config.llm_settings.model,
-        temperature=config.llm_settings.temperature,
-        request_timeout=config.llm_settings.request_timeout
+        model_name=config.model_name,
+        temperature=config.temperature,
+        request_timeout=config.request_timeout
     )
 
     dataset = get_dataset(config.dataset)
@@ -59,6 +80,8 @@ def main():
             bird_table_info = dataset.get_bird_db_info(db_id)            
         else:
             bird_table_info = ""
+
+        # bird_table_info = ""
 
         predicted_sql = din_sql_agent.generate_query(sql_schema, bird_table_info, evidence, question)
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)

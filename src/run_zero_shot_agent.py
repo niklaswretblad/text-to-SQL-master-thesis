@@ -5,17 +5,39 @@ from langchain.chat_models import ChatOpenAI
 from config import api_key, load_config
 from sql_agents.zero_shot import ZeroShotAgent
 import wandb
+from box import Box
 # langchain.verbose = True
 
 # If you don't want your script to sync to the cloud
 # os.environ["WANDB_MODE"] = "offline"
 
 def main():
-    config = load_config("zero_shot_config.yaml")
+    config = {
+        # WANDB Experiment information
+        "current_experiment": "Zero-shot 3.5 on original data + bird_descriptions",
+        "experiment_description": "",
+        "group": "zero_shot",
+        "project": "text-to-sql-generation",
+        "entity": "master-thesis-combientmix",
+
+        # LLM Hyperparams
+        "model_name": "gpt-3.5-turbo",
+        "temperature": 0,
+        "request_timeout": 60,
+
+        # Dataset choice
+        # "dataset": "Spider",
+        "dataset": "BIRD",
+        # "dataset": "BIRDFixedFinancial",
+        # "dataset": "BIRDFixedFinancialGoldSQL",
+    }
+
+    config = Box(config)
+    dataset = get_dataset(config.dataset)
 
     wandb.init(
-        project=config.project,
         config=config,
+        project=config.project,
         name=config.current_experiment,
         entity=config.entity
     )
@@ -28,12 +50,12 @@ def main():
 
     llm = ChatOpenAI(
         openai_api_key=api_key, 
-        model_name=config.llm_settings.model,
-        temperature=config.llm_settings.temperature,
-        request_timeout=config.llm_settings.request_timeout
+        model_name=config.model_name,
+        temperature=config.temperature,
+        request_timeout=config.request_timeout
     )
 
-    dataset = get_dataset(config.dataset)
+    
     zero_shot_agent = ZeroShotAgent(llm)
 
     wandb.config['prompt'] = zero_shot_agent.prompt_template
@@ -61,7 +83,7 @@ def main():
         else:
             bird_table_info = ""
         
-        # evidence = ""
+        
 
         predicted_sql = zero_shot_agent.generate_query(sql_schema, question, evidence)   
         success = dataset.execute_queries_and_match_data(predicted_sql, golden_sql, db_id)

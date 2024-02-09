@@ -8,17 +8,17 @@ bird_difficulties: |-
   challenging
 
 bird_dev_domains: |-
-  california_schools
-  card_games
-  codebase_community
-  debit_card_specializing
-  european_football_2
   financial
-  formula_1
-  student_club
-  superhero
-  thrombosis_prediction
-  toxicology
+# california_schools
+# card_games
+# codebase_community
+# debit_card_specializing
+# european_football_2  
+# formula_1
+# student_club
+# superhero
+# thrombosis_prediction
+# toxicology
 
 bird_train_domains: 
 # address
